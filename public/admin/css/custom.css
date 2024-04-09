@@ -1,0 +1,120 @@
+.header{
+    height:80px !important;
+}
+
+.header-right {
+    margin-top: 8px;
+}
+
+.custom-summary .custom-icon {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+}
+
+.mt-desktop {
+    margin-top:-10px
+}
+
+.mt-desktop-2{
+    margin-top:-20px
+}
+
+.widget-summary .summary {
+    word-break: break-word;
+}
+.content-body:not(.card-margin) > .row + .row {
+    padding-top: 0px;
+}
+
+.cta, .cta p {
+    color:white;
+}
+
+.cta-btn{
+    margin: 55px;
+    color:black;
+}
+
+.btn-modern{
+    font-size: 15px !important;
+}
+
+html .bg-primary, html .background-color-primary {
+    background-color: #295a91 !important;
+}
+
+html .bg-secondary, html .background-color-secondary {
+    background-color: #f58124 !important;
+}
+
+html .card-featured-primary {
+    border-color: #295a91;
+}
+
+html .card-featured-secondary {
+    border-color: #f58124;
+}
+
+.userbox .dropdown-menu {
+    padding: 60px 10px 0;
+}
+
+.balance{
+    color:grey;
+}
+
+.pt-desktop{
+    padding-top:19px !important;
+}
+
+.pt-3 {
+    padding-top: 0.85rem !important;
+}
+
+
+@media screen and (max-width:798px){
+    .mt-desktop {
+        margin-top: -0px
+    }
+
+    .hide-mob {
+        display: none !important;
+    }
+
+    .mt-desktop-2{
+        margin-top:-20px
+    }
+
+    .h4-service{
+        margin: 20px 0 10px 15px;
+    }
+
+    .cta-btn {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .userbox .name, .userbox .role {
+        max-width: 130px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+   
+    .card-airtime {
+        margin-top: 45px !important;
+    }
+
+    .header .header-right {
+        background: #FFF;
+        float: none !important;
+        height: 70px;
+        margin-top: 65px;
+        width: 100%;
+    }
+    .pt-desktop{
+        padding-top:0px;
+    }
+
+}
+
