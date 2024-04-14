@@ -15,7 +15,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'airtime')?'nav-active':'' }}">
+                    {{-- <li class=" {{ ($route == 'airtime')?'nav-active':'' }}">
                         <a href="{{ route('airtime') }}">
                             <i class="icons icon-call-out" aria-hidden="true"></i>
                             <span>Airtime Recharge</span>
@@ -41,16 +41,62 @@
                             <i class="fa-solid fa-naira-sign fa-fw" aria-hidden="true"></i>
                             <span>Airtime to Cash</span>
                         </a>                        
-                    </li>
+                    </li> --}}
 
                     <li class=" {{ ($route == 'puk')?'nav-active':'' }}">
                         <a href="{{ route('puk') }}">
                             <i class="fa-solid fa-mobile-retro fa-fw" aria-hidden="true"></i>
-                            <span>PUK Retrieval</span>
+                            <span>MTN PUK Retrieval</span>
                         </a>                        
                     </li>
-                    
-                    <li class="nav-parent {{ ($prefix == '/nin')?'nav-active':'' }}">
+
+                    @if (auth()->user()->role === 'Agent')
+
+                        <li class=" {{ ($route == 'verification')?'nav-active':'' }}">
+                            <a href="{{ route('verification') }}">
+                                <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+                                <span>Verification</span>
+                            </a>                        
+                        </li>
+
+                        <li class=" {{ ($route == 'validation')?'nav-active':'' }}">
+                            <a href="{{ route('validation') }}">
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+                                <span>Validation</span>
+                            </a>                        
+                        </li>
+
+                        <li class=" {{ ($route == 'ipe-clearance')?'nav-active':'' }}">
+                            <a href="{{ route('ipe-clearance') }}">
+                                <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+                                <span>IPE Clearance</span>
+                            </a>                        
+                        </li>
+
+                        <li class=" {{ ($route == 'new-enrollment')?'nav-active':'' }}">
+                            <a href="{{ route('new-enrollment') }}">
+                                <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
+                                <span>New Enrollment</span>
+                            </a>                        
+                        </li>
+
+                        <li class=" {{ ($route == 'modification')?'nav-active':'' }}">
+                            <a href="{{ route('modification') }}">
+                                <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
+                                <span>Modification</span>
+                            </a>                        
+                        </li>
+
+                        <li class=" {{ ($route == 'personalization')?'nav-active':'' }}">
+                            <a href="{{ route('personalization') }}">
+                                <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
+                                <span>Personalization</span>
+                            </a>                        
+                        </li>
+
+                    @endif
+   
+                    {{-- <li class="nav-parent {{ ($prefix == '/nin')?'nav-active':'' }}">
                         <a href="#">
                             <i class='bx bx-id-card' aria-hidden="true"></i>
                             <span>NIN Services</span>
@@ -87,7 +133,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
 
                     <li class=" {{ ($route == 'history')?'nav-active':'' }}">
                         <a href="{{ route('history') }}">
@@ -111,11 +157,15 @@
                     </li> --}}
 
                     <li>
-                        <a href="layouts-default.html">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <i class="icons icon-logout" aria-hidden="true"></i>
                             <span>Logout</span>
-                        </a>                        
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>                        
                     </li>
+
                 </ul>
             </nav>
         </div>

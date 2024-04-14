@@ -13,26 +13,28 @@
                         <h2 class="card-title">PUK Retrieval</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="get">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.puk') }}">
+                            @csrf
+                            @method('POST')
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" placeholder="Enter phone number">
+                                    <input type="text" class="form-control" id="inputDefault" name="phone" placeholder="Enter phone number">
                                 </div>
                             </div>
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Fullname</label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" placeholder="Enter fullname">
+                                    <input type="text" class="form-control" id="inputDefault" name="fullname" placeholder="Enter fullname">
                                 </div>
                             </div>
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth</label>
                                 <div class="col-lg-6">
-                                    <input type="date" class="form-control" id="inputDefault">
+                                    <input type="date" class="form-control" id="inputDefault" name="dob">
                                 </div>
                             </div>
 
@@ -40,7 +42,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
                                 <div class="col-lg-6">
-                                    <button type="button" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Request PUK</button>
+                                    <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Request PUK</button>
                                 </div>
                             </div>
   
@@ -70,27 +72,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">09048012856</td>
-                                    <td class="pt-desktop">Ajayi Crowther</td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">09048012856</td>
-                                    <td class="pt-desktop">Ajayi Crowther</td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+        
+                                @foreach($transactions as $transaction)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->phone }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->fullname) }}</td>
+                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="actions">
+                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

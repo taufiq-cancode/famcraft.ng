@@ -70,7 +70,15 @@
 			<div class="inner-wrapper">
 
 				<!-- start: sidebar -->
-                @include('admin-theme.sidebar')
+				@if (auth()->user()->role === "Administrator")
+
+                	@include('admin-theme.admin-sidebar')
+
+				@else
+
+					@include('admin-theme.sidebar')
+
+				@endif
 				<!-- end: sidebar -->
 
 				@yield('content')

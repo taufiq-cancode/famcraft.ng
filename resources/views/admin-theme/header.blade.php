@@ -1,7 +1,7 @@
 <header class="header">
     <div class="logo-container">
-        <a href="../4.2.0" class="logo">
-            <img src="img/logos/logo.png" width="130" alt="FamCraft" />
+        <a href="{{ route('dashboard') }}" class="logo">
+            <img src="{{ asset('img/logos/logo.png') }}" width="130" alt="FamCraft" />
         </a>
 
         <div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
