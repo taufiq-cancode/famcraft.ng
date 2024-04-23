@@ -26,26 +26,28 @@
                         <h2 class="card-title">NIN Validation</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="get">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.validation') }}">
+                            @csrf
+                            @method('POST')
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" placeholder="Enter NIN number">
+                                    <input type="text" class="form-control" id="inputDefault" name="nin" placeholder="Enter NIN number">
                                 </div>
                             </div>
 
                             <div class="form-group row pb-2">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Validation Category</label>
                                 <div class="col-lg-6">
-                                    <select class="form-control mb-3">
+                                    <select name="validation_category" class="form-control mb-3">
                                         <option>Choose validation category</option>
-                                        <option>No record found</option>
-                                        <option>Update record</option>
-                                        <option>Validate modification</option>
-                                        <option>V-NIN validation</option>
-                                        <option>Photograph error</option>
-                                        <option>By pass NIN</option>
+                                        <option value="no-record-found">No record found</option>
+                                        <option value="update-record">Update record</option>
+                                        <option value="validation-modification">Validate modification</option>
+                                        <option value="v-nin-validation">V-NIN validation</option>
+                                        <option value="photograph-error">Photograph error</option>
+                                        <option value="by-pass-nin">By pass NIN</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,12 +55,12 @@
                             <div class="form-group row pb-2">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Validation For</label>
                                 <div class="col-lg-6">
-                                    <select class="form-control mb-3">
+                                    <select name="validation_purpose" class="form-control mb-3">
                                         <option>Choose validation purpose</option>
-                                        <option>Bank</option>
-                                        <option>Sim</option>
-                                        <option>Passport</option>
-                                        <option>Others</option>
+                                        <option value="bank">Bank</option>
+                                        <option value="sim">Sim</option>
+                                        <option value="passport">Passport</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +68,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
                                 <div class="col-lg-6">
-                                    <button type="button" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Validate</button>
+                                    <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Submit</button>
                                 </div>
                             </div>
   
@@ -89,34 +91,29 @@
                                 <tr>
                                     <th>#</th>
                                     <th>NIN Number</th>
-                                    <th>Created At</th>
-                                    <th>Response</th>
+                                    <th>Validation Category</th>
+                                    <th>Validation Purpose</th>
                                     <th>Status</th>
+                                    <th>Response</th>
+                                    <th>Date</th>
                                     <th>Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">2248012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">By Pass NIN</td>
-                                    <td class="pt-desktop">Invalidated</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">2248012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">By Pass NIN</td>
-                                    <td class="pt-desktop">Invalidated</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                @foreach($transactions as $transaction)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->nin }}</td>
+                                        <td class="pt-desktop">{{ $transaction->validation_category }}</td>
+                                        <td class="pt-desktop">{{ $transaction->validation_purpose }}</td>
+                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
+                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="actions">
+                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

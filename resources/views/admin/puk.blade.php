@@ -17,6 +17,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Agent Email</th>
                                     <th>Phone Number</th>
                                     <th>Fullname</th>
                                     <th class="hide-mob">Status</th>
@@ -29,6 +30,7 @@
                                 @foreach($transactions as $transaction)
                                     <tr>
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->user->email }}</td>
                                         <td class="pt-desktop">{{ $transaction->phone }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->fullname) }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>

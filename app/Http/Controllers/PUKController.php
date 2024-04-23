@@ -9,7 +9,8 @@ class PUKController extends Controller
 {
     public function index()
     {
-        $transactions = PUKTransaction::all();
+        $user = auth()->user();
+        $transactions = PUKTransaction::where('user_id', $user->id)->get();
         return view('puk', compact('transactions'));
     }
 

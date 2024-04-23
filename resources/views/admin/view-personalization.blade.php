@@ -9,10 +9,10 @@
         <div class="col">
             <section class="card card-airtime">
                 <header class="card-header">
-                    <h2 class="card-title">PUK Retrieval</h2>
+                    <h2 class="card-title">NIN Personalization</h2>
                 </header>
                 <div class="card-body">
-                    <form class="form-horizontal form-bordered" method="POST" action="{{ route('update.puk', ['pukTransactionId' => $transaction->id]) }}">
+                    <form class="form-horizontal form-bordered" method="POST" action="{{ route('update.personalization', ['personalizationId' => $transaction->id]) }}">
                         @csrf
                         @method('PUT')
 
@@ -25,25 +25,11 @@
                                 <input type="text" value="{{ $transaction->user->email }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                             </div>
                         </div>
-
+                        
                         <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
+                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
                             <div class="col-lg-6">
-                                <input type="text" value="{{ $transaction->phone }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
-                            </div>
-                        </div>
-
-                        <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Fullname</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="{{ $transaction->fullname }}" id="inputReadOnly" class="form-control" readonly="readonly">                            
-                            </div>
-                        </div>
-
-                        <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth</label>
-                            <div class="col-lg-6">
-                                <input type="date" value="{{ $transaction->dob }}" id="inputReadOnly" class="form-control" readonly="readonly">                            
+                                <input type="text" value="{{ $transaction->tracking_id }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                             </div>
                         </div>
 
@@ -52,9 +38,12 @@
                             <div class="col-lg-6">
                                 <select name="status" class="form-control mb-3">
                                     <option selected="" value="{{ $transaction->status }}" disabled="">{{ ucfirst(strtolower($transaction->status)) }}</option>
+                                    <option value="completed">Completed</option>
                                     <option value="success">Success</option>
                                     <option value="failed">Failed</option>
-                                    <option value="pending">Pending</option>                                    
+                                    <option value="pending">Pending</option>  
+                                    <option value="others">Others</option>
+                                  
                                 </select>
                             </div>
                         </div>

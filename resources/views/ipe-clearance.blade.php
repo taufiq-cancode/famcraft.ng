@@ -13,16 +13,18 @@
                         <h2 class="card-title">IPE Clearance</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="get">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.ipe-clearance') }}">
+                            @csrf
+                            @method('POST')
 
                             <div class="form-group row pb-2">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">IPE Category</label>
                                 <div class="col-lg-6">
-                                    <select class="form-control mb-3">
+                                    <select name="ipe_category"class="form-control mb-3">
                                         <option>Select IPE Category</option>
-                                        <option>In-processing error</option>
-                                        <option>Still in process</option>
-                                        <option>New enrollment for old tracking ID</option>
+                                        <option value="in-processing-error">In-processing error</option>
+                                        <option value="still-in-process">Still in process</option>
+                                        <option value="new-enrollment-for-old-tracking-id">New enrollment for old tracking ID</option>
                                     </select>
                                 </div>
                             </div>
@@ -30,14 +32,14 @@
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" placeholder="Enter tracking ID number" max="15">
+                                    <input name="tracking_id" type="text" class="form-control" id="inputDefault" placeholder="Enter tracking ID number" maxlength="15">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
                                 <div class="col-lg-6">
-                                    <button type="button" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Submit</button>
+                                    <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Submit</button>
                                 </div>
                             </div>
   
@@ -59,6 +61,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>IPE Category</th>
                                     <th>Tracking ID</th>
                                     <th>Created At</th>
                                     <th>Status</th>
@@ -67,27 +70,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($transactions as $transaction)
                                 <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">39048012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="pt-desktop">Cleared</td>
+                                    <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                    <td class="pt-desktop">{{ $transaction->ipe_category }}</td>
+                                    <td class="pt-desktop">{{ $transaction->tracking_id }}</td>
+                                    <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                    <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                    <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                     <td class="actions">
                                         <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">39048012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="pt-desktop">Cleared</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

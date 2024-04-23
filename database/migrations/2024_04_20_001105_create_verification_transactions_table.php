@@ -20,9 +20,11 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->integer('nin')->nullable();
-            $table->enum('slup_type', ['premium-slip', 'standard-slip', 'improved-nin-slip', 'basic-slip']);
-            $table->unsignedBigInteger('agent_id')->nullable();
-            $table->foreign('agent_id')->references('id')->on('users');
+            $table->enum('slip_type', ['premium-slip', 'standard-slip', 'improved-nin-slip', 'basic-slip']);
+            $table->string('response')->nullable();
+            $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

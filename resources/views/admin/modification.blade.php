@@ -17,28 +17,30 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Agent Email</th>
                                     <th>Modification Type</th>
-                                    <th>Transaction ID</th>
-                                    <th>Amount</th>
-                                    <th class="hide-mob">Status</th>
-                                    <th class="hide-mob">Date</th>
-                                    <th>View</th>
+                                    <th>NIN Number</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Response</th>
+                                    <th>Receipt</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($transactions as $transaction)
                                 <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">Name & Date of Birth</td>
-                                    <td class="pt-desktop">89773762211743</td>
-                                    <td class="pt-desktop">&#8358;2,000.00</td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
+                                    <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                    <td class="pt-desktop">{{ $transaction->user->email }}</td>
+                                    <td class="pt-desktop">{{ $transaction->modification_type }}</td>
+                                    <td class="pt-desktop">{{ $transaction->nin }}</td>
+                                    <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                    <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                    <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                     <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
+                                        <a href="{{ route('view.modification',['modificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                     </td>
                                 </tr>
-
-                             
+                                @endforeach                             
                             </tbody>
                         </table>
                     </div>

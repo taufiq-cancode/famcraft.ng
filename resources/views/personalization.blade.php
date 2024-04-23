@@ -13,12 +13,21 @@
                         <h2 class="card-title">NIN Personalization</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="get">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.personalization') }}">
+                            @csrf
+                            @method('POST')
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
                                 <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" placeholder="Enter tracking ID" max="15">
+                                    <input type="text" name="tracking_id" class="form-control" id="inputDefault" placeholder="Enter tracking ID" maxlength="15">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
+                                <div class="col-lg-6">
+                                    <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Submit</button>
                                 </div>
                             </div>
 
@@ -40,7 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>NIN</th>
+                                    <th>Tracking ID</th>
                                     <th>Created At</th>
                                     <th>Status</th>
                                     <th>Response</th>
@@ -48,27 +57,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">9048012856</td>
-                                    <td>12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="pt-desktop hide-mob">Completed</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">9048012856</td>
-                                    <td>12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="pt-desktop hide-mob">Completed</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                @foreach ($transactions as $transaction)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->tracking_id }}</td>
+                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
+                                        <td class="actions">
+                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

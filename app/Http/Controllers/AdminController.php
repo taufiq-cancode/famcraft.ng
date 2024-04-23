@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IPEClearanceTransaction;
+use App\Models\ModificationTransaction;
+use App\Models\NewEnrollmentTransaction;
+use App\Models\PersonalizationTransaction;
 use App\Models\PUKTransaction;
+use App\Models\ValidationTransaction;
+use App\Models\VerificationTransaction;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,7 +30,9 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        return view('admin.verification');
+        $transactions = VerificationTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.verification', compact('transactions'));
     }
 
     public function validation()
@@ -34,7 +42,9 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        return view('admin.validation');
+        $transactions = ValidationTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.validation', compact('transactions'));
     }
 
     public function ipeClearance()
@@ -44,7 +54,9 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        return view('admin.ipe-clearance');
+        $transactions = IPEClearanceTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.ipe-clearance', compact('transactions'));
     }
 
     public function newEnrollment()
@@ -53,8 +65,10 @@ class AdminController extends Controller
         if ($admin->role !== 'Administrator'){
             return back()->with('error', 'Unauthorized access');
         }
-        
-        return view('admin.new-enrollment');
+
+        $transactions = NewEnrollmentTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.new-enrollment', compact('transactions'));
     }
 
     public function modification()
@@ -64,7 +78,9 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        return view('admin.modification');
+        $transactions = ModificationTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.modification', compact('transactions'));
     }
 
     public function personalization()
@@ -74,7 +90,9 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        return view('admin.personalization');
+        $transactions = PersonalizationTransaction::orderBy('created_at', 'desc')->get();
+
+        return view('admin.personalization', compact('transactions'));
     }
 
     public function puk()
@@ -84,7 +102,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = PUKTransaction::all();
+        $transactions = PUKTransaction::orderBy('created_at', 'desc')->get();;
 
         return view('admin.puk', compact('transactions'));
     }

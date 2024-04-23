@@ -15,7 +15,7 @@
                         </a>                        
                     </li>
 
-                    <li class="{{ ($route == 'admin.puk') ? 'nav-active' : '' }}">
+                    <li class="{{ ($route == 'admin.puk' || $route == 'view.puk') ? 'nav-active' : '' }}">
                         @php
                             $pendingPUK = \App\Models\PUKTransaction::where('status', 'pending')->count();
                         @endphp
@@ -26,45 +26,63 @@
                     </li>
                     
 
-                    <li class=" {{ ($route == 'admin.verification')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/verification')?'nav-active':'' }}">
+                        @php
+                            $pendingVerification = \App\Models\VerificationTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.verification') }}">
                             <i class="fa-solid fa-certificate" aria-hidden="true"></i>
-                            <span>Verification</span>
+                            <span>Verification &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingVerification }}</span></span>
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.validation')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/validation')?'nav-active':'' }}">
+                        @php
+                            $pendingValidation = \App\Models\ValidationTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.validation') }}">
                             <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-                            <span>Validation </span>
+                            <span>Validation &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingValidation }}</span></span>
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.ipe-clearance')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/ipe-clearance')?'nav-active':'' }}">
+                        @php
+                            $pendingIPE = \App\Models\IPEClearanceTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.ipe-clearance') }}">
                             <i class="fa-solid fa-check-double" aria-hidden="true"></i>
-                            <span>IPE Clearance</span>
+                            <span>IPE Clearance &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingIPE }}</span></span>
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.new-enrollment')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/new-enrollment')?'nav-active':'' }}">
+                        @php
+                            $pendingNewEnrollment = \App\Models\NewEnrollmentTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.new-enrollment') }}">
                             <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
-                            <span>New Enrollment</span>
+                            <span>New Enrollment &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingNewEnrollment }}</span></span>
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.modification')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/modification')?'nav-active':'' }}">
+                        @php
+                            $pendingModification = \App\Models\ModificationTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.modification') }}">
                             <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
-                            <span>Modification</span>
+                            <span>Modification &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingModification }}</span></span>
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.personalization')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'admin/nin/personalization')?'nav-active':'' }}">
+                        @php
+                            $pendingPersonalization = \App\Models\PersonalizationTransaction::where('status', 'pending')->count();
+                        @endphp
                         <a href="{{ route('admin.personalization') }}">
                             <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
-                            <span>Personalization</span>
+                            <span>Personalization &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingPersonalization }}</span></span>
                         </a>                        
                     </li>
 
