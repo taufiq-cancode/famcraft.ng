@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 
 class NewEnrollmentController extends Controller
@@ -80,6 +81,13 @@ class NewEnrollmentController extends Controller
             $data['right_4_fingers'] = json_encode($rightImages);
             $data['thumb_2_fingers'] = json_encode($thumbImages);
             $data['user_id'] = $user->id;
+
+            $transactionId = 'NEN' . rand(100000, 999999);
+            while (NewEnrollmentTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'NEN' . rand(100000, 999999);
+            }
+
+            $data['transaction_id'] = $transactionId;
 
             $new_enrollment = NewEnrollmentTransaction::create($data);
     

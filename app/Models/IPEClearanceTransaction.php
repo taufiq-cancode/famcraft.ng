@@ -10,6 +10,8 @@ class IPEClearanceTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'ipe_category',
         'tracking_id',
         'response',

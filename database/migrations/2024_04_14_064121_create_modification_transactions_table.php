@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('modification_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->string('nin');
             $table->string('tracking_id');
             $table->enum('modification_type',['name','dob','name_dob','others']);

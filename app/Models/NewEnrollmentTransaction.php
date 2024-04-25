@@ -10,6 +10,8 @@ class NewEnrollmentTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'user_id',
         'type',
         'surname',

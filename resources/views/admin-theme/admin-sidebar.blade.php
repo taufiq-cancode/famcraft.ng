@@ -86,10 +86,10 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.history')?'nav-active':'' }}">
-                        <a href="{{ route('history') }}">
+                    <li class=" {{ ($route == 'admin.pricing')?'nav-active':'' }}">
+                        <a href="{{ route('admin.pricing') }}">
                             <i class="icons icon-list" aria-hidden="true"></i>
-                            <span>Transaction History</span>
+                            <span>Pricing</span>
                         </a>                        
                     </li>
 

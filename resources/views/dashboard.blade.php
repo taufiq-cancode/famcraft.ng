@@ -1,6 +1,13 @@
 @extends('admin-theme.theme-master')
 @section('content')
 
+<style>
+    .pricing-table [class*="col-lg-"] {
+        padding-left: 0px;
+        padding-right: 10px !important;
+    }
+</style>
+
 <section role="main" class="content-body">
     <header class="page-header page-header-left-breadcrumb">
         <h2 class="font-weight-semibold mt-4" style="font-size: 1.8em;color: black;">Welcome, {{ Illuminate\Support\Str::title(auth()->user()->first_name) }}! &#128075;  </h2>
@@ -351,124 +358,24 @@
 
     <h2 class="font-weight-semibold mt-desktop" style="font-size: 1.5em;color: black;">Pricing</h2>
 
-
-    <div class="pricing-table princig-table-flat row no-gutters mt-3 mb-3">
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>Modification</span>Duration: <b>48 - 96 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;5,000</strong> for Name Modification</li>
-                    <li><strong>&#8358;10,000</strong> for D.O.B Modification</li>
-                    <li><strong>&#8358;13,000</strong> for both Name & D.O.B Modification</li>
-                    <li><strong>&#8358;8,000</strong> for Name & Other Modification</li>
-                    <li><strong>&#8358;15,000</strong> for DOB & Other Modification</li>
-                    <li><strong>&#8358;5,000</strong> Other Modification <br> Gender, Phone Number, State, LGA, Residential Address.. etc</li>
-                    <li><strong>&#8358;10,000</strong> BVN NIN Modification</li>
-                    <li><strong>&#8358;10,000</strong> Suspended NIN Modification</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
+    <div class="row mt-desktop">
+        <div class="col">
+            <div class="pricing-table princig-table-flat row no-gutters mt-3 mb-3">
+                @foreach ($pricing_categories as $pricing_category)
+                    <div class="col-lg-3 col-sm-6 mb-4">
+                        <div class="plan">
+                            <h3><span>{{ $pricing_category->name }}</span>Duration: <b>{{ $pricing_category->duration }}</b></h3>
+                            <ul>
+                                @foreach ($pricing_category->pricings as $pricing)
+                                    <li><strong>&#8358;{{ number_format($pricing->price)}} </strong> - {{ $pricing->item_name }}</li>                                    
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-
-
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>Verification</span>Duration: <b>Instantly</b></h3>
-                <ul>
-                    <li><strong>&#8358;150</strong> per Successful Search</li>
-                    <li><strong>&#8358;50</strong> for Basic Slip</li>
-                    <li><strong>&#8358;100</strong> for Standard Slip</li>
-                    <li><strong>&#8358;150</strong> for Improved Slip</li>
-                    <li><strong>&#8358;200</strong> for Premium Slip</li>
-                    <li><strong>&#8358;50</strong> for NVS Basic Slip</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>IPE Clearance</span>Duration: <b>48 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;800</strong> per Submission</li>
-                    <li><strong>&#8358;800</strong> for Inprocessing Error</li>
-                    <li><strong>&#8358;800</strong> for Still Being In Process</li>
-                    <li><strong>&#8358;800</strong> for New Enrollment For Old Tracking</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>Validation</span>Duration: <b>48 - 96 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;800</strong> per Request</li>
-                    <li><strong>&#8358;800</strong> for No Record Found</li>
-                    <li><strong>&#8358;800</strong> for Photograph Error</li>
-                    <li><strong>&#8358;800</strong> for NIN Validation</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
     </div>
-
-    <div class="pricing-table princig-table-flat row no-gutters mt-3 mb-3">
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>Name Modification IPE Clearance and Validation</span>Duration: <b>48 - 96 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;5,000</strong> Name Mod IPE</li>
-                    <li><strong>&#8358;2,500</strong> Mod Validation</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-        
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>DOB Modification IPE Clearance and Validation</span>Duration: <b>48 - 96 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;10,000</strong> DOB MOD IPE</li>
-                    <li><strong>&#8358;800</strong> DOB MOD Validation</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>NIN Enrollment</span>Duration: <b>24 - 48 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;1,500</strong> for Child Enrollment</li>
-                    <li><strong>&#8358;5,000</strong> for Adult Enrollment</li>                    
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-sm-6">
-            <div class="plan">
-                <h3><span>Personalization</span>Duration: <b>2 - 24 Hours</b></h3>
-                <ul>
-                    <li><strong>&#8358;300</strong> per Successful Request</li>
-
-                    <li><a class="btn btn-success" href="#">Get started</a></li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
 
     
 @endif

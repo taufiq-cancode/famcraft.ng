@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('personalization_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->string('tracking_id');
             $table->string('response')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ValidationTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ValidationController extends Controller
 {
@@ -24,12 +25,18 @@ class ValidationController extends Controller
                 'validation_category' => 'required|string|in:no-record-found,update-record,validation-modification,v-nin-validation,photograph-error,by-pass-nin',
                 'validation_purpose' => 'required|string|in:bank,sim,passport,others',
             ]);
-    
+
+            $transactionId = 'VAL' . rand(100000, 999999);
+            while (ValidationTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'VAL' . rand(100000, 999999);
+            }
+            
             $validation = ValidationTransaction::create([
                 'nin' => $request->nin,
                 'validation_category' => $request->validation_category,
                 'validation_purpose' => $request->validation_purpose,
                 'user_id' => $user->id,
+                'transaction_id' => $transactionId
             ]);
     
             if ($validation){

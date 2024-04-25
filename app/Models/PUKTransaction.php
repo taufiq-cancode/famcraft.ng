@@ -10,11 +10,12 @@ class PUKTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'user_id',
         'phone',
         'fullname',
         'dob',
-        'amount',
         'status',
         'response'
     ];

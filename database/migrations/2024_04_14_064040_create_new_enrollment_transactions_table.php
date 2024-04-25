@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('new_enrollment_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->enum('type',['adult','child']);
             $table->string('surname');
             $table->string('firstname');

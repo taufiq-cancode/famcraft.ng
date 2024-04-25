@@ -10,6 +10,8 @@ class ModificationTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'nin',
         'tracking_id',
         'modification_type',

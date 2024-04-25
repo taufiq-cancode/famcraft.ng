@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalizationTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PersonalizationController extends Controller
 {
@@ -27,11 +28,17 @@ class PersonalizationController extends Controller
                 'tracking_id' => 'required|string|max:15',
             ]);
     
+            $transactionId = 'PER' . rand(100000, 999999);
+            while (PersonalizationTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'PER' . rand(100000, 999999);
+            }
+
             $personalization = PersonalizationTransaction::create([
                 'tracking_id' => $request->tracking_id,
                 'user_id' => $user->id,
+                'transaction_id' => $transactionId
             ]);
-    
+
             if ($personalization){
                 return back()->with('success', 'Personalization request submitted successfully.');
             }

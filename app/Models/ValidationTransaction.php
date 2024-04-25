@@ -10,6 +10,8 @@ class ValidationTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'nin',
         'validation_category',
         'validation_purpose',

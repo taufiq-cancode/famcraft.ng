@@ -10,6 +10,8 @@ class VerificationTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'method',
         'slip_type',
         'nin',

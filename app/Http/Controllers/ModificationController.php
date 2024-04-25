@@ -6,6 +6,8 @@ use App\Models\ModificationTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
+
 
 class ModificationController extends Controller
 {
@@ -31,6 +33,7 @@ class ModificationController extends Controller
                 'tracking_id' => 'required|string',
                 'details_to_modify' => 'nullable|array',
                 'details_to_modify.*' => 'nullable',
+                'title' => 'nullable|string',
                 'surname' => 'nullable|string|max:255',
                 'firstname' => 'nullable|string|max:255',
                 'middlename' => 'nullable|string|max:255',
@@ -59,7 +62,7 @@ class ModificationController extends Controller
 
             if ($request->filled('firstname_2')) {
                 $data['firstname'] = $request->input('firstname_2');
-            }else if ($request->filled('firstname_2')) {
+            }else if ($request->filled('firstname_3')) {
                 $data['firstname'] = $request->input('firstname_3');
             }
 
@@ -90,6 +93,13 @@ class ModificationController extends Controller
 
             $data['details_to_modify'] = json_encode($details_to_modify);
             $data['user_id'] = $user->id;
+
+            $transactionId = 'MOD' . rand(100000, 999999);
+            while (ModificationTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'MOD' . rand(100000, 999999);
+            }
+
+            $data['transaction_id'] = $transactionId;
 
             $modification = ModificationTransaction::create($data);
     

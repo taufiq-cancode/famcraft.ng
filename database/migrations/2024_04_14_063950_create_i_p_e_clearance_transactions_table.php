@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('i_p_e_clearance_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->enum('ipe_category', ['in-processing-error', 'still-in-process', 'new-enrollment-for-old-tracking-id']);
             $table->string('tracking_id');
             $table->string('response')->nullable();

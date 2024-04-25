@@ -6,7 +6,7 @@ use App\Models\VerificationTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Str;
 
 class VerificationController extends Controller
 {
@@ -34,6 +34,13 @@ class VerificationController extends Controller
             ]);
 
             $data['user_id'] = $user->id;
+
+            $transactionId = 'VER' . rand(100000, 999999);
+            while (VerificationTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'VER' . rand(100000, 999999);
+            }
+
+            $data['transaction_id'] = $transactionId;
 
             $verification = VerificationTransaction::create($data);
     

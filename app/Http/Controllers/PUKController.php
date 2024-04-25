@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PUKTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PUKController extends Controller
 {
@@ -24,6 +25,11 @@ class PUKController extends Controller
                 'fullname' => 'required|string|max:255',
                 'dob' => 'required|date',
             ]);
+
+            $transactionId = 'PUK' . rand(100000, 999999);
+            while (PUKTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'PUK' . rand(100000, 999999);
+            }
     
             $puk_transaction = PUKTransaction::create([
                 'phone' => $request->phone,
@@ -31,6 +37,7 @@ class PUKController extends Controller
                 'dob' => $request->dob,
                 'user_id' => $user->id,
                 'amount' => 0,
+                'transaction_id' => $transactionId
             ]);
     
             if ($puk_transaction){

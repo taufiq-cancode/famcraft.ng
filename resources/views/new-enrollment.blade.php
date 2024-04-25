@@ -171,16 +171,18 @@
                                 </div>
                             </div>
 
-                            <div id="childEnrollmentDiv" class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Parent's Name & NIN</label>
-                                <div class="col-lg-2">
-                                    <input type="text" name="parent_surname" class="form-control" id="inputDefault" placeholder="Parent's surname">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="parent_firstname" class="form-control form-mt" id="inputDefault" placeholder="Parent's firstname">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="parent_nin" class="form-control form-mt" id="inputDefault" placeholder="Parent's NIN">
+                            <div id="childEnrollmentDiv">
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Parent's Name & NIN <span style="color: red"> *</span></label>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="parent_surname" class="form-control" id="inputDefault" placeholder="Parent's surname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="parent_firstname" class="form-control form-mt" id="inputDefault" placeholder="Parent's firstname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="parent_nin" class="form-control form-mt" id="inputDefault" placeholder="Parent's NIN">
+                                    </div>
                                 </div>
                             </div>
 

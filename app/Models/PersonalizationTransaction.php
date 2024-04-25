@@ -10,6 +10,8 @@ class PersonalizationTransaction extends Model
     use HasFactory;
 
     protected $fillable = [
+        'transaction_id',
+        'price',
         'tracking_id',
         'response',
         'status',

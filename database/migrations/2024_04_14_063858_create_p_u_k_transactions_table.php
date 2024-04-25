@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('p_u_k_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
             $table->string('phone');
             $table->string('fullname');
             $table->date('dob');
-            $table->integer('amount');
+            $table->integer('price')->nullable();
             $table->enum('status', ['success', 'pending', 'failed'])->default('pending');
             $table->string('response')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

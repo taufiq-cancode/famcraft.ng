@@ -11,6 +11,8 @@ use App\Http\Controllers\PersonalizationController;
 use App\Http\Controllers\NewEnrollmentController;
 use App\Http\Controllers\ModificationController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\PricingController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -37,23 +39,16 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
-Route::get('/history', function () {
-    return view('history');
-})->name('history');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/puk', [PUKController::class, 'index'])->name('puk');
     Route::post('puk/submit', [PUKController::class, 'store'])->name('submit.puk');
     Route::get('puk/{pukTransactionId}', [PUKController::class, 'view'])->name('view.puk');
     Route::put('puk/{pukTransactionId}', [PUKController::class, 'update'])->name('update.puk');
 
     Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
-
+    Route::get('/tracks/{transactionId}', [TracksController::class, 'view'])->name('view.transaction');
     
     Route::prefix('nin')->group(function () {
         Route::get('/validation', [ValidationController::class, 'index'])->name('validation');
@@ -88,6 +83,11 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/puk', [AdminController::class, 'puk'])->name('admin.puk');
+
+        Route::get('/pricing', [PricingController::class, 'index'])->name('admin.pricing');
+        Route::post('/pricing', [PricingController::class, 'store'])->name('submit.pricing');
+        Route::put('/pricing/{pricingId}', [PricingController::class, 'update'])->name('update.pricing');
+        Route::delete('/pricing/{pricingId}', [PricingController::class, 'destroy'])->name('destroy.pricing');
 
         Route::prefix('nin')->group(function () {
             Route::get('/verification', [AdminController::class, 'verification'])->name('admin.verification');

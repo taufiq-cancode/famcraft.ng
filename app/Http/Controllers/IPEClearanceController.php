@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\IPEClearanceTransaction;
 use Illuminate\Http\Request;
 
@@ -27,11 +28,18 @@ class IPEClearanceController extends Controller
                 'ipe_category' => 'required|string|in:in-processing-error,still-in-process,new-enrollment-for-old-tracking-id',
                 'tracking_id' => 'required|string|max:15',
             ]);
+
+    
+            $transactionId = 'IPE' . rand(100000, 999999);
+            while (IPEClearanceTransaction::where('transaction_id', $transactionId)->exists()) {
+                $transactionId = 'IPE' . rand(100000, 999999);
+            }
     
             $ipe = IPEClearanceTransaction::create([
                 'ipe_category' => $request->ipe_category,
                 'tracking_id' => $request->tracking_id,
                 'user_id' => $user->id,
+                'transaction_id' => $transactionId
             ]);
     
             if ($ipe){

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('validation_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->bigInteger('nin');
             $table->enum('validation_category', ['no-record-found', 'update-record', 'validation-modification', 'v-nin-validation', 'photograph-error', 'by-pass-nin']);
             $table->enum('validation_purpose', ['bank', 'sim', 'passport', 'others']);

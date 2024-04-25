@@ -192,7 +192,7 @@
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Firstname <span style="color: red">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="firstname" class="form-control" id="inputDefault" placeholder="Firstname">
+                                        <input type="text" name="firstname_3" class="form-control" id="inputDefault" placeholder="Firstname">
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Surname <span style="color: red">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="surname" class="form-control" id="inputDefault" placeholder="Surname">
+                                        <input type="text" name="surname_3" class="form-control" id="inputDefault" placeholder="Surname">
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Othername <span style="color: red">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="othername" class="form-control" id="inputDefault" placeholder="Othername">
+                                        <input type="text" name="middlename_3" class="form-control" id="inputDefault" placeholder="Othername">
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +232,7 @@
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth <span style="color: red">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="date" name="date_of_birth" class="form-control" id="inputDefault">
+                                        <input type="date" name="dob_3" class="form-control" id="inputDefault">
                                     </div>
                                 </div>
                             </div>

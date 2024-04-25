@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('verification_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('transaction_id');
+            $table->integer('price')->nullable();
             $table->enum('method', ['by-demographics', 'by-phone', 'by-nin']);
             $table->string('surname')->nullable();
             $table->string('firstname')->nullable();

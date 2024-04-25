@@ -135,10 +135,10 @@
                         </ul>
                     </li> --}}
 
-                    <li class=" {{ ($route == 'history')?'nav-active':'' }}">
-                        <a href="{{ route('history') }}">
+                    <li class=" {{ ($route == 'tracks')?'nav-active':'' }}">
+                        <a href="{{ route('tracks') }}">
                             <i class="icons icon-list" aria-hidden="true"></i>
-                            <span>Transaction History</span>
+                            <span>Tracks</span>
                         </a>                        
                     </li>
 
