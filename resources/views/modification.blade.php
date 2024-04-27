@@ -320,10 +320,11 @@
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">State of Origin <span style="color: red">*</span></label>
                                     <div class="col-lg-6">
-                                        <select name="state_of_origin" class="form-control mb-3" >
+                                        <select name="state_of_origin" class="form-control mb-3">
                                             <option value="">Select State of Origin</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
+                                            @foreach($states as $state)
+                                                <option value="{{ $state['state'] }}">{{ $state['state'] }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

@@ -20,7 +20,15 @@ class NewEnrollmentController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('new-enrollment', compact('transactions'));
+        $countries_states = storage_path('app/json/countries.json'); 
+        $countries_states_data = json_decode(file_get_contents($countries_states), true);
+        $countries = $countries_states_data;
+
+        $states_lgas = storage_path('app/json/states.json'); 
+        $states_lgas_data = json_decode(file_get_contents($states_lgas), true);
+        $states = $states_lgas_data;
+
+        return view('new-enrollment', compact('transactions', 'countries', 'states'));
     }
 
     public function store(Request $request)
@@ -37,7 +45,7 @@ class NewEnrollmentController extends Controller
                 'dob' => 'required|date',
                 'country_of_birth' => 'required|string',
                 'nationality' => 'required|string',
-                'nin_number' => 'nullable|integer',
+                'nin' => 'nullable|integer',
                 'town' => 'required|string',
                 'country_of_residence' => 'required|string',
                 'state_of_residence' => 'required|string',
@@ -53,7 +61,7 @@ class NewEnrollmentController extends Controller
                 'parent_surname' => 'required_if:type,child|max:255',
                 'parent_firstname' => 'required_if:type,child|max:255',
                 'parent_nin' => 'required_if:type,child|max:255',
-                'image' => 'required',
+                'image' => 'required|image',
                 'left_4_fingers' => 'required|array',
                 'left_4_fingers.*' => 'required|max:2048',
                 'right_4_fingers' => 'required|array',
@@ -62,6 +70,11 @@ class NewEnrollmentController extends Controller
                 'thumb_2_fingers.*' => 'required|max:2048',
             ]);
 
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+                $data['image'] = $imagePath;
+            }
+            
             $leftImages = [];
             foreach ($request->left_4_fingers as $image) {
                 $leftImages[] = $image->store('left_4_fingers', 'public');
@@ -104,7 +117,7 @@ class NewEnrollmentController extends Controller
     public function view($newEnrollmentId)
     {
         $transaction = NewEnrollmentTransaction::findOrFail($newEnrollmentId);
-        return view('admin.new-enrollment', compact('transaction'));
+        return view('details.new-enrollment', compact('transaction'));
     }
 
     public function update(Request $request, $newEnrollmentId)

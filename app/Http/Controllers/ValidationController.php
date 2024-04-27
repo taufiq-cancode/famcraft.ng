@@ -51,7 +51,7 @@ class ValidationController extends Controller
     public function view($validationId)
     {
         $transaction = ValidationTransaction::findOrFail($validationId);
-        return view('admin.view-validation', compact('transaction'));
+        return view('details.validation', compact('transaction'));
     }
 
     public function update(Request $request, $validationId)

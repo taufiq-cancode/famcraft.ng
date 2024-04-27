@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('town');
             $table->string('country_of_residence');
             $table->string('state_of_residence');
-            $table->string('lga_of_residence');
+            $table->string('lga_of_residence')->nullable();
             $table->string('address_line_1');
             $table->string('address_line_2')->nullable();
             $table->string('zipcode')->nullable();

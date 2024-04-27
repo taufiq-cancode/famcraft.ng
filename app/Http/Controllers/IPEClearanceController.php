@@ -54,7 +54,7 @@ class IPEClearanceController extends Controller
     public function view($ipeId)
     {
         $transaction = IPEClearanceTransaction::findOrFail($ipeId);
-        return view('admin.view-ipe', compact('transaction'));
+        return view('details.ipe', compact('transaction'));
     }
 
     public function update(Request $request, $ipeId)

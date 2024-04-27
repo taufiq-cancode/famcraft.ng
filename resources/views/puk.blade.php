@@ -66,9 +66,10 @@
                                     <th>#</th>
                                     <th>Phone Number</th>
                                     <th>Fullname</th>
+                                    <th>Amount</th>
                                     <th class="hide-mob">Status</th>
                                     <th class="hide-mob">Date</th>
-                                    <th>Receipt</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,10 +79,11 @@
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->phone }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->fullname) }}</td>
+                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                         <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="actions">
-                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                            <a href="{{ route('view.puk',['pukTransactionId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach

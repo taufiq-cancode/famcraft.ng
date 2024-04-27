@@ -27,6 +27,7 @@ return new class extends Migration
             ['name' => 'DOB Modification IPE Clearance and Validation', 'duration' => '48-96 Hours'],
             ['name' => 'NIN Enrollment', 'duration' => '24-48 Hours'],
             ['name' => 'Personalization', 'duration' => '2-24 Hours'],
+            ['name' => 'PUK Retrieval', 'duration' => '2-24 Hours'],
         ];
 
         foreach ($pricing_categories as $pricing_category) {

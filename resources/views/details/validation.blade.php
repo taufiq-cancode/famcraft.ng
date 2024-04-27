@@ -16,6 +16,18 @@
                         @csrf
                         @method('PUT')
 
+                        @if (auth()->user()->role === "Administrator")
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Agent Details</label>
+                                <div class="col-lg-3">
+                                    <input type="text" value="{{ Illuminate\Support\Str::title($transaction->user->first_name) }} {{ Illuminate\Support\Str::title($transaction->user->last_name) }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="text" value="{{ $transaction->user->email }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="form-group row pb-4">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
                             <div class="col-lg-6">
@@ -40,30 +52,39 @@
                         <div class="form-group row pb-2">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Status</label>
                             <div class="col-lg-6">
-                                <select name="status" class="form-control mb-3">
+                                <select name="status" class="form-control mb-3" @if (auth()->user()->role === "Agent") readonly="readonly" @endif >
                                     <option selected="" value="{{ $transaction->status }}" disabled="">{{ ucfirst(strtolower($transaction->status)) }}</option>
-                                    <option value="invalidated">Invalidated</option>
-                                    <option value="completed">Completed</option>
-                                    <option value="bvn-nin">BVN-NIN</option>
-                                    <option value="failed">Failed</option>
-                                    <option value="pending">Pending</option>  
-                                    <option value="others">Others</option>
-                                  
+                                    @if (auth()->user()->role === "Administrator")
+                                        <option value="invalidated">Invalidated</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="bvn-nin">BVN-NIN</option>
+                                        <option value="failed">Failed</option>
+                                        <option value="pending">Pending</option>  
+                                        <option value="others">Others</option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
 
-                        <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response</label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="inputDefault" value="{{ $transaction->response }}" name="response" placeholder="Enter response">
+                        @if (auth()->user()->role === "Administrator")
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="inputDefault" value="{{ $transaction->response }}" name="response" placeholder="Enter response">
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <div class="form-group row">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
-                            <div class="col-lg-6">
-                                <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Update</button>
+                            @if (auth()->user()->role === "Administrator")
+                                <div class="col-lg-3">
+                                    <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Update</button>
+                                </div>
+                            @endif
+
+                            <div class="col-lg-3">
+                                <button type="submit" class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Receipt</button>
                             </div>
                         </div>
 

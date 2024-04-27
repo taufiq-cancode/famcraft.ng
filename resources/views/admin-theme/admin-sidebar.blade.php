@@ -88,7 +88,7 @@
 
                     <li class=" {{ ($route == 'admin.pricing')?'nav-active':'' }}">
                         <a href="{{ route('admin.pricing') }}">
-                            <i class="icons icon-list" aria-hidden="true"></i>
+                            <i class="fa-solid fa-naira-sign" aria-hidden="true"></i>
                             <span>Pricing</span>
                         </a>                        
                     </li>

@@ -18,8 +18,12 @@ class ModificationController extends Controller
         $transactions = ModificationTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->get();
+
+        $states_lgas = storage_path('app/json/states.json'); 
+        $states_lgas_data = json_decode(file_get_contents($states_lgas), true);
+        $states = $states_lgas_data;
             
-        return view('modification', compact('transactions'));
+        return view('modification', compact('transactions', 'states'));
     }
 
     public function store(Request $request)
@@ -54,7 +58,7 @@ class ModificationController extends Controller
                 'address_line_1' => 'nullable|string',
                 'address_line_2' => 'nullable|string',
                 'profession' => 'nullable|string',
-                'passport' => 'nullable',
+                'passport' => 'nullable|image',
                 'state_of_origin' => 'nullable|string',
                 'phone' => 'nullable|string',
                 'religion' => 'nullable|string',
@@ -91,6 +95,11 @@ class ModificationController extends Controller
                 }
             }
 
+            if ($request->hasFile('passport')) {
+                $imagePath = $request->file('passport')->store('passports', 'public');
+                $data['passport'] = $imagePath;
+            }
+
             $data['details_to_modify'] = json_encode($details_to_modify);
             $data['user_id'] = $user->id;
 
@@ -116,7 +125,7 @@ class ModificationController extends Controller
     public function view($modificationId)
     {
         $transaction = ModificationTransaction::findOrFail($modificationId);
-        return view('admin.view-modification', compact('transaction'));
+        return view('details.modification', compact('transaction'));
     }
 
     public function update(Request $request, $modificationId)

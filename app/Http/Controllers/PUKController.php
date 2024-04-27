@@ -52,7 +52,7 @@ class PUKController extends Controller
     public function view($pukTransactionId)
     {
         $transaction = PUKTransaction::findOrFail($pukTransactionId);
-        return view('admin.view-puk', compact('transaction'));
+        return view('details.puk', compact('transaction'));
     }
 
     public function update(Request $request, $pukTransactionId)

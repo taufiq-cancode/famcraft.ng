@@ -74,16 +74,20 @@
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Nationality & Country of Birth <span style="color: red"> *</span></label>
                                 <div class="col-lg-3">
                                     <select name="nationality" class="form-control mb-3" required>
-                                        <option>Select Nationality</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="">Select Nationality</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-lg-3">
                                     <select name="country_of_birth" class="form-control mb-3" required>
-                                        <option>Select Country of Birth</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="">Select Country of Birth</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -92,28 +96,28 @@
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Country & State of Residence<span style="color: red"> *</span></label>
                                 <div class="col-lg-3">
                                     <select name="country_of_residence" class="form-control mb-3" required>
-                                        <option>Select Country of Residence</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="">Select Country of Residence</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
-
+                            
                                 <div class="col-lg-3">
-                                    <select name="state_of_residence" class="form-control mb-3" required>
-                                        <option>Select State of Residence</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                    <select id="stateSelect" name="state_of_residence" class="form-control mb-3" required>
+                                        <option value="">Select State of Residence</option>
                                     </select>
                                 </div>
                             </div>
 
+                            
+                            
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">LGA of Residence & Town/city<span style="color: red"> *</span></label>
                                 <div class="col-lg-3">
                                     <select name="lga_of_residence" class="form-control mb-3" required>
                                         <option>Select LGA of Residence</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
                                     </select>
                                 </div>
 
@@ -145,18 +149,18 @@
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Country & State of Origin</label>
                                 <div class="col-lg-3">
-                                    <select name="country_of_birth" class="form-control mb-3">
+                                    <select name="country_of_origin" class="form-control mb-3">
                                         <option>Select Country of Origin</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-lg-3">
-                                    <select name="country_of_birth" class="form-control mb-3">
-                                        <option>Select State of Origin</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                    <select id="stateOriginSelect" name="state_of_origin" class="form-control mb-3" required>
+                                        <option value="">Select State of Origin</option>
                                     </select>
                                 </div>
                             </div>
@@ -244,7 +248,7 @@
                                     <th>Status</th>
                                     <th class="hide-mob">Date</th>
                                     <th class="hide-mob">Response</th>
-                                    <th>Receipt</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -259,7 +263,7 @@
                                 <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                 <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                 <td class="actions">
-                                    <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                    <a href="{{ route('view.new-enrollment',['enrollmentId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                 </td>
                             </tr>
                             @endforeach    
@@ -320,6 +324,62 @@
         });
     });
 </script>
+
+<script>
+    document.querySelector('select[name="country_of_residence"]').addEventListener('change', function() {
+        let selectedCountry = this.value;
+        let states = @json($countries); // Convert PHP array to JavaScript object
+
+        let stateSelect = document.querySelector('select[name="state_of_residence"]');
+        stateSelect.innerHTML = '<option value="">Select State of Residence</option>';
+
+        states.forEach(function(country) {
+            if (country.name === selectedCountry && country.states) {
+                country.states.forEach(function(state) {
+                    stateSelect.innerHTML += `<option value="${state.name}">${state.name}</option>`;
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.querySelector('select[name="country_of_origin"]').addEventListener('change', function() {
+        let selectedCountryOrigin = this.value;
+        let states = @json($countries); // Convert PHP array to JavaScript object
+
+        let stateOriginSelect = document.querySelector('select[name="state_of_origin"]');
+        stateOriginSelect.innerHTML = '<option value="">Select State of Origin</option>';
+
+        states.forEach(function(country) {
+            if (country.name === selectedCountryOrigin && country.states) {
+                country.states.forEach(function(state) {
+                    stateOriginSelect.innerHTML += `<option value="${state.name}">${state.name}</option>`;
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.querySelector('select[name="state_of_residence"]').addEventListener('change', function() {
+        let selectedState = this.value;
+        let states = @json($states); // Convert PHP array to JavaScript object
+
+        let lgaSelect = document.querySelector('select[name="lga_of_residence"]');
+        lgaSelect.innerHTML = '<option value="">Select LGA of Residence</option>';
+
+        states.forEach(function(state) {
+            if (state.state === selectedState && state.lgas) {
+                state.lgas.forEach(function(lga) {
+                    lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                });
+            }
+        });
+    });
+</script>
+
+
 
 
 

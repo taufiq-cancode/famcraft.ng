@@ -40,6 +40,9 @@ Route::get('/profile', function () {
 })->name('profile');
 
 
+Route::get('/countries', 'CountryStateController@getCountries');
+Route::get('/states/{countryIso}', 'CountryStateController@getStates');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/puk', [PUKController::class, 'index'])->name('puk');
