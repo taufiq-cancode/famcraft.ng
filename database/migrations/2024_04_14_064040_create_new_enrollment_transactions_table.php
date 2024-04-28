@@ -45,6 +45,8 @@ return new class extends Migration
             $table->json('thumb_2_fingers');
             $table->string('tracking_id')->nullable();
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

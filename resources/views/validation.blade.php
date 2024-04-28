@@ -92,11 +92,10 @@
                                     <th>#</th>
                                     <th>NIN Number</th>
                                     <th>Validation Category</th>
-                                    <th>Validation Purpose</th>
                                     <th>Amount</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                     <th>Response</th>
-                                    <th>Date</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
@@ -106,11 +105,10 @@
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->nin }}</td>
                                         <td class="pt-desktop">{{ $transaction->validation_category }}</td>
-                                        <td class="pt-desktop">{{ $transaction->validation_purpose }}</td>
                                         <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
+                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
-                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="actions">
                                             <a href="{{ route('view.validation',['validationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>

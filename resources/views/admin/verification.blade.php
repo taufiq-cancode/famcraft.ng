@@ -10,6 +10,8 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
+                        <img src="{{ asset('img/logos/nimc2.jpg') }}" width="130" alt="NIMC" />
+                    <br><br>
                         <h2 class="card-title">NIN Verification Submission</h2>
                     </header>
                     <div class="card-body">
@@ -17,35 +19,30 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>NIN Number</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
+                                    <th>Agent Email</th>
+                                    <th>Verification Method</th>
+                                    <th>Slip Type</th>
                                     <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Response</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">2248012856</td>
-                                    <td class="pt-desktop">Fajuyi Michael</td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">2248012856</td>
-                                    <td class="pt-desktop">Fajuyi Michael</td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                @foreach ($transactions as $transaction)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->user->email }}</td>
+                                        <td class="pt-desktop">{{ $transaction->method }}</td>
+                                        <td class="pt-desktop">{{ $transaction->slip_type }}</td>
+                                        <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
+                                        <td class="actions">
+                                            <a href="{{ route('view.verification',['verificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
+                                        </td>
+                                    </tr>
+                                @endforeach 
                             </tbody>
                         </table>
                     </div>

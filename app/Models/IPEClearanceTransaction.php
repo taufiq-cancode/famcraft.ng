@@ -15,8 +15,14 @@ class IPEClearanceTransaction extends Model
         'ipe_category',
         'tracking_id',
         'response',
+        'response_text',
+        'response_pdf',
         'status',
         'user_id'
+    ];
+
+    protected $casts = [
+        'response_pdf'
     ];
 
     public function user()

@@ -66,9 +66,19 @@ class ValidationController extends Controller
 
             $data = $request->validate([
                 'status' => 'sometimes',
-                'response' => 'sometimes'
+                'response' => 'sometimes',
+                'response_text' => 'sometimes',
+                'response_pdf.*' => 'sometimes|mimes:pdf|max:2048',
             ]);
 
+            if ($request->hasFile('response_pdf')) {
+                $filePaths = [];
+                foreach ($request->file('response_pdf') as $file) {
+                    $path = $file->store('response_pdfs');
+                    $filePaths[] = $path;
+                }
+                $data['response_pdf'] = array_merge((array) $validation->response_pdf, $filePaths);
+            }
             $validation->update($data);
 
             return back()->with('success', 'Validation transaction updated successfully');

@@ -10,45 +10,39 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
-                        <h2 class="card-title">Airtime Purchase Submission</h2>
+                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
+                        <br>
+                        <h2 class="card-title">New Enrollment Submission</h2>
                     </header>
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Phone Number</th>
-                                    <th>Provider</th>
-                                    <th>Amount</th>
-                                    <th class="hide-mob">Status</th>
+                                    <th>Agent Email</th>
+                                    <th>Type</th>
                                     <th class="hide-mob">Date</th>
+                                    <th>Status</th>
+                                    <th class="hide-mob">Response</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">09048012856</td>
-                                    <td class="pt-desktop">Airtel</td>
-                                    <td class="pt-desktop">&#8358;2,000.00</td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">09048012856</td>
-                                    <td class="pt-desktop">Airtel</td>
-                                    <td class="pt-desktop">&#8358;2,000.00</td>
-                                    <td class="pt-desktop hide-mob">Success</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                
+                            @foreach ($transactions as $transaction)
+                            <tr>
+                                <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                <td class="pt-desktop">{{ $transaction->user->email }}</td>
+                                <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->type) }}</td>
+                                <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
+                                <td class="actions">
+                                    <a href="{{ route('view.new-enrollment',['enrollmentId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
+                                </td>
+                            </tr>
+                            @endforeach    
+                                
                             </tbody>
                         </table>
                     </div>

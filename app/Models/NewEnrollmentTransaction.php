@@ -40,13 +40,18 @@ class NewEnrollmentTransaction extends Model
         'image',
         'left_4_fingers',
         'right_4_fingers',
-        'thumb_2_fingers'
+        'thumb_2_fingers',
+        'response_text',
+        'response_pdf',
+        'response',
+        'status'
     ];
 
     protected $casts = [
         'left_4_fingers',
         'right_4_fingers',
-        'thumb_2_fingers'
+        'thumb_2_fingers',
+        'response_pdf'
     ];
 
     public function user()

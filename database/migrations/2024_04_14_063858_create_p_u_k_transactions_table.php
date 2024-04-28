@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->enum('status', ['success', 'pending', 'failed'])->default('pending');
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -26,7 +26,7 @@
                     </li>
                     
 
-                    <li class=" {{ ($prefix == 'admin/nin/verification')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/verification' || $route == 'admin.verification' )?'nav-active':'' }}">
                         @php
                             $pendingVerification = \App\Models\VerificationTransaction::where('status', 'pending')->count();
                         @endphp
@@ -36,7 +36,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($prefix == 'admin/nin/validation')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/validation' || $route == 'admin.validation' )?'nav-active':'' }}">
                         @php
                             $pendingValidation = \App\Models\ValidationTransaction::where('status', 'pending')->count();
                         @endphp
@@ -46,7 +46,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($prefix == 'admin/nin/ipe-clearance')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/ipe-clearance' || $route == 'admin.ipe-clearance' )?'nav-active':'' }}">
                         @php
                             $pendingIPE = \App\Models\IPEClearanceTransaction::where('status', 'pending')->count();
                         @endphp
@@ -56,7 +56,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($prefix == 'admin/nin/new-enrollment')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/new-enrollment' || $route == 'admin.new-enrollment' )?'nav-active':'' }}">
                         @php
                             $pendingNewEnrollment = \App\Models\NewEnrollmentTransaction::where('status', 'pending')->count();
                         @endphp
@@ -66,7 +66,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($prefix == 'admin/nin/modification')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/modification' || $route == 'admin.modification' )?'nav-active':'' }}">
                         @php
                             $pendingModification = \App\Models\ModificationTransaction::where('status', 'pending')->count();
                         @endphp
@@ -76,7 +76,7 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($prefix == 'admin/nin/personalization')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == 'nin/personalization' || $route == 'admin.personalization' )?'nav-active':'' }}">
                         @php
                             $pendingPersonalization = \App\Models\PersonalizationTransaction::where('status', 'pending')->count();
                         @endphp

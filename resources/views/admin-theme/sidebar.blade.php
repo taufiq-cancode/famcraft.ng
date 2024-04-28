@@ -43,7 +43,7 @@
                         </a>                        
                     </li> --}}
 
-                    <li class=" {{ ($route == 'puk')?'nav-active':'' }}">
+                    <li class=" {{ ($prefix == '/puk')?'nav-active':'' }}">
                         <a href="{{ route('puk') }}">
                             <i class="fa-solid fa-mobile-retro fa-fw" aria-hidden="true"></i>
                             <span>MTN PUK Retrieval</span>
@@ -52,42 +52,42 @@
 
                     @if (auth()->user()->role === 'Agent')
 
-                        <li class=" {{ ($route == 'verification')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/verification')?'nav-active':'' }}">
                             <a href="{{ route('verification') }}">
                                 <i class="fa-solid fa-certificate" aria-hidden="true"></i>
                                 <span>Verification</span>
                             </a>                        
                         </li>
 
-                        <li class=" {{ ($route == 'validation')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/validation')?'nav-active':'' }}">
                             <a href="{{ route('validation') }}">
                                 <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
                                 <span>Validation</span>
                             </a>                        
                         </li>
 
-                        <li class=" {{ ($route == 'ipe-clearance')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/ipe-clearance')?'nav-active':'' }}">
                             <a href="{{ route('ipe-clearance') }}">
                                 <i class="fa-solid fa-check-double" aria-hidden="true"></i>
                                 <span>IPE Clearance</span>
                             </a>                        
                         </li>
 
-                        <li class=" {{ ($route == 'new-enrollment')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/new-enrollment')?'nav-active':'' }}">
                             <a href="{{ route('new-enrollment') }}">
                                 <i class="fa-regular fa-folder-open" aria-hidden="true"></i>
                                 <span>New Enrollment</span>
                             </a>                        
                         </li>
 
-                        <li class=" {{ ($route == 'modification')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/modification')?'nav-active':'' }}">
                             <a href="{{ route('modification') }}">
                                 <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i>
                                 <span>Modification</span>
                             </a>                        
                         </li>
 
-                        <li class=" {{ ($route == 'personalization')?'nav-active':'' }}">
+                        <li class=" {{ ($prefix == 'nin/personalization')?'nav-active':'' }}">
                             <a href="{{ route('personalization') }}">
                                 <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
                                 <span>Personalization</span>

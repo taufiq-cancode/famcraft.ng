@@ -10,6 +10,8 @@
             <div class="col">
                 <section class="card card-airtime">
                     <header class="card-header">
+                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
+                        <br><br>
                         <h2 class="card-title">NIN Modification</h2>
                     </header>
                     <div class="card-body">
@@ -347,6 +349,7 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
+                     
                         <h2 class="card-title">NIN Modification History</h2>
                     </header>
                     <div class="card-body">
@@ -354,22 +357,22 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Agent Email</th>
-                                    <th>Modification Type</th>
                                     <th>NIN Number</th>
+                                    <th>Modification Type</th>
+                                    <th>Amount</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Response</th>
-                                    <th>Receipt</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($transactions as $transaction)
                                 <tr>
                                     <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                    <td class="pt-desktop">{{ $transaction->user->email }}</td>
-                                    <td class="pt-desktop">{{ $transaction->modification_type }}</td>
                                     <td class="pt-desktop">{{ $transaction->nin }}</td>
+                                    <td class="pt-desktop">{{ $transaction->modification_type }}</td>
+                                    <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
                                     <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                     <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                     <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->response) }}</td>

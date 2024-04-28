@@ -53,6 +53,7 @@ class TracksController extends Controller
         $allTransactions = PUKTransaction::all()
             ->concat($pukTransactions)
             ->concat($validationTransactions)
+            ->concat($verificationTransactions)
             ->concat($modificationTransactions)
             ->concat($personalizationTransactions)
             ->concat($ipeTransactions)

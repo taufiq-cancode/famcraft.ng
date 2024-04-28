@@ -50,10 +50,11 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Tracking ID</th>
-                                    <th>Created At</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                     <th>Response</th>
-                                    <th>Receipt</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,11 +62,12 @@
                                     <tr>
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->tracking_id }}</td>
+                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
                                         <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                         <td class="actions">
-                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                            <a href="{{ route('view.personalization',['personalizationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach

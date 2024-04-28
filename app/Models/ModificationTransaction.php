@@ -33,12 +33,15 @@ class ModificationTransaction extends Model
         'state_of_origin',
         'religion',
         'response',
+        'response_text',
+        'response_pdf',
         'status',
         'user_id'
     ];
 
     protected $casts = [
-        'details_to_modify'
+        'details_to_modify',
+        'response_pdf'
     ];
 
     public function user()

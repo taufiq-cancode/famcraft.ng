@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum('ipe_category', ['in-processing-error', 'still-in-process', 'new-enrollment-for-old-tracking-id']);
             $table->string('tracking_id');
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

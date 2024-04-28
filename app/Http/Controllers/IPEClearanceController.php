@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use App\Models\IPEClearanceTransaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IPEClearanceController extends Controller
 {
@@ -64,20 +65,33 @@ class IPEClearanceController extends Controller
             if ($admin->role !== 'Administrator'){
                 return back()->with('error', 'Unauthorized access');
             }
-
+    
             $ipe = IPEClearanceTransaction::findOrFail($ipeId);
-
+    
             $data = $request->validate([
                 'status' => 'sometimes',
-                'response' => 'sometimes'
+                'response' => 'sometimes',
+                'response_text' => 'sometimes',
+                'response_pdf.*' => 'sometimes|mimes:pdf|max:2048',
             ]);
 
+    
+            if ($request->hasFile('response_pdf')) {
+                $filePaths = [];
+                foreach ($request->file('response_pdf') as $file) {
+                    $path = $file->store('response_pdfs');
+                    $filePaths[] = $path;
+                }
+                $data['response_pdf'] = array_merge((array) $ipe->response_pdf, $filePaths);
+            }
+    
             $ipe->update($data);
-
+    
             return back()->with('success', 'IPE clearance transaction updated successfully');
-
+    
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
+    
 }

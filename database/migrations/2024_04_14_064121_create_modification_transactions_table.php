@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('state_of_origin')->nullable();
             $table->enum('religion', ['Christianity', 'Islam', 'others'])->nullable();
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('nin')->nullable();
+            $table->string('nin')->nullable();
             $table->enum('slip_type', ['premium-slip', 'standard-slip', 'improved-nin-slip', 'basic-slip']);
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

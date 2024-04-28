@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('tracking_id');
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'success', 'completed', 'failed', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

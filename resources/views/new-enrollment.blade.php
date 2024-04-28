@@ -235,18 +235,20 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
-                        <h2 class="card-title">NIN Enrollment History</h2>
+                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
+                    <br>
+                        <h2 class="card-title">New Enrollment History</h2>
                     </header>
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Type</th>
-                                    <th>Status</th>
+                                    <th>Amount</th>
                                     <th class="hide-mob">Date</th>
+                                    <th>Status</th>
                                     <th class="hide-mob">Response</th>
                                     <th>View</th>
                                 </tr>
@@ -256,11 +258,11 @@
                             @foreach ($transactions as $transaction)
                             <tr>
                                 <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->firstname) .' '. Illuminate\Support\Str::title($transaction->surname) .' '. Illuminate\Support\Str::title($transaction->middlename)}}</td>
                                 <td class="pt-desktop">{{ $transaction->email }}</td>
                                 <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->type) }}</td>
-                                <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
                                 <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                 <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                 <td class="actions">
                                     <a href="{{ route('view.new-enrollment',['enrollmentId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>

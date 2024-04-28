@@ -10,6 +10,8 @@
             <div class="col">
                 <section class="card card-airtime">
                     <header class="card-header">
+                        <img src="{{ asset('img/logos/nimc2.jpg') }}" width="130" alt="NIMC" />
+                    <br><br>
                         <h2 class="card-title">NIN Verification</h2>
                     </header>
                     <div class="card-body">
@@ -117,10 +119,11 @@
                                     <th>#</th>
                                     <th>Verification Method</th>
                                     <th>Slip Type</th>
+                                    <th>Amount</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>Response</th>
-                                    <th>Receipt</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,11 +132,12 @@
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->method }}</td>
                                         <td class="pt-desktop">{{ $transaction->slip_type }}</td>
+                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
                                         <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                         <td class="actions">
-                                            <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">Reciept</span> <i class="fas fa-eye"></i> </button>
+                                            <a href="{{ route('view.verification',['verificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach 

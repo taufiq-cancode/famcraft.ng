@@ -10,6 +10,8 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
+                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
+                        <br>
                         <h2 class="card-title">NIN Modification Submission</h2>
                     </header>
                     <div class="card-body">

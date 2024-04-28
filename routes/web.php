@@ -44,54 +44,76 @@ Route::get('/countries', 'CountryStateController@getCountries');
 Route::get('/states/{countryIso}', 'CountryStateController@getStates');
 
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/puk', [PUKController::class, 'index'])->name('puk');
-    Route::post('puk/submit', [PUKController::class, 'store'])->name('submit.puk');
-    Route::get('puk/{pukTransactionId}', [PUKController::class, 'view'])->name('view.puk');
-    Route::put('puk/{pukTransactionId}', [PUKController::class, 'update'])->name('update.puk');
+    Route::get('/users/make-agent', [AgentController::class, 'makeAgent'])->name('makeAgent');
+
+    Route::prefix('puk')->group(function () {
+        Route::get('/', [PUKController::class, 'index'])->name('puk');
+        Route::post('/submit', [PUKController::class, 'store'])->name('submit.puk');
+        Route::get('/{pukTransactionId}', [PUKController::class, 'view'])->name('view.puk');
+        Route::put('/{pukTransactionId}', [PUKController::class, 'update'])->name('update.puk');
+    });
 
     Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
     Route::get('/tracks/{transactionId}', [TracksController::class, 'view'])->name('view.transaction');
     
     Route::prefix('nin')->group(function () {
-        Route::get('/validation', [ValidationController::class, 'index'])->name('validation');
-        Route::post('/validation/submit', [ValidationController::class, 'store'])->name('submit.validation');
-        Route::get('/validation/{validationId}', [ValidationController::class, 'view'])->name('view.validation');
-        Route::put('/validation/{validationId}', [ValidationController::class, 'update'])->name('update.validation');
+        Route::prefix('validation')->group(function () {
+            Route::get('/', [ValidationController::class, 'index'])->name('validation');
+            Route::post('/submit', [ValidationController::class, 'store'])->name('submit.validation');
+            Route::get('/{validationId}', [ValidationController::class, 'view'])->name('view.validation');
+            Route::put('/{validationId}', [ValidationController::class, 'update'])->name('update.validation');
+        });
 
-        Route::get('/ipe-clearance', [IPEClearanceController::class, 'index'])->name('ipe-clearance');
-        Route::post('/ipe-clearance/submit', [IPEClearanceController::class, 'store'])->name('submit.ipe-clearance');
-        Route::get('/ipe-clearance/{ipeId}', [IPEClearanceController::class, 'view'])->name('view.ipe-clearance');
-        Route::put('/ipe-clearance/{ipeId}', [IPEClearanceController::class, 'update'])->name('update.ipe-clearance');
+        Route::prefix('ipe-clearance')->group(function () {
+            Route::get('/', [IPEClearanceController::class, 'index'])->name('ipe-clearance');
+            Route::post('/submit', [IPEClearanceController::class, 'store'])->name('submit.ipe-clearance');
+            Route::get('/{ipeId}', [IPEClearanceController::class, 'view'])->name('view.ipe-clearance');
+            Route::put('/{ipeId}', [IPEClearanceController::class, 'update'])->name('update.ipe-clearance');
+        });
 
-        Route::get('/personalization', [PersonalizationController::class, 'index'])->name('personalization');
-        Route::post('/personalization/submit', [PersonalizationController::class, 'store'])->name('submit.personalization');
+        Route::prefix('new-enrollment')->group(function () {
+            Route::get('/', [NewEnrollmentController::class, 'index'])->name('new-enrollment');
+            Route::post('/submit', [NewEnrollmentController::class, 'store'])->name('submit.new-enrollment');
+            Route::get('/{enrollmentId}', [NewEnrollmentController::class, 'view'])->name('view.new-enrollment');
+            Route::put('/{enrollmentId}', [NewEnrollmentController::class, 'update'])->name('update.new-enrollment');
+        });
 
-        Route::get('/new-enrollment', [NewEnrollmentController::class, 'index'])->name('new-enrollment');
-        Route::post('/new-enrollment/submit', [NewEnrollmentController::class, 'store'])->name('submit.new-enrollment');
-        Route::get('/new-enrollment/{enrollmentId}', [NewEnrollmentController::class, 'view'])->name('view.new-enrollment');
-        Route::put('/new-enrollment/{enrollmentId}', [NewEnrollmentController::class, 'update'])->name('update.new-enrollment');
+        Route::prefix('verification')->group(function () {
+            Route::get('/', [VerificationController::class, 'index'])->name('verification');
+            Route::post('/submit', [VerificationController::class, 'store'])->name('submit.verification');
+            Route::get('/{verificationId}', [VerificationController::class, 'view'])->name('view.verification');
+            Route::put('/{verificationId}', [VerificationController::class, 'update'])->name('update.verification');
+        });
 
-        Route::get('/modification', [ModificationController::class, 'index'])->name('modification');
-        Route::post('/modification/submit', [ModificationController::class, 'store'])->name('submit.modification');
+        Route::prefix('personalization')->group(function (){
+            Route::get('/', [PersonalizationController::class, 'index'])->name('personalization');
+            Route::post('/submit', [PersonalizationController::class, 'store'])->name('submit.personalization');
+            Route::get('/{personalizationId}', [PersonalizationController::class, 'view'])->name('view.personalization');
+            Route::put('/{personalizationId}', [PersonalizationController::class, 'update'])->name('update.personalization');   
+        });
 
-        Route::get('/verification', [VerificationController::class, 'index'])->name('verification');
-        Route::post('/verification/submit', [VerificationController::class, 'store'])->name('submit.verification');
-        Route::get('/verification/{verificationId}', [VerificationController::class, 'view'])->name('view.verification');
-        Route::put('/verification/{verificationId}', [VerificationController::class, 'update'])->name('update.verification');
+        Route::prefix('modification')->group(function (){
+            Route::get('/', [ModificationController::class, 'index'])->name('modification');
+            Route::post('/submit', [ModificationController::class, 'store'])->name('submit.modification');
+            Route::get('/{modificationId}', [ModificationController::class, 'view'])->name('view.modification');
+            Route::put('/{modificationId}', [ModificationController::class, 'update'])->name('update.modification');
+        });
     });
-
-    Route::get('/users/make-agent', [AgentController::class, 'makeAgent'])->name('makeAgent');
 
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+
+        Route::prefix('pricing')->group(function () {
+            Route::get('/', [PricingController::class, 'index'])->name('admin.pricing');
+            Route::post('/', [PricingController::class, 'store'])->name('submit.pricing');
+            Route::put('/{pricingId}', [PricingController::class, 'update'])->name('update.pricing');
+            Route::delete('/{pricingId}', [PricingController::class, 'destroy'])->name('destroy.pricing');
+        });
+        
         Route::get('/puk', [AdminController::class, 'puk'])->name('admin.puk');
-
-        Route::get('/pricing', [PricingController::class, 'index'])->name('admin.pricing');
-        Route::post('/pricing', [PricingController::class, 'store'])->name('submit.pricing');
-        Route::put('/pricing/{pricingId}', [PricingController::class, 'update'])->name('update.pricing');
-        Route::delete('/pricing/{pricingId}', [PricingController::class, 'destroy'])->name('destroy.pricing');
-
         Route::prefix('nin')->group(function () {
             Route::get('/verification', [AdminController::class, 'verification'])->name('admin.verification');
             Route::get('/validation', [AdminController::class, 'validation'])->name('admin.validation');
@@ -100,17 +122,11 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('modification')->group(function () {  
                 Route::get('/', [AdminController::class, 'modification'])->name('admin.modification');
-                Route::get('/{modificationId}', [ModificationController::class, 'view'])->name('view.modification');
-                Route::put('/{modificationId}', [ModificationController::class, 'update'])->name('update.modification');
-            });
-            
-            Route::prefix('personalization')->group(function () {   
-                Route::get('/', [AdminController::class, 'personalization'])->name('admin.personalization');
-                Route::get('/{personalizationId}', [PersonalizationController::class, 'view'])->name('view.personalization');
-                Route::put('/{personalizationId}', [PersonalizationController::class, 'update'])->name('update.personalization');   
             });
 
-            Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+            Route::prefix('personalization')->group(function () {   
+                Route::get('/', [AdminController::class, 'personalization'])->name('admin.personalization');
+            });
         });
     });
 });

@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_id');
             $table->integer('price')->nullable();
-            $table->bigInteger('nin');
+            $table->string('nin');
             $table->enum('validation_category', ['no-record-found', 'update-record', 'validation-modification', 'v-nin-validation', 'photograph-error', 'by-pass-nin']);
             $table->enum('validation_purpose', ['bank', 'sim', 'passport', 'others']);
             $table->string('response')->nullable();
+            $table->json('response_pdf')->nullable();
+            $table->string('response_text')->nullable();
             $table->enum('status', ['pending', 'invalidated', 'completed', 'failed', 'bvn-nin', 'others'])->default('pending');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

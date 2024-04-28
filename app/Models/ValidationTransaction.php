@@ -17,9 +17,14 @@ class ValidationTransaction extends Model
         'validation_purpose',
         'response',
         'status',
-        'user_id'
+        'user_id',
+        'response_text',
+        'response_pdf',
     ];
 
+    protected $cast = [
+        'response_pdf'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

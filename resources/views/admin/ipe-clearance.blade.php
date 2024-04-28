@@ -17,35 +17,30 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Agent Email</th>
                                     <th>Tracking ID</th>
-                                    <th>Created At</th>
+                                    <th>IPE Category</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                     <th>Response</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($transactions as $transaction)
                                 <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">39048012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="pt-desktop">Cleared</td>
+                                    <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                    <td class="pt-desktop">{{ $transaction->user->email }}</td>
+                                    <td class="pt-desktop">{{ $transaction->tracking_id }}</td>
+                                    <td class="pt-desktop">{{ $transaction->ipe_category }}</td>
+                                    <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                    <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                    <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                     <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
+                                        <a href="{{ route('view.ipe-clearance',['ipeId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td class="pt-desktop">1</td>
-                                    <td class="pt-desktop">39048012856</td>
-                                    <td class="hide-mob">12th, January 2024 <br> 12:00PM </td>
-                                    <td class="pt-desktop">Success</td>
-                                    <td class="pt-desktop">Cleared</td>
-                                    <td class="actions">
-                                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </button>
-                                    </td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
