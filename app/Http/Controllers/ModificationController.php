@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModificationTransaction;
+use App\Models\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -103,12 +105,37 @@ class ModificationController extends Controller
             $data['details_to_modify'] = json_encode($details_to_modify);
             $data['user_id'] = $user->id;
 
+            $serviceFee = 0;
+            $modificationType = $request->modification_type;
+
+            if ($modificationType === 'name') {
+                $fee = Pricing::where('item_name', 'name-modification')->first();
+            } elseif ($modificationType === 'dob') {
+                $fee = Pricing::where('item_name', 'date-of-birth-modification')->first();
+            } elseif ($modificationType === 'name_dob') {
+                $fee = Pricing::where('item_name', 'name-date-of-birth-modification')->first();
+            } elseif ($modificationType === 'dob-other-modification') {
+                $fee = Pricing::where('item_name', 'dob-other-modification')->first();
+            } elseif ($modificationType === 'others') {
+                $fee = Pricing::where('item_name', 'others')->first();
+            }
+
+            $serviceFee = $fee->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance.');
+            }
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
+
             $transactionId = 'MOD' . rand(100000, 999999);
             while (ModificationTransaction::where('transaction_id', $transactionId)->exists()) {
                 $transactionId = 'MOD' . rand(100000, 999999);
             }
 
             $data['transaction_id'] = $transactionId;
+            $data['price'] = $serviceFee;
 
             $modification = ModificationTransaction::create($data);
     

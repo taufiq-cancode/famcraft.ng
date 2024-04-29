@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pricing;
 use App\Models\ValidationTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class ValidationController extends Controller
 {
@@ -18,6 +21,8 @@ class ValidationController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $user = auth()->user();
     
             $request->validate([
@@ -25,6 +30,32 @@ class ValidationController extends Controller
                 'validation_category' => 'required|string|in:no-record-found,update-record,validation-modification,v-nin-validation,photograph-error,by-pass-nin',
                 'validation_purpose' => 'required|string|in:bank,sim,passport,others',
             ]);
+
+            $serviceFee = 0;
+            $validationCategory = $request->validation_category;
+
+            if ($validationCategory === 'no-record-found') {
+                $fee = Pricing::where('item_name', 'no-record-found')->first();
+            } elseif ($validationCategory === 'update-record') {
+                $fee = Pricing::where('item_name', 'update-record')->first();
+            } elseif ($validationCategory === 'validation-modification') {
+                $fee = Pricing::where('item_name', 'validation-modification')->first();
+            } elseif ($validationCategory === 'v-nin-validation') {
+                $fee = Pricing::where('item_name', 'v-nin-validation')->first();
+            } elseif ($validationCategory === 'photograph-error') {
+                $fee = Pricing::where('item_name', 'photograph-error')->first();
+            } elseif ($validationCategory === 'by-pass-nin') {
+                $fee = Pricing::where('item_name', 'by-pass-nin')->first();
+            }
+
+            $serviceFee = $fee->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance.');
+            }
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
 
             $transactionId = 'VAL' . rand(100000, 999999);
             while (ValidationTransaction::where('transaction_id', $transactionId)->exists()) {
@@ -36,14 +67,17 @@ class ValidationController extends Controller
                 'validation_category' => $request->validation_category,
                 'validation_purpose' => $request->validation_purpose,
                 'user_id' => $user->id,
-                'transaction_id' => $transactionId
+                'transaction_id' => $transactionId,
+                'price' => $serviceFee
             ]);
     
             if ($validation){
+                DB::commit();
                 return back()->with('success', 'Validation request submitted successfully.');
             }
 
         } catch(\Exception $e) {
+            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }

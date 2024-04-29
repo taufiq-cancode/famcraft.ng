@@ -22,7 +22,7 @@
                 <section class="card card-airtime">
                     <header class="card-header">
                         <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
-                    <br>
+                    <br><br>
                         <h2 class="card-title">NIN Enrollment</h2>
                     </header>
                     <div class="card-body">
@@ -70,13 +70,6 @@
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Enrollment Type<span style="color: red"> *</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" name="type" value="{{ Illuminate\Support\Str::title($transaction->type) }}" class="form-control" id="inputDefault" readonly="readonly">                                
-                                </div>
-                            </div>
-
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="nin" value="{{ $transaction->nin }}" class="form-control" id="inputDefault" readonly="readonly">
                                 </div>
                             </div>
 
@@ -159,12 +152,16 @@
 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Country & State of Origin</label>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <input type="text" name="country_of_origin" value="{{ $transaction->country_of_origin }}" class="form-control" id="inputDefault" readonly="readonly">
                                 </div>
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <input type="text" name="state_of_origin" value="{{ $transaction->state_of_origin }}" class="form-control" id="inputDefault" readonly="readonly">
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <input type="text" name="lga_of_origin" value="{{ $transaction->lga_of_origin }}" class="form-control" id="inputDefault" readonly="readonly">
                                 </div>
                             </div>
 
@@ -209,20 +206,18 @@
                             </div>
                             
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Left 4 Fingers <span style="color: red"> *</span></label>
-                                @foreach(json_decode($transaction->left_4_fingers) as $finger)
-                                    <div class="col-lg-2 pe-2">
-                                        <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
-                                            <div class="thumbnail">
-                                                <div class="thumb-preview">
-                                                    <a class="thumb-image" href="{{ asset('storage/' . $finger) }}" target="_blank">
-                                                        <img src="{{ asset('storage/' . $finger) }}" class="img-fluid">
-                                                    </a>
-                                                </div>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Left Finger <span style="color: red"> *</span></label>
+                                <div class="col-lg-6">
+                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                        <div class="thumbnail">
+                                            <div class="thumb-preview">
+                                                <a class="thumb-image" href="{{ asset('storage/' . $transaction->left_finger) }}" target="_blank">
+                                                    <img src="{{ asset('storage/' . $transaction->left_finger) }}" class="img-fluid">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
                             
                             <div class="form-group row pb-4">
@@ -243,20 +238,18 @@
                             </div>
                             
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">2 Thumb Fingers <span style="color: red"> *</span></label>
-                                @foreach(json_decode($transaction->thumb_2_fingers) as $finger)
-                                    <div class="col-lg-3 pe-2">
-                                        <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
-                                            <div class="thumbnail">
-                                                <div class="thumb-preview">
-                                                    <a class="thumb-image" href="{{ asset('storage/' . $finger) }}" target="_blank">
-                                                        <img src="{{ asset('storage/' . $finger) }}" class="img-fluid">
-                                                    </a>
-                                                </div>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Thumb Finger <span style="color: red"> *</span></label>
+                                <div class="col-lg-6">
+                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                        <div class="thumbnail">
+                                            <div class="thumb-preview">
+                                                <a class="thumb-image" href="{{ asset('storage/' . $transaction->thumb_finger) }}" target="_blank">
+                                                    <img src="{{ asset('storage/' . $transaction->thumb_finger) }}" class="img-fluid">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
                             
                             <div class="form-group row pb-2">
@@ -275,87 +268,8 @@
                                 </div>
                             </div>
     
-                            @if (auth()->user()->role === "Agent")
-                            @if($transaction->response !== null)
-                                <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response</label>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control" id="inputDefault" value="{{ $transaction->response }}" readonly="readonly">
-                                    </div>
-                                </div>
-                            @endif
+                            @include('admin-theme.details-form')
 
-                            @if($transaction->response_text !== null)
-                                <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response Text</label>
-                                    <div class="col-lg-6">
-                                        <textarea class="form-control" id="inputDefault" readonly="readonly">{{ $transaction->response_text }}</textarea>
-                                    </div>
-                                </div>
-                            @endif
-
-                            @if($transaction->response_pdf !== null)
-                                <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response PDF(s)</label>
-                                    <div class="col-lg-6">
-                                        @foreach(json_decode($transaction->response_pdf) as $pdf)
-                                            <a href="{{ asset($pdf) }}" download>
-                                                <img src="{{ asset('img/icons/doc.png') }}" width="100px" class="img-fluid">
-                                            </a><br><br>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-                        @endif
-
-                        @if (auth()->user()->role === "Administrator")
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="inputDefault" value="{{ $transaction->response }}" name="response" placeholder="Enter response">
-                                </div>
-                            </div>
-
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response Text</label>
-                                <div class="col-lg-6">
-                                    <textarea class="form-control" id="inputDefault" name="response_text" placeholder="Enter response text">{{ $transaction->response_text }}</textarea>
-                                </div>
-                            </div>
-
-                            @if($transaction->response_pdf !== null)
-                                <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response PDF(s)</label>
-                                    <div class="col-lg-6">
-                                        @foreach(json_decode($transaction->response_pdf) as $pdf)
-                                            <a href="{{ asset($pdf) }}" download>
-                                                <img src="{{ asset('img/icons/doc.png') }}" width="100px" class="img-fluid">
-                                            </a><br><br>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response Document</label>
-                                <div class="col-lg-6">
-                                    <input type="file" name="response_pdf[]" class="form-control" id="inputDefault" accept="application/pdf" multiple>
-                                </div>
-                            </div>
-                        @endif
-    
-                            <div class="form-group row">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
-                                @if (auth()->user()->role === "Administrator")
-                                    <div class="col-lg-3">
-                                        <button type="submit" class="mt-1 me-1 btn btn-primary btn-lg btn-block">Update</button>
-                                    </div>
-                                @endif
-    
-                                <div class="col-lg-3">
-                                    <button type="submit" class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Receipt</button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </section>

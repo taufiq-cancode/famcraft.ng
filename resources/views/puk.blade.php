@@ -80,7 +80,7 @@
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->phone }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->fullname) }}</td>
-                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
+                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
                                         <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                         <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>

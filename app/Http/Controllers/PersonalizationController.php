@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalizationTransaction;
+use App\Models\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class PersonalizationController extends Controller
 {
@@ -22,11 +24,26 @@ class PersonalizationController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $user = auth()->user();
     
             $request->validate([
                 'tracking_id' => 'required|string|max:15',
             ]);
+
+            $serviceFee = 0;
+
+            $service = Pricing::where('item_name', 'per-personalization-request')->first();
+            $serviceFee = $service->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance');
+            }
+
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
     
             $transactionId = 'PER' . rand(100000, 999999);
             while (PersonalizationTransaction::where('transaction_id', $transactionId)->exists()) {
@@ -36,10 +53,12 @@ class PersonalizationController extends Controller
             $personalization = PersonalizationTransaction::create([
                 'tracking_id' => $request->tracking_id,
                 'user_id' => $user->id,
-                'transaction_id' => $transactionId
+                'transaction_id' => $transactionId,
+                'price' => $serviceFee
             ]);
 
             if ($personalization){
+                DB::commit();
                 return back()->with('success', 'Personalization request submitted successfully.');
             }
 

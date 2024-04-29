@@ -18,6 +18,8 @@
             <div class="col">
                 <section class="card card-airtime">
                     <header class="card-header">
+                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
+                        <br><br>
                         <h2 class="card-title">New NIN Enrollment</h2>
                     </header>
                     <div class="card-body">
@@ -33,13 +35,6 @@
                                         <option value="adult">Adult Enrollment</option>
                                         <option value="child">Child Enrollment</option>
                                     </select>                                    
-                                </div>
-                            </div>
-
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="nin" class="form-control" id="inputDefault" placeholder="NIN Number">
                                 </div>
                             </div>
 
@@ -137,18 +132,15 @@
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Postal/zip Code & Height <span style="color: red"> *</span></label>
-                                <div class="col-lg-3">
-                                    <input type="text" name="zipcode" class="form-control" id="inputDefault" placeholder="Enter postal/zip code">
-                                </div>
-                                <div class="col-lg-3">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Height <span style="color: red"> *</span></label>
+                                <div class="col-lg-6">
                                     <input type="text" name="height" class="form-control form-mt" id="inputDefault" placeholder="Enter height" required>
                                 </div>
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Country & State of Origin</label>
-                                <div class="col-lg-3">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Country, State & LGA of Origin</label>
+                                <div class="col-lg-2">
                                     <select name="country_of_origin" class="form-control mb-3">
                                         <option>Select Country of Origin</option>
                                         <option value="Nigeria">Nigeria</option>
@@ -158,9 +150,15 @@
                                     </select>
                                 </div>
 
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <select id="stateOriginSelect" name="state_of_origin" class="form-control mb-3" required>
                                         <option value="">Select State of Origin</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <select id="lgaOriginSelect" name="lga_of_origin" class="form-control mb-3" required>
+                                        <option value="">Select LGA of Origin</option>
                                     </select>
                                 </div>
                             </div>
@@ -198,9 +196,9 @@
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Left 4 Fingers <span style="color: red"> *</span></label>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Left Finger <span style="color: red"> *</span></label>
                                 <div class="col-lg-6">
-                                    <input type="file" name="left_4_fingers[]" class="form-control" id="max4" accept="image/jpeg, image/jpg, image/png" multiple required>
+                                    <input type="file" name="left_finger" class="form-control" id="inputDefault" accept="image/jpeg, image/jpg, image/png" required>
                                 </div>
                             </div>
 
@@ -212,9 +210,9 @@
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">2 Thumb Fingers <span style="color: red"> *</span></label>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Thumb Finger <span style="color: red"> *</span></label>
                                 <div class="col-lg-6">
-                                    <input type="file" name="thumb_2_fingers[]" class="form-control" id="max2" accept="image/jpeg, image/jpg, image/png" multiple required>
+                                    <input type="file" name="thumb_finger" class="form-control" id="inputDefault" accept="image/jpeg, image/jpg, image/png" required>
                                 </div>
                             </div>
 
@@ -235,8 +233,6 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
-                        <img src="{{ asset('img/logos/nimc.jpg') }}" width="130" alt="NIMC" />
-                    <br>
                         <h2 class="card-title">New Enrollment History</h2>
                     </header>
                     <div class="card-body">
@@ -370,6 +366,24 @@
 
         let lgaSelect = document.querySelector('select[name="lga_of_residence"]');
         lgaSelect.innerHTML = '<option value="">Select LGA of Residence</option>';
+
+        states.forEach(function(state) {
+            if (state.state === selectedState && state.lgas) {
+                state.lgas.forEach(function(lga) {
+                    lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    document.querySelector('select[name="state_of_origin"]').addEventListener('change', function() {
+        let selectedState = this.value;
+        let states = @json($states); // Convert PHP array to JavaScript object
+
+        let lgaSelect = document.querySelector('select[name="lga_of_origin"]');
+        lgaSelect.innerHTML = '<option value="">Select LGA of Origin</option>';
 
         states.forEach(function(state) {
             if (state.state === selectedState && state.lgas) {

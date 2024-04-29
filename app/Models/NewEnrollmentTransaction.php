@@ -31,6 +31,7 @@ class NewEnrollmentTransaction extends Model
         'zipcode',
         'country_of_origin',
         'state_of_origin',
+        'lga_of_origin',
         'phone',
         'email',
         'height',
@@ -38,9 +39,9 @@ class NewEnrollmentTransaction extends Model
         'parent_firstname',
         'parent_nin',
         'image',
-        'left_4_fingers',
+        'left_finger',
         'right_4_fingers',
-        'thumb_2_fingers',
+        'thumb_finger',
         'response_text',
         'response_pdf',
         'response',
@@ -48,9 +49,7 @@ class NewEnrollmentTransaction extends Model
     ];
 
     protected $casts = [
-        'left_4_fingers',
         'right_4_fingers',
-        'thumb_2_fingers',
         'response_pdf'
     ];
 

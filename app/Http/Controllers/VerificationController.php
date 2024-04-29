@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pricing;
 use App\Models\VerificationTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class VerificationController extends Controller
@@ -20,6 +22,8 @@ class VerificationController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $user = auth()->user();
     
             $data = $request->validate([
@@ -35,21 +39,50 @@ class VerificationController extends Controller
 
             $data['user_id'] = $user->id;
 
+            $serviceFee = 0;
+            $slipFee = 0;
+            
+            $service = Pricing::where('item_name', 'per-verification-request')->first();
+            $serviceFee = $service->price ?? null;
+
+            $slipType = $data['slip_type'];
+            if ($slipType === 'premium-slip') {
+                $slip = Pricing::where('item_name', 'premium-slip')->first();
+            } elseif ($slipType === 'standard-slip') {
+                $slip = Pricing::where('item_name', 'standard-slip')->first();
+            } elseif ($slipType === 'improved-nin-slip') {
+                $slip = Pricing::where('item_name', 'improved-nin-slip')->first();
+            } elseif ($slipType === 'basic-slip') {
+                $slip = Pricing::where('item_name', 'basic-slip')->first();
+            }
+
+            $slipFee = $slip->price ?? null;
+            $cost = $serviceFee + $slipFee;
+
+            if ($user->wallet->balance < $cost) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance.');
+            }
+            $user->wallet->balance -= $cost;
+            $user->wallet->save();
+
             $transactionId = 'VER' . rand(100000, 999999);
             while (VerificationTransaction::where('transaction_id', $transactionId)->exists()) {
                 $transactionId = 'VER' . rand(100000, 999999);
             }
 
             $data['transaction_id'] = $transactionId;
+            $data['price'] = $cost;
 
             $verification = VerificationTransaction::create($data);
     
             if ($verification){
+                DB::commit();
                 return back()->with('success', 'Verification request submitted successfully.');
             }
 
         } catch(ValidationException $e) {
-            Log::error($e->getMessage());
+            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }

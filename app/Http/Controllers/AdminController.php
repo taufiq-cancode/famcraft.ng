@@ -19,8 +19,59 @@ class AdminController extends Controller
         if ($admin->role !== 'Administrator'){
             return back()->with('error', 'Unauthorized access');
         }
-                
-        return view('admin.dashboard');
+
+         // Retrieve and count PUK transactions
+        $pukTransactions = PUKTransaction::all();
+        $pukTotalCount = $pukTransactions->count();
+        $pukPendingCount = $pukTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count verification transactions
+        $verificationTransactions = VerificationTransaction::all();
+        $verificationTotalCount = $verificationTransactions->count();
+        $verificationPendingCount = $verificationTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count validation transactions
+        $validationTransactions = ValidationTransaction::all();
+        $validationTotalCount = $validationTransactions->count();
+        $validationPendingCount = $validationTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count IPE transactions
+        $ipeTransactions = IPEClearanceTransaction::all();
+        $ipeTotalCount = $ipeTransactions->count();
+        $ipePendingCount = $ipeTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count new enrollment transactions
+        $newEnrollmentTransactions = NewEnrollmentTransaction::all();
+        $newEnrollmentTotalCount = $newEnrollmentTransactions->count();
+        $newEnrollmentPendingCount = $newEnrollmentTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count personalization transactions
+        $personalizationTransactions = PersonalizationTransaction::all();
+        $personalizationTotalCount = $personalizationTransactions->count();
+        $personalizationPendingCount = $personalizationTransactions->where('status', 'pending')->count();
+
+        // Retrieve and count modification transactions
+        $modificationTransactions = ModificationTransaction::all();
+        $modificationTotalCount = $modificationTransactions->count();
+        $modificationPendingCount = $modificationTransactions->where('status', 'pending')->count();
+
+        // Calculate total counts for all transaction types
+        $totalTransactionsCount = $pukTotalCount + $verificationTotalCount + $validationTotalCount + $ipeTotalCount + $newEnrollmentTotalCount + $personalizationTotalCount + $modificationTotalCount;
+
+        // Calculate total pending counts for all transaction types
+        $totalPendingCount = $pukPendingCount + $verificationPendingCount + $validationPendingCount + $ipePendingCount + $newEnrollmentPendingCount + $personalizationPendingCount + $modificationPendingCount;
+
+        // Pass counts and transactions to the view
+        return view('admin.dashboard', compact(
+            'pukTotalCount', 'pukPendingCount',
+            'verificationTotalCount', 'verificationPendingCount',
+            'validationTotalCount', 'validationPendingCount',
+            'ipeTotalCount', 'ipePendingCount',
+            'newEnrollmentTotalCount', 'newEnrollmentPendingCount',
+            'personalizationTotalCount', 'personalizationPendingCount',
+            'modificationTotalCount', 'modificationPendingCount',
+            'totalTransactionsCount', 'totalPendingCount'
+        ));                
     }
 
     public function verification()

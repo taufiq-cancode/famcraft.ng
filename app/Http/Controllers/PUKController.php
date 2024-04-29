@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pricing;
 use App\Models\PUKTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class PUKController extends Controller
 {
@@ -18,6 +21,8 @@ class PUKController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $user = auth()->user();
     
             $request->validate([
@@ -25,6 +30,19 @@ class PUKController extends Controller
                 'fullname' => 'required|string|max:255',
                 'dob' => 'required|date',
             ]);
+
+            $serviceFee = 0;
+
+            $service = Pricing::where('item_name', 'puk-retrieval')->first();
+            $serviceFee = $service->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance');
+            }
+
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
 
             $transactionId = 'PUK' . rand(100000, 999999);
             while (PUKTransaction::where('transaction_id', $transactionId)->exists()) {
@@ -36,15 +54,17 @@ class PUKController extends Controller
                 'fullname' => $request->fullname,
                 'dob' => $request->dob,
                 'user_id' => $user->id,
-                'amount' => 0,
+                'price' => $service->price,
                 'transaction_id' => $transactionId
             ]);
     
+            DB::commit();
             if ($puk_transaction){
                 return back()->with('success', 'PUK retrieval requested successfully.');
             }
 
         } catch(\Exception $e) {
+            DB::rollBack();
             return back()->with('error', $e->getMessage());
         }
     }

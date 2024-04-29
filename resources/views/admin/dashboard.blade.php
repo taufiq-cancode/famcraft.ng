@@ -16,14 +16,14 @@
                             <div class="widget-summary" style="margin: 20px 0 20px 0;">
                                 <div class="widget-summary-col widget-summary-col-icon">
                                     <div class="summary-icon bg-primary">
-                                        <i class="icons icon-wallet"></i>
+                                        <i class="fas fa-clipboard"></i>
                                     </div>
                                 </div>
                                 <div class="widget-summary-col">
                                     <div class="summary">
-                                        <h4><b>Total Transactions</b></h4>
+                                        <h4><b>Total Submissions</b></h4>
                                         <div class="info">
-                                            <h5 style="font-size: 33px;">1,593</h5>
+                                            <h5 style="font-size: 33px;">{{ $totalTransactionsCount }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -37,14 +37,14 @@
                             <div class="widget-summary" style="margin: 20px 0 20px 0;">
                                 <div class="widget-summary-col widget-summary-col-icon">
                                     <div class="summary-icon bg-secondary">
-                                        <i class="fas fa-dollar-sign"></i>
+                                        <i class="fa fa-hourglass-half"></i>
                                     </div>
                                 </div>
                                 <div class="widget-summary-col">
                                     <div class="summary">
-                                        <h4><b>Unresolved Transactions</b></h4>
+                                        <h4><b>Pending Submissions</b></h4>
                                         <div class="info">
-                                            <h5 style="font-size: 33px;">893</h5>
+                                            <h5 style="font-size: 33px;">{{ $totalPendingCount }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px">Verification</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $verificationTotalCount }} Transactions <br> ({{ $verificationPendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px">Validation</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $validationTotalCount }} Transactions <br> ({{ $validationPendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px">IPE Clearance</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $ipeTotalCount }} Transactions <br> ({{ $ipePendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +150,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px">New Enrollment</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $newEnrollmentTotalCount }} Transactions <br> ({{ $newEnrollmentPendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px">Modification</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $modificationTotalCount }} Transactions <br> ({{ $modificationPendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                                         <div class="summary">
                                             <div class="info">
                                                 <h4 class="h4-service" style="color: white; font-size:20px"> &nbsp; Personalization</h4>
-                                                <span>200 Transactions <br> (100 unresolved)</span>
+                                                <span>{{ $personalizationTotalCount }} Transactions <br> ({{ $personalizationPendingCount }} unresolved)</span>
                                             </div>
                                         </div>
                                     </div>
@@ -206,7 +206,34 @@
                             </div>
                         </a>
                     </section>
-                </div>                
+                </div>   
+
+            </div>
+
+            <div class="row mb-3">     
+                <div class="col-xl-4">
+                    <section class="card mb-4">
+                        <a href="{{ route('personalization') }}">
+                            <div class="card-body bg-success">
+                                <div class="widget-summary custom-summary">
+                                    <div class="widget-summary-col widget-summary-col-icon">
+                                        <div class="summary-icon custom-icon" style="margin-top:10px">
+                                            <i class="fa-solid fa-user-pen"></i>
+                                        </div>
+                                    </div>
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            <div class="info">
+                                                <h4 class="h4-service" style="color: white; font-size:20px"> &nbsp; PUK Retrieval</h4>
+                                                <span>{{ $pukTotalCount }} Transactions <br> ({{ $pukPendingCount }} unresolved)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </section>
+                </div>   
             </div>
         </div>
     </div>

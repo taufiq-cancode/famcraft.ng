@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pricing;
 use Illuminate\Support\Str;
 use App\Models\IPEClearanceTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class IPEClearanceController extends Controller
 {
@@ -23,6 +25,8 @@ class IPEClearanceController extends Controller
     public function store(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $user = auth()->user();
     
             $request->validate([
@@ -30,6 +34,25 @@ class IPEClearanceController extends Controller
                 'tracking_id' => 'required|string|max:15',
             ]);
 
+            $serviceFee = 0;
+            $ipeCategory = $request->ipe_category;
+
+            if ($ipeCategory === 'in-processing-error') {
+                $fee = Pricing::where('item_name', 'in-processing-error')->first();
+            } elseif ($ipeCategory === 'still-in-process') {
+                $fee = Pricing::where('item_name', 'still-in-process')->first();
+            } elseif ($ipeCategory === 'new-enrollment-for-old-tracking-id') {
+                $fee = Pricing::where('item_name', 'new-enrollment-for-old-tracking')->first();
+            }
+
+            $serviceFee = $fee->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance.');
+            }
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
     
             $transactionId = 'IPE' . rand(100000, 999999);
             while (IPEClearanceTransaction::where('transaction_id', $transactionId)->exists()) {
@@ -40,10 +63,12 @@ class IPEClearanceController extends Controller
                 'ipe_category' => $request->ipe_category,
                 'tracking_id' => $request->tracking_id,
                 'user_id' => $user->id,
-                'transaction_id' => $transactionId
+                'transaction_id' => $transactionId,
+                'price' => $serviceFee,
             ]);
     
             if ($ipe){
+                DB::commit();
                 return back()->with('success', 'IPE clearance request submitted successfully.');
             }
 

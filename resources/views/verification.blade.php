@@ -15,7 +15,7 @@
                         <h2 class="card-title">NIN Verification</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.verification') }}" enctype="multipart/form-data">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.verification') }}">
                             @csrf
                             @method('POST')
 

@@ -77,7 +77,12 @@
                 <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
                     <span class="name">{{ Illuminate\Support\Str::title(auth()->user()->first_name) }} {{ Illuminate\Support\Str::title(auth()->user()->last_name) }}</span>
                     <span class="role">{{ Illuminate\Support\Str::title(auth()->user()->role) }}</span>
-                    <span class="balance">N240,000.00</span>
+                    
+                    @if(auth()->user()->wallet)
+                        <span class="balance">&#8358;{{ number_format(auth()->user()->wallet->balance, 2)}}</span>
+                    @else
+                        <span class="balance">&#8358;0.00</span>
+                    @endif                
                 </div>
 
                 <i class="fa custom-caret"></i>

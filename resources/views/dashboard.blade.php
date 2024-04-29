@@ -46,14 +46,18 @@
                             <div class="widget-summary" style="margin: 20px 0 20px 0;">
                                 <div class="widget-summary-col widget-summary-col-icon">
                                     <div class="summary-icon bg-secondary">
-                                        <i class="fas fa-dollar-sign"></i>
+                                        <i class="fa-solid fa-naira-sign"></i>
                                     </div>
                                 </div>
                                 <div class="widget-summary-col">
                                     <div class="summary">
                                         <h4><b>Wallet Balance</b></h4>
                                         <div class="info">
-                                            <h5 style="font-size: 33px;">N140,890.30</h5>
+                                            @if(auth()->user()->wallet)
+                                                <h5 style="font-size: 33px;">&#8358;{{ number_format(auth()->user()->wallet->balance, 2)}}</h5>
+                                            @else
+                                                <h5 style="font-size: 33px;">&#8358;0.00</h5>
+                                            @endif   
                                         </div>
                                     </div>
                                 </div>

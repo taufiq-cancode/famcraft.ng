@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\NewEnrollmentTransaction;
+use App\Models\Pricing;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 
 class NewEnrollmentController extends Controller
@@ -62,38 +65,52 @@ class NewEnrollmentController extends Controller
                 'parent_firstname' => 'required_if:type,child|max:255',
                 'parent_nin' => 'required_if:type,child|max:255',
                 'image' => 'required|image',
-                'left_4_fingers' => 'required|array',
-                'left_4_fingers.*' => 'required|max:2048',
+                'left_finger' => 'required|image',
+                'thumb_finger' => 'required|image',
                 'right_4_fingers' => 'required|array',
-                'right_4_fingers.*' => 'required|max:2048',
-                'thumb_2_fingers' => 'required|array',
-                'thumb_2_fingers.*' => 'required|max:2048',
+                'right_4_fingers.*' => 'required',
             ]);
 
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('images', 'public');
                 $data['image'] = $imagePath;
             }
-            
-            $leftImages = [];
-            foreach ($request->left_4_fingers as $image) {
-                $leftImages[] = $image->store('left_4_fingers', 'public');
+
+            if ($request->hasFile('left_finger')) {
+                $imagePath = $request->file('left_finger')->store('left_fingers', 'public');
+                $data['left_finger'] = $imagePath;
             }
 
+            if ($request->hasFile('thumb_finger')) {
+                $imagePath = $request->file('thumb_finger')->store('thumb_fingers', 'public');
+                $data['thumb_finger'] = $imagePath;
+            }
+            
             $rightImages = [];
             foreach ($request->right_4_fingers as $image) {
                 $rightImages[] = $image->store('right_4_fingers', 'public');
             }
 
-            $thumbImages = [];
-            foreach ($request->thumb_2_fingers as $image) {
-                $thumbImages[] = $image->store('thumb_2_fingers', 'public');
+            $data['right_4_fingers'] = json_encode($rightImages);
+            $data['user_id'] = $user->id;
+
+            $serviceFee = 0;
+            $enrollmentType = $request->type;
+
+            if ($enrollmentType === 'adult') {
+                $fee = Pricing::where('item_name', 'adult-enrollment')->first();
+            } elseif ($enrollmentType === 'child') {
+                $fee = Pricing::where('item_name', 'child-enrollment')->first();
             }
 
-            $data['left_4_fingers'] = json_encode($leftImages);
-            $data['right_4_fingers'] = json_encode($rightImages);
-            $data['thumb_2_fingers'] = json_encode($thumbImages);
-            $data['user_id'] = $user->id;
+            $serviceFee = $fee->price ?? null;
+
+            if ($user->wallet->balance < $serviceFee) {
+                DB::rollBack();
+                return back()->with('error', 'Insufficient balance.');
+            }
+            $user->wallet->balance -= $serviceFee;
+            $user->wallet->save();
 
             $transactionId = 'NEN' . rand(100000, 999999);
             while (NewEnrollmentTransaction::where('transaction_id', $transactionId)->exists()) {
@@ -101,6 +118,7 @@ class NewEnrollmentController extends Controller
             }
 
             $data['transaction_id'] = $transactionId;
+            $data['price'] = $serviceFee;
 
             $new_enrollment = NewEnrollmentTransaction::create($data);
     

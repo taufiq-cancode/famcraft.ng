@@ -29,14 +29,18 @@
                                 <div class="col-lg-6">
                                     <select name="item_name" class="form-control" required>
                                         <option>Select Item</option>
+                                        <option value="puk-retrieval">PUK Retrieval</option>
                                         <option value="per-verification-request">Per verification request</option>
                                         <option value="basic-slip">Basic slip</option>
                                         <option value="standard-slip">Standard slip</option>
-                                        <option value="improved-slip">Improved slip</option>
+                                        <option value="improved-nin-slip">Improved NIN slip</option>
                                         <option value="premium-slip">Premium slip</option>
                                         <option value="nvs-basic-slip">NVS basic slip</option>
                                         <option value="per-personalization-request">Per personalization request</option>
                                         <option value="no-record-found">No record found</option>
+                                        <option value="update-record">Update record</option>
+                                        <option value="validate-modification">Validate modification</option>
+                                        <option value="by-pass-nin">By pass nin</option>
                                         <option value="photograph-error">Photograph error</option>
                                         <option value="vnin-validation">V-NIN validation</option>
                                         <option value="in-processing-error">In processing error</option>
