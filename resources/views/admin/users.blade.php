@@ -31,7 +31,7 @@
                                     <td class="pt-desktop">{{ Illuminate\Support\Str::title($user->first_name) }} {{ Illuminate\Support\Str::title($user->last_name) }}</td>
                                     <td class="pt-desktop">{{ $user->email }}</td>
                                     <td class="pt-desktop">&#8358;{{ number_format(optional($user->wallet)->balance) }}</td>
-                                    <td class="hide-mob">{{ $user->created_at->format('jS F, Y') }} <br> {{ $user->created_at->format('g:i A') }}</td>
+                                    <td>{{ $user->created_at->format('jS F, Y') }} <br> {{ $user->created_at->format('g:i A') }}</td>
                                     <td class="pt-desktop">{{ $user->role }}</td>    
                                     <td class="pt-desktop">{{ $user->is_active ? 'Active' : 'Inactive' }}</td>    
 

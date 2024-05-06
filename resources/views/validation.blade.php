@@ -106,9 +106,9 @@
                                         <td class="pt-desktop">{{ $transaction->nin }}</td>
                                         <td class="pt-desktop">{{ $transaction->validation_category }}</td>
                                         <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
-                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
-                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
-                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
+                                        <td class="">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                         <td class="actions">
                                             <a href="{{ route('view.validation',['validationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>

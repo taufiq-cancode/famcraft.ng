@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::get('/payment-cancelled', function () {
+    return view('payment-cancelled');
+});
+
 Route::prefix('bills')->group(function () {
     
     Route::get('/buy-airtime', function () {

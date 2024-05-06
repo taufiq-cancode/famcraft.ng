@@ -66,7 +66,7 @@
                                     <tr>
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->title }}</td>
-                                        <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                         <td class="actions">
                                             <a href="{{ route('view.notification',['notificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
