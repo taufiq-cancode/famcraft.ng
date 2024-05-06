@@ -30,7 +30,7 @@ class PaymentController extends Controller
             'amount' => $amount_to_kobo,
             'callback_url' => "https://famcraft.ng/payment-status",
             'metadata' => [
-                "cancel_action" => "",
+                "cancel_action" => "https://famcraft.ng",
             ]
         ];
 
