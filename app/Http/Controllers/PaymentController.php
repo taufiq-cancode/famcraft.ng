@@ -51,6 +51,7 @@ class PaymentController extends Controller
         if ($response->successful() && $data['status'] === true) {
             return redirect()->away($data['data']['authorization_url']);
         } else {
+            Session::flash('error', 'Error processing payments');
             return view('payment-status')->with('error', 'Error processing payments');
         }
     }
