@@ -56,7 +56,7 @@
                                                     </header>
                                                     <div class="card-body">
                                                         <div class="modal-wrapper">
-                                                            <form id="paymentForm" action="{{ route('initializeTransaction') }}" class="form-horizontal form-bordered" method="POST"">
+                                                            <form id="payForm" action="{{ route('initializeTransaction') }}" class="form-horizontal form-bordered" method="POST"">
                                                                 @csrf
                                                                 @method('POST')
                                     
@@ -75,7 +75,7 @@
                                                     <footer class="card-footer">
                                                         <div class="row">
                                                             <div class="col-md-12 text-end">
-                                                                <button onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-primary modal-confirm">Proceed</button>
+                                                                <button onclick="event.preventDefault();document.getElementById('payForm').submit();" class="btn btn-primary modal-confirm">Proceed</button>
                                                                 <button class="btn btn-default modal-dismiss">Cancel</button>
                                                             </div>
                                                         </div>

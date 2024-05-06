@@ -89,7 +89,7 @@
 							<div class="header-column">
 								<div class="header-row">
 									<div class="header-logo">
-										<a href="demo-seo-2.html">
+										<a href="{{ route('welcome') }}">
 											<img alt="FamCraft" width="160" src="img/logos/logo.png">
 										</a>
 									</div>
@@ -102,7 +102,7 @@
 											<nav class="collapse">
 												<ul class="nav nav-pills" id="mainNav">
 													<li>
-														<a class="nav-link active" href="index.html">
+														<a class="nav-link active" href="{{ route('welcome') }}">
 															Home
 														</a>
 													</li>
