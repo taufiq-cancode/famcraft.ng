@@ -14,7 +14,10 @@ class ValidationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $transactions = ValidationTransaction::where('user_id', $user->id)->get();
+        $transactions = ValidationTransaction::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('validation', compact('transactions'));
     }
 

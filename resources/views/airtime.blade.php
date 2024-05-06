@@ -5,8 +5,9 @@
 
     <!-- start: page -->
 
-        <!-- purchase airtime -->
-        <div class="row">
+    @include('admin-theme.coming-soon')
+
+        {{-- <div class="row">
             <div class="col">
                 <section class="card card-airtime">
                     <header class="card-header">
@@ -57,7 +58,6 @@
             </div>
         </div>
 
-        <!-- airtime history -->
         <div class="row">
             <div class="col">
                 <section class="card mb-4">
@@ -106,7 +106,7 @@
                     </div>
                 </section>
             </div>
-        </div>
+        </div> --}}
 
     <!-- end: page -->
 </section>

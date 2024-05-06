@@ -14,54 +14,38 @@
     <div class="header-right">
 
         <ul class="notifications">
+            @php
+                $unreadNotificationsCount = auth()->user()->unreadNotifications()->count();
+                $userNotifies = auth()->user()->notifies;
+            @endphp
+
             <li>
                 <a href="#" class="dropdown-toggle notification-icon" data-bs-toggle="dropdown">
                     <i class="bx bx-bell"></i>
-                    <span class="badge">3</span>
+                    <span class="badge">{{ $unreadNotificationsCount }}</span>
                 </a>
 
                 <div class="dropdown-menu notification-menu">
                     <div class="notification-title">
-                        <span class="float-end badge badge-default">3</span>
-                        Alerts
+                        <span class="float-end badge badge-default">{{ $unreadNotificationsCount }}</span>
+                        Notifications
                     </div>
 
                     <div class="content">
                         <ul>
+                            @foreach($userNotifies as $notify)
                             <li>
-                                <a href="#" class="clearfix">
+                                <a href="{{ route('view.notification',['notificationId' => $notify->id]) }}" class="clearfix">    
                                     <div class="image">
-                                        <i class="fas fa-thumbs-down bg-danger text-light"></i>
+                                        <i class="fas fa-bell bg-success text-light"></i>
                                     </div>
-                                    <span class="title">Server is Down!</span>
-                                    <span class="message">Just now</span>
+                                    <span class="title">{{ $notify->title }}</span>
+                                    <span class="message">{{ $notify->pivot->read_at ? \Carbon\Carbon::parse($notify->created_at)->diffForHumans() : 'Unread' }}</span>
                                 </a>
+                                <hr>
                             </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="image">
-                                        <i class="bx bx-lock bg-warning text-light"></i>
-                                    </div>
-                                    <span class="title">User Locked</span>
-                                    <span class="message">15 minutes ago</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="clearfix">
-                                    <div class="image">
-                                        <i class="fas fa-signal bg-success text-light"></i>
-                                    </div>
-                                    <span class="title">Connection Restaured</span>
-                                    <span class="message">10/10/2023</span>
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
-
-                        <hr />
-
-                        <div class="text-end">
-                            <a href="#" class="view-more">View All</a>
-                        </div>
                     </div>
                 </div>
             </li>

@@ -52,7 +52,6 @@ class RegisteredUserController extends Controller
 
             Wallet::create([
                 'user_id' => $user->id,
-                'balance' => 10000
             ]);
     
             event(new Registered($user));

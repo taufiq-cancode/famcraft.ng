@@ -6,6 +6,22 @@
         padding-left: 0px;
         padding-right: 10px !important;
     }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield; 
+    }
+
+    @media screen and (max-width:798px) {
+        .mt-desktop-2 {
+            margin-top: 0px !important;
+        }
+    }
 </style>
 
 <section role="main" class="content-body">
@@ -30,9 +46,42 @@
                                     <div class="summary">
                                         <h4><b>Wallet Details</b></h4>
                                         <div class="info">
-                                            <h5><b>Account Name:</b> Taofeek Adekunle</h5>
-                                            <h5><b>Bank Name:</b> Paystack Titan</h5>
-                                            <h5><b>Account Number:</b> 0223611578</h5>
+                                            <h5><b>Account Name:</b> {{ Illuminate\Support\Str::title(auth()->user()->first_name) }} {{ Illuminate\Support\Str::title(auth()->user()->last_name) }}</h5>
+                                            <h5><b>Email:</b> {{ auth()->user()->email }}</h5>
+                                            <a href="#modalSM" class="mb-1 mt-1 me-1 modal-sizes btn btn-sm btn-primary">Top up wallet</a>
+                                            <div id="modalSM" class="modal-block modal-block-sm mfp-hide">
+                                                <section class="card">
+                                                    <header class="card-header">
+                                                        <h2 class="card-title">Wallet Top-up</h2>
+                                                    </header>
+                                                    <div class="card-body">
+                                                        <div class="modal-wrapper">
+                                                            <form id="paymentForm" action="{{ route('initializeTransaction') }}" class="form-horizontal form-bordered" method="POST"">
+                                                                @csrf
+                                                                @method('POST')
+                                    
+                                                                <div class="form-group row pb-4">
+                                                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Amount</label>
+                                                                    <div class="col-lg-6">
+                                                                        <input type="number" name="amount" class="form-control" id="inputDefault" placeholder="Enter top up amount">
+                                                                        <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                                                                        <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
+                                                                        <input type="hidden" name="payment_for" value="wallet-top-up">
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <footer class="card-footer">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-end">
+                                                                <button onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-primary modal-confirm">Proceed</button>
+                                                                <button class="btn btn-default modal-dismiss">Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </footer>
+                                                </section>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -43,7 +92,7 @@
                 <div class="col-xl-6">
                     <section class="card card-featured-left card-featured-secondary">
                         <div class="card-body">
-                            <div class="widget-summary" style="margin: 20px 0 20px 0;">
+                            <div class="widget-summary" style="margin: 25px 0;">
                                 <div class="widget-summary-col widget-summary-col-icon">
                                     <div class="summary-icon bg-secondary">
                                         <i class="fa-solid fa-naira-sign"></i>
@@ -54,9 +103,9 @@
                                         <h4><b>Wallet Balance</b></h4>
                                         <div class="info">
                                             @if(auth()->user()->wallet)
-                                                <h5 style="font-size: 33px;">&#8358;{{ number_format(auth()->user()->wallet->balance, 2)}}</h5>
+                                                <h5 style="font-size: 34px;">&#8358;{{ number_format(auth()->user()->wallet->balance, 2)}}</h5>
                                             @else
-                                                <h5 style="font-size: 33px;">&#8358;0.00</h5>
+                                                <h5 style="font-size: 34px;">&#8358;0.00</h5>
                                             @endif   
                                         </div>
                                     </div>
@@ -188,8 +237,15 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="cta-btn">
-                                <a href="{{ route('makeAgent') }}" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>
-                            </div>
+                                <form id="paymentForm" action="{{ route('initializeTransaction') }}" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                                    <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="payment_for" value="become-agent">
+                                    <input type="hidden" name="amount" id="amount" value="10000">
+                                </form>
+                                
+                                <a href="{{ route('initializeTransaction') }}" onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>
                         </div>
                     </div>
                 </div>
@@ -360,6 +416,29 @@
         </div>
     </div>
 
+    <div class="row mt-desktop-2">
+        <div class="col-12">
+            <section class="card mb-4">
+                <div class="card-body bg-success">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="cta">
+                                <br>
+                                <h3>Join our <strong>WhatsApp group</strong></h3>
+                                <p class="mb-4">Join our whatsapp group to get exlusive update and feedbacks</p>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="cta-btn">
+                                <a href="https://chat.whatsapp.com/HjN7zXVq6UMDpuMo5dDEBs" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black"> <i class="fab fa-whatsapp"></i> Join group</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
     <h2 class="font-weight-semibold mt-desktop" style="font-size: 1.5em;color: black;">Pricing</h2>
 
     <div class="row mt-desktop">
@@ -381,13 +460,24 @@
         </div>
     </div>
 
+ 
+
     
 @endif
-
-
-    
-
-    <!-- end: page -->
 </section>
 
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var numberInput = document.getElementById('numberInput').value;
+
+        var numberWithoutComma = numberInput.replace(/,/g, '');
+
+        document.getElementById('numberInput').value = numberWithoutComma;
+
+        // Submit the form programmatically
+        this.submit();
+    });
+</script>
 @endsection

@@ -2,10 +2,10 @@
 @section('content')
 
 <section role="main" class="content-body card-margin">
-
+    @include('admin-theme.coming-soon')
     <!-- start: page -->
 
-        <!-- purchase airtime -->
+        {{-- <!-- purchase airtime -->
         <div class="row">
             <div class="col">
                 <section class="card card-airtime">
@@ -121,7 +121,7 @@
                     </div>
                 </section>
             </div>
-        </div>
+        </div> --}}
 
     <!-- end: page -->
 </section>

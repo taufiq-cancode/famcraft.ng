@@ -67,8 +67,7 @@ class NewEnrollmentController extends Controller
                 'image' => 'required|image',
                 'left_finger' => 'required|image',
                 'thumb_finger' => 'required|image',
-                'right_4_fingers' => 'required|array',
-                'right_4_fingers.*' => 'required',
+                'right_finger' => 'required|image',
             ]);
 
             if ($request->hasFile('image')) {
@@ -85,13 +84,12 @@ class NewEnrollmentController extends Controller
                 $imagePath = $request->file('thumb_finger')->store('thumb_fingers', 'public');
                 $data['thumb_finger'] = $imagePath;
             }
-            
-            $rightImages = [];
-            foreach ($request->right_4_fingers as $image) {
-                $rightImages[] = $image->store('right_4_fingers', 'public');
+
+            if ($request->hasFile('right_finger')) {
+                $imagePath = $request->file('right_finger')->store('right_fingers', 'public');
+                $data['right_finger'] = $imagePath;
             }
 
-            $data['right_4_fingers'] = json_encode($rightImages);
             $data['user_id'] = $user->id;
 
             $serviceFee = 0;

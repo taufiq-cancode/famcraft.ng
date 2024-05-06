@@ -10,17 +10,24 @@
             <div class="col">
                 <section class="card card-airtime">
                     <header class="card-header">
-                        <h2 class="card-title">NIN Personalization</h2>
+                        <h2 class="card-title">Notifications</h2>
                     </header>
                     <div class="card-body">
-                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.personalization') }}">
+                        <form class="form-horizontal form-bordered" method="POST" action="{{ route('submit.notification') }}">
                             @csrf
                             @method('POST')
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Notification Title</label>
                                 <div class="col-lg-6">
-                                    <input type="text" name="tracking_id" class="form-control" id="inputDefault" placeholder="Enter tracking ID" maxlength="15">
+                                    <input type="text" name="title" class="form-control" id="inputDefault" placeholder="Enter notification title" maxlength="50">
+                                </div>
+                            </div>
+
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Notification Details</label>
+                                <div class="col-lg-6">
+                                    <textarea type="text" name="details" class="form-control" id="inputDefault" placeholder="Enter notification details"></textarea>
                                 </div>
                             </div>
 
@@ -42,18 +49,15 @@
             <div class="col">
                 <section class="card mb-4">
                     <header class="card-header">
-                        <h2 class="card-title">NIN Personalization History</h2>
+                        <h2 class="card-title">Notification History</h2>
                     </header>
                     <div class="card-body">
                         <table class="table table-responsive-md mb-0">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Tracking ID</th>
-                                    <th>Amount</th>
+                                    <th>Title</th>
                                     <th>Date</th>
-                                    <th>Status</th>
-                                    <th>Response</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
@@ -61,13 +65,10 @@
                                 @foreach ($transactions as $transaction)
                                     <tr>
                                         <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                        <td class="pt-desktop">{{ $transaction->tracking_id }}</td>
-                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
+                                        <td class="pt-desktop">{{ $transaction->title }}</td>
                                         <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
-                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
-                                        <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
                                         <td class="actions">
-                                            <a href="{{ route('view.personalization',['personalizationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
+                                            <a href="{{ route('view.notification',['notificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
                                 @endforeach

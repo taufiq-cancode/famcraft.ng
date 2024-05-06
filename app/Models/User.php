@@ -51,4 +51,25 @@ class User extends Authenticatable
     {
         return $this->hasOne(Wallet::class);
     }
+
+    public function notifies()
+    {
+        return $this->belongsToMany(Notify::class)
+            ->withPivot('read_at')
+            ->withTimestamps();
+    }
+
+    public function unreadNotifications()
+    {
+        return $this->belongsToMany(Notify::class)
+            ->withPivot('read_at')
+            ->wherePivotNull('read_at')
+            ->withTimestamps();
+    }
+
+    protected $casts = [
+        'read_at' => 'datetime',
+    ];
+
+
 }

@@ -2,10 +2,11 @@
 @section('content')
 
 <section role="main" class="content-body card-margin">
+    @include('admin-theme.coming-soon')
 
     <!-- start: page -->
     
-        <!-- Instructions -->
+        {{-- <!-- Instructions -->
         <div class="row mt-desktop-2">
             <div class="col-12">
                 
@@ -155,7 +156,7 @@
                     </div>
                 </section>
             </div>
-        </div>
+        </div> --}}
 
     <!-- end: page -->
 </section>

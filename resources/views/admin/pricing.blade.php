@@ -39,13 +39,13 @@
                                         <option value="per-personalization-request">Per personalization request</option>
                                         <option value="no-record-found">No record found</option>
                                         <option value="update-record">Update record</option>
-                                        <option value="validate-modification">Validate modification</option>
+                                        <option value="validation-modification">Validate modification</option>
                                         <option value="by-pass-nin">By pass nin</option>
                                         <option value="photograph-error">Photograph error</option>
-                                        <option value="vnin-validation">V-NIN validation</option>
+                                        <option value="v-nin-validation">V-NIN validation</option>
                                         <option value="in-processing-error">In processing error</option>
-                                        <option value="still-being-in-process">Still being in process</option>
-                                        <option value="new-enrollment-for-old-tracking">New enrollment for old tracking</option>
+                                        <option value="still-in-process">Still in process</option>
+                                        <option value="new-enrollment-for-old-tracking-id">New enrollment for old tracking ID</option>
                                         <option value="child-enrollment">Child enrollment</option>
                                         <option value="adult-enrollment">Adult enrollment</option>
                                         <option value="name-modification">Name modification</option>

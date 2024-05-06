@@ -141,11 +141,8 @@
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Postal/zip Code & Height <span style="color: red"> *</span></label>
-                                <div class="col-lg-3">
-                                    <input type="text" name="zipcode" value="{{ $transaction->zipcode }}" class="form-control" id="inputDefault" readonly="readonly">
-                                </div>
-                                <div class="col-lg-3">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Height <span style="color: red"> *</span></label>
+                                <div class="col-lg-6">
                                     <input type="text" name="height" value="{{ $transaction->height }}" class="form-control" id="inputDefault" readonly="readonly">
                                 </div>
                             </div>
@@ -221,20 +218,18 @@
                             </div>
                             
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Right 4 Fingers <span style="color: red"> *</span></label>
-                                @foreach(json_decode($transaction->right_4_fingers) as $finger)
-                                    <div class="col-lg-2 pe-2">
-                                        <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
-                                            <div class="thumbnail">
-                                                <div class="thumb-preview">
-                                                    <a class="thumb-image" href="{{ asset('storage/' . $finger) }}" target="_blank">
-                                                        <img src="{{ asset('storage/' . $finger) }}" class="img-fluid">
-                                                    </a>
-                                                </div>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Right Finger <span style="color: red"> *</span></label>
+                                <div class="col-lg-6">
+                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                        <div class="thumbnail">
+                                            <div class="thumb-preview">
+                                                <a class="thumb-image" href="{{ asset('storage/' . $transaction->right_finger) }}" target="_blank">
+                                                    <img src="{{ asset('storage/' . $transaction->right_finger) }}" class="img-fluid">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                </div>
                             </div>
                             
                             <div class="form-group row pb-4">

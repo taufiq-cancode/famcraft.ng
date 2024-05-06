@@ -42,7 +42,7 @@ class IPEClearanceController extends Controller
             } elseif ($ipeCategory === 'still-in-process') {
                 $fee = Pricing::where('item_name', 'still-in-process')->first();
             } elseif ($ipeCategory === 'new-enrollment-for-old-tracking-id') {
-                $fee = Pricing::where('item_name', 'new-enrollment-for-old-tracking')->first();
+                $fee = Pricing::where('item_name', 'new-enrollment-for-old-tracking-id')->first();
             }
 
             $serviceFee = $fee->price ?? null;

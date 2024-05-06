@@ -19,6 +19,13 @@
     margin-top: -105px !important;
 }
 
+.whatsapp-icon {
+    position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 9999;
+  }
+
 @media screen and (max-width:798px) {
     .landing-img{
         width: 450px; 
@@ -51,5 +58,8 @@
         margin-top:12px !important;
     }
 
+    .mt-desktop-2 {
+        margin-top: 0px !important;
+    }
 }
 

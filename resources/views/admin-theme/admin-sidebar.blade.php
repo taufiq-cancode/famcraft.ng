@@ -93,10 +93,10 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'users')?'nav-active':'' }}">
-                        <a href="{{ route('profile') }}">
+                    <li class=" {{ ($route == 'admin.users')?'nav-active':'' }}">
+                        <a href="{{ route('admin.users') }}">
                             <i class="icons icon-user" aria-hidden="true"></i>
-                            <span>Users/Agents</span>
+                            <span>Agents</span>
                         </a>                        
                     </li>
 

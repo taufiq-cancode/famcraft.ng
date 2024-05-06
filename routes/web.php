@@ -13,40 +13,55 @@ use App\Http\Controllers\ModificationController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/buy-airtime', function () {
-    return view('airtime');
-})->name('airtime');
+Route::prefix('bills')->group(function () {
+    
+    Route::get('/buy-airtime', function () {
+        return view('airtime');
+    })->name('airtime');
 
-Route::get('/buy-data', function () {
-    return view('data');
-})->name('data');
+    Route::get('/buy-data', function () {
+        return view('data');
+    })->name('data');
 
-Route::get('/cable-tv', function () {
-    return view('cable-tv');
-})->name('cable-tv');
+    Route::get('/cable-tv', function () {
+        return view('cable-tv');
+    })->name('cable-tv');
 
-Route::get('/airtime-cash', function () {
-    return view('airtime-cash');
-})->name('airtime-cash');
+    Route::get('/airtime-cash', function () {
+        return view('airtime-cash');
+    })->name('airtime-cash');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
+    Route::get('/electricity-payment', function () {
+        return view('airtime-cash');
+    })->name('electricity-payment');
 
+    Route::get('/result-pin', function () {
+        return view('airtime-cash');
+    })->name('result-pin');
 
+});
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/countries', 'CountryStateController@getCountries');
 Route::get('/states/{countryIso}', 'CountryStateController@getStates');
 
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/users/make-agent', [AgentController::class, 'makeAgent'])->name('makeAgent');
+    Route::post('/agent-access', [PaymentController::class, 'initializeTransaction'])->name('initializeTransaction');
+    Route::get('/payment-status', [PaymentController::class, 'handlePaymentCallback'])->name('payment.callback');
+    Route::get('/wallet', [PaymentController::class, 'index'])->name('wallet');
+    Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
+    Route::get('/notification/{notificationId}', [NotificationController::class, 'view'])->name('view.notification');
 
     Route::prefix('puk')->group(function () {
         Route::get('/', [PUKController::class, 'index'])->name('puk');
@@ -54,9 +69,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{pukTransactionId}', [PUKController::class, 'view'])->name('view.puk');
         Route::put('/{pukTransactionId}', [PUKController::class, 'update'])->name('update.puk');
     });
-
-    Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
-    Route::get('/tracks/{transactionId}', [TracksController::class, 'view'])->name('view.transaction');
     
     Route::prefix('nin')->group(function () {
         Route::prefix('validation')->group(function () {
@@ -100,6 +112,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{modificationId}', [ModificationController::class, 'view'])->name('view.modification');
             Route::put('/{modificationId}', [ModificationController::class, 'update'])->name('update.modification');
         });
+
+        Route::get('/{notificationId}', [NotificationController::class, 'view'])->name('view.notification');
     });
 
     Route::prefix('admin')->group(function () {
@@ -112,7 +126,21 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/{pricingId}', [PricingController::class, 'update'])->name('update.pricing');
             Route::delete('/{pricingId}', [PricingController::class, 'destroy'])->name('destroy.pricing');
         });
+
+        Route::prefix('notification')->group(function () {
+            Route::get('/', [NotificationController::class, 'index'])->name('admin.notification');
+            Route::post('/', [NotificationController::class, 'store'])->name('submit.notification');
+            Route::put('/{notificationId}', [NotificationController::class, 'update'])->name('update.notification');
+            Route::delete('/{notificationId}', [NotificationController::class, 'destroy'])->name('delete.notification');
+        });
         
+        Route::prefix('agent')->group(function () {
+            Route::get('/', [UsersController::class, 'index'])->name('admin.users');
+            Route::post('/', [UsersController::class, 'store'])->name('submit.user');
+            Route::get('/{userId}', [UsersController::class, 'view'])->name('view.user');
+            Route::put('/{userId}', [UsersController::class, 'update'])->name('update.user');
+        });
+
         Route::get('/puk', [AdminController::class, 'puk'])->name('admin.puk');
         Route::prefix('nin')->group(function () {
             Route::get('/verification', [AdminController::class, 'verification'])->name('admin.verification');

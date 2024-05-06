@@ -117,7 +117,7 @@ class ModificationController extends Controller
             } elseif ($modificationType === 'dob-other-modification') {
                 $fee = Pricing::where('item_name', 'dob-other-modification')->first();
             } elseif ($modificationType === 'others') {
-                $fee = Pricing::where('item_name', 'others')->first();
+                $fee = Pricing::where('item_name', 'other-modification')->first();
             }
 
             $serviceFee = $fee->price ?? null;

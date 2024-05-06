@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class VerificationController extends Controller
@@ -76,7 +77,9 @@ class VerificationController extends Controller
 
             $verification = VerificationTransaction::create($data);
     
-            if ($verification){
+            // $verifyAPI = $this->submitVerification($verification);
+
+            if ($verification) {
                 DB::commit();
                 return back()->with('success', 'Verification request submitted successfully.');
             }
@@ -86,6 +89,54 @@ class VerificationController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    // private function submitVerification(VerificationTransaction $verification)
+    // {
+    //     $endpoint = '';
+    //     switch ($verification->method) {
+    //         case 'by-demographics':
+    //             $endpoint = 'https://directverify.com.ng/api/doc/index.php';
+    //             break;
+    //         case 'by-phone':
+    //             $endpoint = 'https://directverify.com.ng/api/pnv/index.php';
+    //             break;
+    //         case 'by-nin':
+    //             $endpoint = 'https://directverify.com.ng/api/nin/index.php';
+    //             break;
+    //         default:
+    //             return null;
+    //     }
+
+    //     $requestData = [];
+    //     switch ($verification->method) {
+    //         case 'by-demographics':
+    //             break;
+    //         case 'by-phone':
+    //             break;
+    //         case 'by-nin':
+    //             break;
+    //         default:
+    //             return null;
+    //     }
+
+    //     $response = Http::withHeaders([
+    //         'Authorization' => 'Bearer ' . env('DIRECTVERIFY_API_KEY'),
+    //         'Content-Type' => 'application/json',
+    //     ])->post($endpoint, $requestData);
+
+    //     if ($response->successful()) {
+    //         $responseData = $response->json();
+    //         if (isset($responseData['transaction_id'])) {
+    //             $transactionId = $responseData['transaction_id'];
+    //             $verification->update(['transaction_id' => $transactionId]);
+    //             return $transactionId;
+    //         } else {
+    //             return null;
+    //         }
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
     public function view($verificationId)
     {

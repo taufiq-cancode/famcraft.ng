@@ -60,6 +60,23 @@
 		</script>
 	@endif
 
+	<style>
+		.whatsapp-icon {
+			position: fixed;
+			bottom: 20px; /* Adjust as needed */
+			right: 20px; /* Adjust as needed */
+			z-index: 9999;
+			background-color: green; /* Background color */
+			color: white; /* Icon color */
+			padding: 10px; /* Adjust padding as needed */
+			border-radius: 50%; /* Make it round */
+			transition: background-color 0.3s; /* Add transition effect */
+			}
+
+			.whatsapp-icon:hover {
+			background-color: darkgreen; /* Hover background color */
+			}
+	</style>
 	<body>
 		<section class="body">
 
@@ -84,7 +101,7 @@
 				@yield('content')
 
 			</div>
-
+			
 			<!-- start: sidebar -->
 			@include('admin-theme.footer')
 			<!-- end: sidebar -->
@@ -140,6 +157,10 @@
 
 		<!-- Examples -->
 		<script src="{{ asset('admin/js/examples/examples.dashboard.js') }}"></script>
+		<script src="{{ asset('admin/js/examples/examples.modals.js') }}"></script>
 
+		{{-- <a href="https://chat.whatsapp.com/HjN7zXVq6UMDpuMo5dDEBs" class="whatsapp-icon" target="_blank">
+			<i class="fab fa-whatsapp"></i> <!-- Font Awesome WhatsApp icon -->
+		</a> --}}
 	</body>
 </html>

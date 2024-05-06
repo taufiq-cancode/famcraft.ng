@@ -40,7 +40,7 @@ class NewEnrollmentTransaction extends Model
         'parent_nin',
         'image',
         'left_finger',
-        'right_4_fingers',
+        'right_finger',
         'thumb_finger',
         'response_text',
         'response_pdf',
@@ -49,7 +49,6 @@ class NewEnrollmentTransaction extends Model
     ];
 
     protected $casts = [
-        'right_4_fingers',
         'response_pdf'
     ];
 

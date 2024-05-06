@@ -127,7 +127,7 @@
                                     <input type="text" name="address_line_1" class="form-control" id="inputDefault" placeholder="Address line 1" required>
                                 </div>
                                 <div class="col-lg-3">
-                                    <input type="text" name="address_line_2" class="form-control form-mt" id="inputDefault" placeholder="Address line 1">
+                                    <input type="text" name="address_line_2" class="form-control form-mt" id="inputDefault" placeholder="Address line 2">
                                 </div>
                             </div>
 
@@ -203,9 +203,9 @@
                             </div>
 
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Right 4 Fingers <span style="color: red"> *</span></label>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Right Finger <span style="color: red"> *</span></label>
                                 <div class="col-lg-6">
-                                    <input type="file" name="right_4_fingers[]" class="form-control" id="max4" accept="image/jpeg, image/jpg, image/png" multiple required>
+                                    <input type="file" name="right_finger" class="form-control" id="inputDefault" accept="image/jpeg, image/jpg, image/png" required>
                                 </div>
                             </div>
 
@@ -256,7 +256,7 @@
                                 <td class="pt-desktop">{{ $loop->iteration }}</td>
                                 <td class="pt-desktop">{{ $transaction->email }}</td>
                                 <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->type) }}</td>
-                                <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
+                                <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
                                 <td class="hide-mob">{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                 <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
                                 <td class="pt-desktop hide-mob">{{ Illuminate\Support\Str::title($transaction->response) }}</td>
