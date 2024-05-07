@@ -29,9 +29,9 @@ class PaymentController extends Controller
             $fields = [
                 'email' => $request->input('email'),
                 'amount' => $amount_to_kobo,
-                'callback_url' => "https://famcraft.ng/payment-status",
+                'callback_url' => "http://127.0.0.1:8000/payment-status",
                 'metadata' => [
-                    "cancel_action" => "https://famcraft.ng/payment-cancelled",
+                    "cancel_action" => "http://127.0.0.1:8000/payment-cancelled",
                 ]
             ];
 

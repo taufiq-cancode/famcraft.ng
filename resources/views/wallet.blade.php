@@ -116,28 +116,30 @@
                     <h2 class="card-title">Transaction History</h2>
                 </header>
                 <div class="card-body">
-                    <table class="table table-responsive-md mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Transaction Type</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($transactions as $transaction)
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md mb-0">
+                            <thead>
                                 <tr>
-                                    <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                    <td class="pt-desktop">{{ $transaction->payment_for }}</td>
-                                    <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
-                                    <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
-                                    <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                    <th>#</th>
+                                    <th>Transaction Type</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
                                 </tr>
-                                @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($transactions as $transaction)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ $transaction->payment_for }}</td>
+                                        <td class="pt-desktop">&#8358;{{ number_format($transaction->amount) }}</td>
+                                        <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($transaction->status) }}</td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>

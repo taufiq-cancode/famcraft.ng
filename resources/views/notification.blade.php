@@ -52,37 +52,39 @@
                         <h2 class="card-title">Notification History</h2>
                     </header>
                     <div class="card-body">
-                        <table class="table table-responsive-md mb-0">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($notifies as $notify)
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md mb-0">
+                                <thead>
                                     <tr>
-                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                        <td class="pt-desktop">{{ $notify->title }}</td>
-                                        <td class="">{{ $notify->created_at->format('jS F, Y') }} <br> {{ $notify->created_at->format('g:i A') }}</td>
-                                        <td class="actions">
-                                            <a href="{{ route('view.notification',['notificationId' => $notify->id]) }}" class="mb-1 mt-1 me-1 btn btn-primary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
-                                        </td>
-                                        <td class="actions">
-                                            <form action="{{ route('delete.notification', ['notificationId' => $notify->id]) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="mb-1 mt-1 me-1 btn btn-danger" style="color: white">
-                                                    <span class="hide-mob">Delete</span> <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>View</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($notifies as $notify)
+                                        <tr>
+                                            <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                            <td class="pt-desktop">{{ $notify->title }}</td>
+                                            <td class="">{{ $notify->created_at->format('jS F, Y') }} <br> {{ $notify->created_at->format('g:i A') }}</td>
+                                            <td class="actions">
+                                                <a href="{{ route('view.notification',['notificationId' => $notify->id]) }}" class="mb-1 mt-1 me-1 btn btn-primary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
+                                            </td>
+                                            <td class="actions">
+                                                <form action="{{ route('delete.notification', ['notificationId' => $notify->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="mb-1 mt-1 me-1 btn btn-danger" style="color: white">
+                                                        <span class="hide-mob">Delete</span> <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
             </div>

@@ -52,28 +52,30 @@
                         <h2 class="card-title">Notification History</h2>
                     </header>
                     <div class="card-body">
-                        <table class="table table-responsive-md mb-0">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Title</th>
-                                    <th>Date</th>
-                                    <th>View</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($transactions as $transaction)
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md mb-0">
+                                <thead>
                                     <tr>
-                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
-                                        <td class="pt-desktop">{{ $transaction->title }}</td>
-                                        <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
-                                        <td class="actions">
-                                            <a href="{{ route('view.notification',['notificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
-                                        </td>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Date</th>
+                                        <th>View</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($transactions as $transaction)
+                                        <tr>
+                                            <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                            <td class="pt-desktop">{{ $transaction->title }}</td>
+                                            <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
+                                            <td class="actions">
+                                                <a href="{{ route('view.notification',['notificationId' => $transaction->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </section>
             </div>
