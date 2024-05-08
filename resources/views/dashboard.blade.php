@@ -56,7 +56,8 @@
                                                     </header>
                                                     <div class="card-body">
                                                         <div class="modal-wrapper">
-                                                            <form id="payForm" action="{{ route('initializeTransaction') }}" class="form-horizontal form-bordered" method="POST"">
+                                                            {{-- <form id="payForm" action="{{ route('initializeTransaction') }}" class="form-horizontal form-bordered" method="POST""> --}}
+                                                            <form id="payForm" action="#" class="form-horizontal form-bordered" method="POST"">
                                                                 @csrf
                                                                 @method('POST')
                                     
@@ -75,7 +76,7 @@
                                                     <footer class="card-footer">
                                                         <div class="row">
                                                             <div class="col-md-12 text-end">
-                                                                <button onclick="event.preventDefault();document.getElementById('payForm').submit();" class="btn btn-primary modal-confirm">Proceed</button>
+                                                                {{-- <button onclick="event.preventDefault();document.getElementById('payForm').submit();" class="btn btn-primary modal-confirm">Proceed</button> --}}
                                                                 <button class="btn btn-default modal-dismiss">Cancel</button>
                                                             </div>
                                                         </div>
@@ -237,15 +238,16 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="cta-btn">
-                                <form id="paymentForm" action="{{ route('initializeTransaction') }}" method="POST" style="display: none;">
+                                {{-- <form id="paymentForm" action="{{ route('initializeTransaction') }}" method="POST" style="display: none;"> --}}
+                                <form id="paymentForm" action="#" method="POST" style="display: none;">
                                     @csrf
                                     <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
                                     <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="payment_for" value="become-agent">
                                     <input type="hidden" name="amount" id="amount" value="10000">
                                 </form>
-                                
-                                <a href="{{ route('initializeTransaction') }}" onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>
+                                {{-- <a href="{{ route('initializeTransaction') }}" onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>                                 --}}
+                                <a href="#" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>
                         </div>
                     </div>
                 </div>

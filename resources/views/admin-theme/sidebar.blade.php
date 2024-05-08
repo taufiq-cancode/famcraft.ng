@@ -111,11 +111,11 @@
                                 </a>                        
                             </li>
 
-                            <li class=" {{ ($route == 'airtime-cash')?'nav-active':'' }}">
+                            {{-- <li class=" {{ ($route == 'airtime-cash')?'nav-active':'' }}">
                                 <a href="{{ route('airtime-cash') }}">
                                     Airtime to Cash
                                 </a>                        
-                            </li>
+                            </li> --}}
                         </ul>
                     </li>
 

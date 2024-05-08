@@ -41,9 +41,9 @@ Route::prefix('bills')->group(function () {
         return view('cable-tv');
     })->name('cable-tv');
 
-    Route::get('/airtime-cash', function () {
-        return view('airtime-cash');
-    })->name('airtime-cash');
+    // Route::get('/airtime-cash', function () {
+    //     return view('airtime-cash');
+    // })->name('airtime-cash');
 
     Route::get('/electricity-payment', function () {
         return view('airtime-cash');
