@@ -111,7 +111,7 @@ class ValidationController extends Controller
             if ($request->hasFile('response_pdf')) {
                 $filePaths = [];
                 foreach ($request->file('response_pdf') as $file) {
-                    $path = $file->store('response_pdfs');
+                    $path = $file->store('response_pdfs', 'public');
                     $filePaths[] = $path;
                 }
                 $data['response_pdf'] = array_merge((array) $validation->response_pdf, $filePaths);

@@ -22,7 +22,7 @@
             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Response PDF(s)</label>
             <div class="col-lg-6">
                 @foreach(json_decode($transaction->response_pdf) as $pdf)
-                    <a href="{{ asset($pdf) }}" download class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Slip</a><br>
+                    <a href="{{ route('file.download', ['filename' => basename($pdf)]) }}" class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Slip</a><br>
                 @endforeach
             </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="col-lg-6">
                 @foreach(json_decode($transaction->response_pdf) as $pdf)
                     <div class="col-lg-3">
-                        <a href="{{ asset($pdf) }}" download class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Slip </a><br>
+                        <a href="{{ route('file.download', ['filename' => urlencode(basename($pdf))]) }}" class="mt-1 me-1 btn btn-secondary btn-lg btn-block">Download Slip</a><br>
                     </div>
                 @endforeach
             </div>

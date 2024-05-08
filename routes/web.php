@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -57,6 +58,7 @@ Route::prefix('bills')->group(function () {
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/countries', 'CountryStateController@getCountries');
 Route::get('/states/{countryIso}', 'CountryStateController@getStates');
+Route::get('/download/{filename}', [FileController::class, 'download'])->name('file.download');
 
 Route::middleware(['auth'])->group(function () {
 
