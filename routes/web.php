@@ -17,6 +17,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -62,9 +63,12 @@ Route::get('/download/{filename}', [FileController::class, 'download'])->name('f
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::post('/search', [SearchController::class, 'index'])->name('search');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/agent-access', [PaymentController::class, 'initializeTransaction'])->name('initializeTransaction');
     Route::get('/payment-status', [PaymentController::class, 'handlePaymentCallback'])->name('payment.callback');
+    Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/wallet', [PaymentController::class, 'index'])->name('wallet');
     Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
     Route::get('/notification/{notificationId}', [NotificationController::class, 'view'])->name('view.notification');
@@ -125,6 +129,10 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+
+        //VIEW PAYMENT
+        Route::get('/payment/{paymentId}', [PaymentController::class, 'view'])->name('view.payment');
+        Route::put('/payment/{paymentId}', [PaymentController::class, 'update'])->name('update.payment');
 
         Route::prefix('pricing')->group(function () {
             Route::get('/', [PricingController::class, 'index'])->name('admin.pricing');

@@ -13,6 +13,18 @@
     <!-- start: search & user box -->
     <div class="header-right">
 
+        @if (auth()->user()->role === "Administrator")
+            <form action="{{ route('search') }}" class="search nav-form" method="POST">
+                @csrf
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" id="q" placeholder="Search...">
+                    <button class="btn btn-default" type="submit"><i class="bx bx-search"></i></button>
+                </div>
+            </form>
+
+            <span class="separator"></span>
+        @endif
+        
         <ul class="notifications">
             @php
                 $unreadNotificationsCount = auth()->user()->unreadNotifications()->count();

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="left-sidebar-panel sidebar-light">
 	<head>
-
+		<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
@@ -61,21 +61,25 @@
 	@endif
 
 	<style>
-		.whatsapp-icon {
-			position: fixed;
-			bottom: 20px; /* Adjust as needed */
-			right: 20px; /* Adjust as needed */
-			z-index: 9999;
-			background-color: green; /* Background color */
-			color: white; /* Icon color */
-			padding: 10px; /* Adjust padding as needed */
-			border-radius: 50%; /* Make it round */
-			transition: background-color 0.3s; /* Add transition effect */
-			}
+		.whatsapp {
+			display: none; /* Hidden by default */
+			position: fixed; /* Fixed/sticky position */
+			bottom: 20px; /* Place the button at the bottom of the page */
+			right: 30px; /* Place the button 30px from the right */
+			z-index: 99; /* Make sure it does not overlap */
+			border: none; /* Remove borders */
+			outline: none; /* Remove outline */
+			background-color: red; /* Set a background color */
+			color: white; /* Text color */
+			cursor: pointer; /* Add a mouse pointer on hover */
+			padding: 15px; /* Some padding */
+			border-radius: 10px; /* Rounded corners */
+			font-size: 18px; /* Increase font size */
+		}
 
-			.whatsapp-icon:hover {
-			background-color: darkgreen; /* Hover background color */
-			}
+		.whatsapp:hover {
+			background-color: #555; /* Add a dark-grey background on hover */
+		}
 	</style>
 	<body>
 		<section class="body">
@@ -101,7 +105,9 @@
 				@yield('content')
 
 			</div>
-			
+
+			<a href="wa.me/2348164418223" class="whatsapp">Support</a>
+
 			<!-- start: sidebar -->
 			@include('admin-theme.footer')
 			<!-- end: sidebar -->

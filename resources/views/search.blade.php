@@ -1,6 +1,18 @@
 @extends('admin-theme.theme-master')
 @section('content')
 
+<style>
+    .marg{
+        margin-top:0.6rem !important;
+    }
+
+    @media screen and (max-width:798px){
+        .marg{
+            margin-top:2px !important;
+        }
+    }
+</style>
+
 <section role="main" class="content-body">
     <!-- start: page -->
 
@@ -10,7 +22,7 @@
                 <header class="card-header">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h2 class="card-title" style="margin-top: 0.7rem !important;">Agents</h2>
+                            <h2 class="card-title marg">Search Results</h2>
                         </div>
 
                         <div>

@@ -96,7 +96,7 @@
                     <li class=" {{ ($route == 'admin.users')?'nav-active':'' }}">
                         <a href="{{ route('admin.users') }}">
                             <i class="icons icon-user" aria-hidden="true"></i>
-                            <span>Agents</span>
+                            <span>Agents/Users</span>
                         </a>                        
                     </li>
 

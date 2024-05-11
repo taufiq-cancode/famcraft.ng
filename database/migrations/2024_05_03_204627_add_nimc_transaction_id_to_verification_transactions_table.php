@@ -23,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('verification_transactions', function (Blueprint $table) {
             $table->dropColumn('nimc_transaction_id');
-
         });
     }
 };

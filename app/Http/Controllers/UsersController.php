@@ -30,7 +30,9 @@ class UsersController extends Controller
                 return back()->with('error', 'Unauthorized access');
             }
 
-            $user = User::with('wallet')->findOrFail($userId);
+            $user = User::with(['wallet', 'payments' => function ($query) {
+                $query->orderByDesc('created_at');
+            }])->findOrFail($userId);
             
             if (!$user) {
                 return back()->with('error', 'User not found.');
@@ -51,8 +53,9 @@ class UsersController extends Controller
             }
             
             $request->validate([
-                'topup_amount' => 'sometimes|numeric|min:0',
+                'topup_amount' => 'nullable|numeric|min:0',
                 'status' => 'sometimes|in:active,inactive',
+                'role' => 'sometimes|in:Agent,User',
             ]);
 
             $user = User::findOrFail($userId);
@@ -65,6 +68,11 @@ class UsersController extends Controller
             if ($request->filled('status')) {
                 $status = $request->input('status');
                 $user->update(['status' => $status]);
+            }
+
+            if ($request->filled('role')) {
+                $status = $request->input('role');
+                $user->update(['role' => $status]);
             }
 
             return redirect()->route('view.user', $user->id)->with('success', 'User updated successfully.');
