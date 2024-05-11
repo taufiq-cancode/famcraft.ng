@@ -88,7 +88,7 @@
                 <ul class="list-unstyled mb-2">
                     <li class="divider"></li>
                     <li>
-                        <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="bx bx-user-circle"></i> My Profile</a>
+                        <a role="menuitem" tabindex="-1" href="{{ route('profile') }}"><i class="bx bx-user-circle"></i> My Profile</a>
                     </li>
                     <li>
                         <a role="menuitem" tabindex="-1" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="bx bx-power-off"></i> Logout</a>

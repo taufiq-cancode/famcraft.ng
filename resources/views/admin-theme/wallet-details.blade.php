@@ -43,14 +43,14 @@
                                             <div class="form-group row pb-2">
                                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Bank Name</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" value="Moniepoint" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                    <input type="text" value="Palmpay" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                                 </div>
                                             </div>
 
                                             <div class="form-group row pb-2">
                                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Account Number &nbsp; <span id="copyText">(Click to copy)</span></label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" value="0223611578" id="accountNumber" class="form-control" readonly="readonly">                         
+                                                    <input type="text" value="8164418223" id="accountNumber" class="form-control" readonly="readonly">                         
                                                 </div>
                                                 <script>
                                                     document.addEventListener('DOMContentLoaded', function() {
@@ -74,7 +74,7 @@
                                             <div class="form-group row pb-2">
                                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Account Name</label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" value="Famcraft Technologies" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                    <input type="text" value="Umukoro Famous" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                                 </div>
                                             </div>
                 
