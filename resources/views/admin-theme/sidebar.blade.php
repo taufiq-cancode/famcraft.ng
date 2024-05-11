@@ -149,6 +149,13 @@
                             @csrf
                         </form>                        
                     </li>
+                    <br>
+                    <li class="">
+                        <a href="https://wa.me/2348164418223" style="color: green; font-weight: bold;">
+                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            <span>Contact Support</span>
+                        </a>                        
+                    </li>
 
                 </ul>
             </nav>
