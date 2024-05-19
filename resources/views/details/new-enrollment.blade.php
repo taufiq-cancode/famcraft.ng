@@ -116,9 +116,7 @@
                                     <input type="text" name="state_of_residence" value="{{ $transaction->state_of_residence }}" class="form-control" id="inputDefault" readonly="readonly">
                                 </div>
                             </div>
-
-                            
-                            
+ 
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">LGA of Residence & Town/city<span style="color: red"> *</span></label>
                                 <div class="col-lg-3">

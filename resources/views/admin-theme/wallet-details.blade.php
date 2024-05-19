@@ -20,6 +20,40 @@
                         <h5><b>Account Name:</b> {{ Illuminate\Support\Str::title(auth()->user()->first_name) }} {{ Illuminate\Support\Str::title(auth()->user()->last_name) }}</h5>
                         <h5><b>Email:</b> {{ auth()->user()->email }}</h5>
                         <a href="#modalMD" class="mb-1 mt-1 me-1 modal-sizes btn btn-sm btn-primary">Top up wallet</a>
+                        <div id="modalSM" class="modal-block modal-block-sm mfp-hide">
+                            <section class="card">
+                                <header class="card-header">
+                                    <h2 class="card-title">Wallet Top-up</h2>
+                                </header>
+                                <div class="card-body">
+                                    <div class="modal-wrapper">
+                                        <form id="paymentForm" class="form-horizontal form-bordered" method="POST">
+                                            @csrf
+                                            @method('POST')
+
+                                            <div class="form-group row pb-2">
+                                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Amount</label>
+                                                <div class="col-lg-6">
+                                                    <input type="number" name="amount" class="form-control" id="amountInput" placeholder="Enter top up amount">
+                                                    <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
+                                                    <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
+                                                    <input type="hidden" name="payment_for" value="wallet-top-up">
+                                                    <input type="hidden" name="payment_type" value="online-gateway">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <footer class="card-footer">
+                                    <div class="row">
+                                        <div class="col-md-12 text-end">
+                                            <button type="submit" value="submit" class="btn btn-primary modal-confirm">Proceed</button>
+                                            <button class="btn btn-default modal-dismiss">Cancel</button>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </section>
+                        </div>
                         <div id="modalMD" class="modal-block modal-block-md mfp-hide">
                             <section class="card">
                                 <header class="card-header">
@@ -115,38 +149,32 @@
         </div>
     </div>
 </section>
-
-{{-- <script>
-    function proceedWithPayment() {
-        // Read form data
-        const amount = document.getElementById('amountInput').value;
+<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const amount = document.getElementById('amount').value;
         const email = document.getElementById('email').value;
-        const userId = document.getElementById('userid').value;
-
+        
         const options = {
             amount: amount,
-            currency: 'NGN', // Assuming currency is always NGN
+            currency: 'NGN',
             domain: 'sandbox',
-            key: '{{ env('VPAY_KEY') }}', // Accessing key from .env file
+            key: 'fdcdb195-6553-4890-844c-ee576b7ea715',
             email: email,
-            transactionref: generateUniqueTransactionRef(), // Function to generate a unique transaction reference
-            customer_logo: 'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
+            transactionref: 'z31zs098zas8w3774h44344f8yg',
+            customer_logo:'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
             customer_service_channel: '+2348030007000, support@org.com',
             txn_charge: 6,
             txn_charge_type: 'flat',
-            onSuccess: function(response) { 
-                console.log('Payment successful!', response.message); 
-                // Handle success in Laravel backend if needed
-            },
-            onExit: function(response) { 
-                console.log('Payment cancelled or failed!', response.message); 
-                // Handle exit in Laravel backend if needed
-            }
+            onSuccess: function(response) { console.log('Hello World!', response.message); },
+            onExit: function(response) { console.log('Hello World!', response.message); }
         }
-
-        if (window.VPayDropin) {
-            const { open } = VPayDropin.create(options);
+        
+        if(window.VPayDropin){
+            const {open, exit} = VPayDropin.create(options);
             open();                    
-        }
-    }
-</script> --}}
+        }                
+    });
+</script>

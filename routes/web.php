@@ -18,6 +18,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SlipController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,10 @@ Route::get('/', function () {
 
 Route::get('/payment-cancelled', function () {
     return view('payment-cancelled');
+});
+
+Route::get('/slip', function () {
+    return view('slip.test');
 });
 
 Route::prefix('bills')->group(function () {
@@ -56,10 +61,20 @@ Route::prefix('bills')->group(function () {
 
 });
 
+Route::get('/slip/premium', [SlipController::class, 'premium'])->name('slip.premium');
+Route::get('/slip/standard', [SlipController::class, 'standard'])->name('slip.standard');
+Route::get('/slip/improved', [SlipController::class, 'improved'])->name('slip.improved');
+Route::get('/slip/basic', [SlipController::class, 'basic'])->name('slip.basic');
+Route::get('/slip/nvs', [SlipController::class, 'nvs'])->name('slip.nvs');
+
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/countries', 'CountryStateController@getCountries');
 Route::get('/states/{countryIso}', 'CountryStateController@getStates');
 Route::get('/download/{filename}', [FileController::class, 'download'])->name('file.download');
+Route::get('/slip-download/{filename}', [FileController::class, 'slipDownload'])->name('slip.download');
+
+// Route::get('/slip-premium', [SlipController::class, , 'premium'])->name('slip.premium');
+
 
 Route::middleware(['auth'])->group(function () {
 

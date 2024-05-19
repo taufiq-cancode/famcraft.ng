@@ -86,10 +86,10 @@
                         </a>                        
                     </li>
 
-                    <li class=" {{ ($route == 'admin.pricing')?'nav-active':'' }}">
-                        <a href="{{ route('admin.pricing') }}">
-                            <i class="fa-solid fa-naira-sign" aria-hidden="true"></i>
-                            <span>Pricing</span>
+                    <li class=" {{ ($route == 'admin.notification')?'nav-active':'' }}">
+                        <a href="{{ route('admin.notification') }}">
+                            <i class="bx bx-bell" aria-hidden="true"></i>
+                            <span>Notifications</span>
                         </a>                        
                     </li>
 
@@ -97,6 +97,13 @@
                         <a href="{{ route('admin.users') }}">
                             <i class="icons icon-user" aria-hidden="true"></i>
                             <span>Agents/Users</span>
+                        </a>                        
+                    </li>
+
+                    <li class=" {{ ($route == 'admin.pricing')?'nav-active':'' }}">
+                        <a href="{{ route('admin.pricing') }}">
+                            <i class="fa-solid fa-naira-sign" aria-hidden="true"></i>
+                            <span>Pricing</span>
                         </a>                        
                     </li>
 

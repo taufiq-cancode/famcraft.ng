@@ -20,6 +20,12 @@ class FileController extends Controller
         // return Storage::download($path);
     }
 
+    public function slipDownload($filename)
+    {
+        $path = public_path('storage/slips/' . $filename);
+        return response()->download($path);
+    }
+
     // public function download($courseId){
     //     try{
 

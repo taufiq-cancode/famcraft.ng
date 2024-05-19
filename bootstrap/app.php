@@ -14,5 +14,5 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        return redirect()->back()->withErrors('An error occurred!');
     })->create();

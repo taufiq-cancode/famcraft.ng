@@ -24,9 +24,9 @@
                                 <div class="col-lg-6">
                                     <select id="verifyMethod" name="method" class="form-control mb-3" required>
                                         <option value="">Select Verification Method</option>
+                                        <option value="by-nin">By NIN Number</option>
                                         <option value="by-demographics">By Demographics</option>
                                         <option value="by-phone">By Phone Number</option>
-                                        <option value="by-nin">By NIN Number</option>
                                     </select>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                         <option value="premium-slip">Premium Slip</option>
                                         <option value="standard-slip">Standard Slip</option>
                                         <option value="improved-nin-slip">Improved NIN Slip</option>
-                                        <option value="basic-slip">Basic Slip</option>
+                                        {{-- <option value="basic-slip">Basic Slip</option> --}}
                                     </select>
                                 </div>
                             </div>

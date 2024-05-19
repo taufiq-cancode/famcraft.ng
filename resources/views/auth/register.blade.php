@@ -113,7 +113,7 @@
 								<span>or</span>
                             </span>
 
-							<p class="text-center">Already have an account? <a href="pages-signin.html">Sign In!</a></p>
+							<p class="text-center">Already have an account? <a href="{{ route('login') }}">Sign In!</a></p>
 
 						</form>
 					</div>
