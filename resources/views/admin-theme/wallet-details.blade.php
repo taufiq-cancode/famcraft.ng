@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <style>
     .green-text {
         color: green;
@@ -19,7 +21,7 @@
                     <div class="info">
                         <h5><b>Account Name:</b> {{ Illuminate\Support\Str::title(auth()->user()->first_name) }} {{ Illuminate\Support\Str::title(auth()->user()->last_name) }}</h5>
                         <h5><b>Email:</b> {{ auth()->user()->email }}</h5>
-                        <a href="#modalMD" class="mb-1 mt-1 me-1 modal-sizes btn btn-sm btn-primary">Top up wallet</a>
+                        <a href="#modalSM" class="mb-1 mt-1 me-1 modal-sizes btn btn-sm btn-primary">Top up wallet</a>
                         <div id="modalSM" class="modal-block modal-block-sm mfp-hide">
                             <section class="card">
                                 <header class="card-header">
@@ -34,7 +36,7 @@
                                             <div class="form-group row pb-2">
                                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Amount</label>
                                                 <div class="col-lg-6">
-                                                    <input type="number" name="amount" class="form-control" id="amountInput" placeholder="Enter top up amount">
+                                                    <input type="number" name="amount" class="form-control" id="amount" placeholder="Enter top up amount">
                                                     <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
                                                     <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
                                                     <input type="hidden" name="payment_for" value="wallet-top-up">
@@ -47,7 +49,7 @@
                                 <footer class="card-footer">
                                     <div class="row">
                                         <div class="col-md-12 text-end">
-                                            <button type="submit" value="submit" class="btn btn-primary modal-confirm">Proceed</button>
+                                            <button class="btn btn-primary" type="submit" id="submit" onclick="handleProceed()">Proceed</button>
                                             <button class="btn btn-default modal-dismiss">Cancel</button>
                                         </div>
                                     </div>
@@ -149,32 +151,72 @@
         </div>
     </div>
 </section>
+
+@php
+    $vpayApiKey = env('VPAY_API_KEY');
+@endphp
+
 <script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
+
 <script>
-    document.getElementById('paymentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
+    function getCsrfToken() {
+        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    }
+
+    function generateTransactionRef() {
+        const timestamp = Date.now();
+        const randomNum = Math.floor(Math.random() * 1000000);
+        return `trx-${timestamp}-${randomNum}`;
+    }
+
+    function handleProceed() {
         const amount = document.getElementById('amount').value;
         const email = document.getElementById('email').value;
-        
+        const userId = document.getElementById('userid').value;
+        const payment_for = 'wallet-top-up';
+        const payment_type = 'online-gateway';
+        const transactionref = generateTransactionRef();
+
         const options = {
+            domain: 'sandbox', // or 'live'
+            key: '{{ $vpayApiKey }}',
             amount: amount,
-            currency: 'NGN',
-            domain: 'sandbox',
-            key: 'fdcdb195-6553-4890-844c-ee576b7ea715',
             email: email,
-            transactionref: 'z31zs098zas8w3774h44344f8yg',
-            customer_logo:'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
-            customer_service_channel: '+2348030007000, support@org.com',
+            transactionref: transactionref,
+            customer_service_channel: '+2348164418223, support@famcraft.ng',
             txn_charge: 6,
-            txn_charge_type: 'flat',
-            onSuccess: function(response) { console.log('Hello World!', response.message); },
-            onExit: function(response) { console.log('Hello World!', response.message); }
-        }
-        
-        if(window.VPayDropin){
-            const {open, exit} = VPayDropin.create(options);
-            open();                    
-        }                
-    });
+            txn_charge_type: 'flat', // or 'percentage'
+            onSuccess: function(response) { 
+                console.log('Transaction Successful!', response);
+                response.email = email;
+                response.amount = amount;
+                response.userId = userId;
+                response.transactionref = transactionref;
+                response.payment_for = payment_for;
+                response.payment_type = payment_type;
+                fetch('/payment-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': getCsrfToken()
+                    },
+                    body: JSON.stringify(response)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+            },
+            onExit: function(response) { 
+                console.log('Transaction Cancelled or Failed!', response);
+            }
+        };
+
+        const dropinInstance = window.VPayDropin.create(options);
+        dropinInstance.open();
+    }
 </script>

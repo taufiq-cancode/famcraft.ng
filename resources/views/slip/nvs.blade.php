@@ -1,172 +1,272 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-</head>
-<style>
-    /* styles.css */
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff; /* Set background color for printing */
-        font-family: "Avenir Next", sans-serif;
-    }
+<!doctype html>
+<html class="left-sidebar-panel sidebar-light">
+	<head>
 
-    .image-container {
-        width: 210mm; /* A4 paper width */
-        height: 297mm; /* A4 paper height */
-        text-align: center;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow for visual separation */
-        position: relative; /* Needed for absolute positioning of text and photos */
-    }
+		<title>NVS NIN Slip | FamCraft Technologies</title>
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{{ asset('img/logos/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('img/logos/favicon.png') }}">
 
-    .image-container img {
-        max-width: 100%;
-        max-height: 100%;
-    }
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    .image-content {
-        position: absolute;
-        top: 99px;
-        left: 15px;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        border-radius: 5px;
-    }
+		<!-- Web Fonts  -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-    .barcode {
-        position: absolute;
-        top: 239px;
-        left: 498px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap/css/bootstrap.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/animate/animate.compat.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/all.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/boxicons/css/boxicons.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/magnific-popup/magnific-popup.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.theme.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/morris/morris.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/simple-line-icons/css/simple-line-icons.css') }}">
 
-    .phone {
-        position: absolute;
-        top: 373px;
-        left: 490px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/theme.css') }}" />
 
-    .lastname {
-        position: absolute;
-        top: 238px;
-        left: 320px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/skins/default.css') }}" />
 
-    .firstname {
-        position: absolute;
-        top: 278px;
-        left: 320px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Head Libs -->
+		<script src="{{ asset('admin/vendor/modernizr/modernizr.js') }}"></script>
 
-    .dob {
-        position: absolute;
-        top: 313px;
-        left: 320px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+	</head>
 
-    .nin {
-        position: absolute;
-        top: 366px;
-        left: 327px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+    <style>
+        .image-container{
+            padding: 0px 80px 20px 80px !important;
+            margin-right: 0px !important;
+        }
+    </style>
 
+    <body onload="downloadPDF()">
+		<section role="main" class="content-body card-margin image-container">
+            <div class="row">
+                <div class="col">
+                    <section class="card card-airtime">
+                        <header class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <img src="{{ asset('img/logos/nimc2.jpg') }}" width="100" alt="NIMC" />
+                                </div>
+                                <div>
+                                    <h2 class="card-title" style="margin-top: 45px">NVS NIN Slip</h2>
+                                </div>
+                            </div>          
+                        </header>
+                        <div class="card-body">
+                            <form class="form-horizontal form-bordered" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-6">
+                                        @isset($data['photo'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Photo <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <a class="thumb-image" href="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" target="_blank">
+                                                                    <img src="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" class="img-fluid">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .tracking {
-        position: absolute;
-        top: 210px;
-        left: 490px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .gender {
-        position: absolute;
-        top: 445px;
-        left: 490px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .text-container p {
-        margin: 10px;
-    }
+                                        @isset($data['nin'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">NIN</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['nin'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .overlay-content img {
-        max-width: 100%;
-    }
+                                        @isset($data['trackingId'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['trackingId'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .small-image {
-        width: 230px;
-        height: 300px;
-    }
+                                        @isset($data['title'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['title'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .smallimage {
-        width: 90px;
-        height: 90px;
-    }
-    p{
-        font-weight: bold;
-    }
-    
-    #formatted-text{
-          white-space: pre;
-          font-size: 23px;
-    }
-</style>
+                                        @isset($data['surname'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Surname</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['surname'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-<body onload="downloadPDF()">
-    <div class="image-container">
-        <img src="{{ asset('img/slips/basic.jpg') }}" alt="Centered Image">
-        <div class="image-content">
-            <img src="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" alt="Additional Image" class="small-image">
-        </div>
+                                        @isset($data['firstname'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Firstname</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['firstname'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="lastname">
-            <p>{{ $data['surname'] ?? null }}</p>
-        </div>
+                                        @isset($data['middlename'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Middlename</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['middlename'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="firstname">
-            <p>{{ $data['firstname'] ?? null }}</p>
-        </div>
+                                        @isset($data['gender'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['gender'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+                                    </div>
 
-        <div class="dob">
-            <p>{{ $data['formattedDob'] ?? null }}</p>
-        </div>
+                                    <div class="col-6">
+                                        @isset($data['birthdate'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth Date</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="dob" value="{{ $data['birthdate'] ?? null }}" class="form-control" id="inputDefault" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="nin">
-            <p id = "formatted-text">{{ $data['nin'] ?? null }}</p>
-        </div>
-        
-    </div>
-</body>
+                                        @isset($data['state'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence State</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['state'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-<script>
-    function downloadPDF() {
-        var element = document.querySelector('.image-container'); // Change the selector to match your container
-        var opt = {
-            margin: 0, // Adjust margin as needed
-            filename: '{{ $data['nin'] }}_nvs_slip.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().from(element).set(opt).save();
-    }
-</script>
+                                        @isset($data['lg'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence LG</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['lg'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
+                                        @isset($data['restown'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence Town</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['restown'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+                        
+                                        @isset($data['address'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Address</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['address'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+
+                                        @isset($data['birthstate'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth State</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['birthstate'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+
+                                        @isset($data['birthlga'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth LGA</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['birthlga'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+
+                                        @isset($data['signature'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Signature <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <a class="thumb-image" href="data:image/jpeg;base64,{{ base64_encode($data['signature']) }}" target="_blank">
+                                                                    <img src="data:image/jpeg;base64,{{ base64_encode($data['signature']) }}" class="img-fluid">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
+
+                                        @isset($data['nin'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">QR Code <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <img src="{{ asset('storage/qrimages/qr_' . $data['nin'] . '.png') }}" alt="QR Code" class="smallimage">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+		</section>
+
+        <script>
+            function downloadPDF() {
+                var element = document.querySelector('.image-container'); // Change the selector to match your container
+                var opt = {
+                    margin: 0, // Adjust margin as needed
+                    filename: '{{ $data['nin'] }}_nvs_slip.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().from(element).set(opt).save();
+            }
+        </script>
+	</body>
 </html>
+

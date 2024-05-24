@@ -87,7 +87,8 @@
                                         <option value="premium-slip">Premium Slip</option>
                                         <option value="standard-slip">Standard Slip</option>
                                         <option value="improved-nin-slip">Improved NIN Slip</option>
-                                        {{-- <option value="basic-slip">Basic Slip</option> --}}
+                                        <option value="basic-slip">Basic Slip</option>
+                                        <option value="nvs-slip">NVS Slip</option>
                                     </select>
                                 </div>
                             </div>

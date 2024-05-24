@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Dompdf\Dompdf;
 use Spatie\PdfToImage\Exceptions\PdfDoesNotExist;
@@ -188,11 +189,18 @@ class VerificationController extends Controller
                         ];
 
                         DB::commit();
-                        return view('verification-response', compact('verificationData','data','imagePath'));
+
+                        Session::put('slipData', $data);
+
+                        return redirect()->route('verification.response')
+                            ->with([
+                                'verificationData' => $verificationData,
+                                'imagePath' => $imagePath,
+                        ]);                    
                     }
                     
                 } else {
-                    return null;
+                    return back()->with('error', 'An error occurred. Please try again later.');
                 } 
 
             } else {
@@ -268,156 +276,7 @@ class VerificationController extends Controller
                 }
         } catch (Exception $e) {
             Log::error('Error sending verification request: ' . $e->getMessage());
-            throw $e;
-        }
-    }
-
-    private function generatePremiumSlip($verificationData, $data)
-    {
-        $surname = $verificationData['message']['surname'] ?? null;
-        $photo = $verificationData['image_data'] ?? null;
-        $firstname = $verificationData['message']['firstname'] ?? null;
-        $nin = $verificationData['message']['nin'] ?? null;
-        $dob = $verificationData['message']['birthdate'] ?? null;
-        $gender = $verificationData['message']['gender'] ?? null;
-        $tracking_id = $verificationData['message']['trackingId'] ?? null;
-        $middlename = $verificationData['message']['middlename'] ?? null;
-        $phone = $verificationData['message']['telephoneno'] ?? null;
-        $dateObj = Carbon::createFromFormat('d-m-Y', $dob) ?? null;
-        $formattedDob = $dateObj->format('d-M-Y') ?? null;
-        $currentDate = Carbon::now()->format('jS M Y') ?? null;
-        $fname = $firstname . $middlename;
-        $currentDate = Carbon::now()->format('jS M Y') ?? null;
-        $heigth = $verificationData['message']['heigth'] ?? null;
-        $nok_address1 = $verificationData['message']['nok_address1'] ?? null;
-        $nok_town = $verificationData['message']['nok_town'] ?? null;
-        $spoken_language = $verificationData['message']['nspokenlang'] ?? null;
-        $profession = $verificationData['message']['profession'] ?? null;
-        $religion = $verificationData['message']['religion'] ?? null;
-        $restown = $verificationData['message']['residence_Town'] ?? null;
-        $residencestatus = $verificationData['message']['residencestatus'] ?? null;
-        $title = $verificationData['message']['title'] ?? null;
-        $email = $verificationData['message']['email'] ?? null;
-        $state = $verificationData['message']['residence_state'] ?? null;
-        $lg = $verificationData['message']['residence_lga'] ?? null;
-        $birthcountry = $verificationData['message']['birthcountry'] ?? null;
-        $birthstate = $verificationData['message']['birthstate'] ?? null;
-        $birthlga = $verificationData['message']['birthlga'] ?? null;
-        $address = $verificationData['message']['residence_AdressLine1'] ?? null;
-        $text = "surname: " . $surname . " | givenNames: " . $fname . " | dob: " . $dob . " ;";
-
-        $url = "https://api.qrserver.com/v1/create-qr-code/?data=" . urlencode($text) . "&size=100x100";
-
-        $response = file_get_contents($url);
-
-        if ($response === false) {
-            return back()->with('error', 'An error occurred. Please try again later.');
-        }
-
-        $qrname = "qrimages/qr_" . $nin . ".png";
-        Storage::put($qrname, $response, 'public');
-        
-        if($data['slip_type'] === 'premium-slip'){
-
-            $data = [
-                'surname' => $surname,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'formattedDob' => $formattedDob,
-                'gender' => strtoupper($gender),
-                'nin' => $nin,
-                'currentDate' => $currentDate,
-                'photo' => $photo,
-                'qrPath' => $qrname,
-            ];
-    
-            return view('slip.premium', $data);
-            
-        }else if($data['slip_type'] === 'standard-slip'){
-            
-            $data = [
-                'surname' => $surname,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'formattedDob' => $formattedDob,
-                'gender' => strtoupper($gender),
-                'nin' => $nin,
-                'currentDate' => $currentDate,
-                'photo' => $photo,
-                'qrPath' => $qrname,
-                'state' => $state,
-                'address' => $address,
-                'lg' => $lg,
-                'tracking_id' => $tracking_id,
-            ];
-    
-            return view('slip.standard', $data);
-
-        }else if($data['slip_type'] === 'improved-nin-slip'){
-            
-            $data = [
-                'surname' => $surname,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'formattedDob' => $formattedDob,
-                'gender' => strtoupper($gender),
-                'nin' => $nin,
-                'currentDate' => $currentDate,
-                'photo' => $photo,
-                'qrPath' => $qrname,
-                'state' => $state,
-                'address' => $address,
-                'lg' => $lg,
-                'tracking_id' => $tracking_id,
-            ];
-    
-            return view('slip.improved', $data);
-
-        }else if($data['slip_type'] === 'basic-slip'){
-           
-            $data = [
-                'surname' => $surname,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'formattedDob' => $formattedDob,
-                'gender' => strtoupper($gender),
-                'nin' => $nin,
-                'currentDate' => $currentDate,
-                'photo' => $photo,
-                'qrPath' => $qrname,
-                'state' => $state,
-                'address' => $address,
-                'lg' => $lg,
-                'tracking_id' => $tracking_id,
-                'birthstate' => $birthstate,
-                'birthlga' => $birthlga,
-                'restown' => $restown,
-            ];
-    
-            return view('slip.basic', $data);
-
-        }else if($data['slip_type'] === 'nvs-slip'){
-            
-            $data = [
-                'surname' => $surname,
-                'firstname' => $firstname,
-                'middlename' => $middlename,
-                'formattedDob' => $formattedDob,
-                'gender' => strtoupper($gender),
-                'nin' => $nin,
-                'currentDate' => $currentDate,
-                'photo' => $photo,
-                'qrPath' => $qrname,
-                'state' => $state,
-                'address' => $address,
-                'lg' => $lg,
-                'tracking_id' => $tracking_id,
-                'birthstate' => $birthstate,
-                'birthlga' => $birthlga,
-                'restown' => $restown,
-            ];
-    
-            return view('slip.nvs', $data);
+            return back()->with('error', 'Error sending verification request. Please try again later.');
         }
     }
     

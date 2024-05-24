@@ -78,11 +78,25 @@ Route::get('/slip-download/{filename}', [FileController::class, 'slipDownload'])
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('/verification-response', function () {
+        $slipData = Session::get('slipData');
+        $verificationData = session('verificationData');
+        $imagePath = session('imagePath');
+    
+        if (!$slipData) {
+            return back()->with('error', 'No verification data found.');
+        }
+    
+        return view('verification-response', compact('slipData', 'verificationData', 'imagePath'));
+    })->name('verification.response');
+
     Route::post('/search', [SearchController::class, 'index'])->name('search');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/agent-access', [PaymentController::class, 'initializeTransaction'])->name('initializeTransaction');
-    Route::get('/payment-status', [PaymentController::class, 'handlePaymentCallback'])->name('payment.callback');
+
+    Route::post('/payment-status', [PaymentController::class, 'handlePaymentCallback'])->name('payment.callback');
+    
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/wallet', [PaymentController::class, 'index'])->name('wallet');
     Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');

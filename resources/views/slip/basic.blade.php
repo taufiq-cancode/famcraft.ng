@@ -1,292 +1,272 @@
+<!doctype html>
+<html class="left-sidebar-panel sidebar-light">
+	<head>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
-</head>
+		<title>Basic NIN Slip | FamCraft Technologies</title>
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{{ asset('img/logos/favicon.png') }}" type="image/x-icon" />
+		<link rel="apple-touch-icon" href="{{ asset('img/logos/favicon.png') }}">
 
-<style>
-    /* styles.css */
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff; /* Set background color for printing */
-    }
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    .image-container {
-        width: 210mm; /* A4 paper width */
-        height: 297mm; /* A4 paper height */
-        text-align: center;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a slight shadow for visual separation */
-        position: relative; /* Needed for absolute positioning of text and photos */
-    }
+		<!-- Web Fonts  -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
-    .image-container img {
-        max-width: 100%;
-        max-height: 100%;
-    }
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap/css/bootstrap.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/animate/animate.compat.css') }}">
+		<link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/all.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/boxicons/css/boxicons.min.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/magnific-popup/magnific-popup.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/jquery-ui/jquery-ui.theme.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/morris/morris.css') }}" />
+		<link rel="stylesheet" href="{{ asset('admin/vendor/simple-line-icons/css/simple-line-icons.css') }}">
 
-    .image-content {
-        position: absolute;
-        top: 125px;
-        left: 210px;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        border-radius: 5px;
-    }
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/theme.css') }}" />
 
-    .sign {
-        position: absolute;
-        top: 290px;
-        left: 267px;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        border-radius: 5px;
-    }
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/skins/default.css') }}" />
 
-    .barcode {
-        position: absolute;
-        top: 495px;
-        left: 490px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Head Libs -->
+		<script src="{{ asset('admin/vendor/modernizr/modernizr.js') }}"></script>
 
-    .phone {
-        position: absolute;
-        top: 362px;
-        left: 310px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{{ asset('admin/css/custom.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+	</head>
 
-    .blga {
-        position: absolute;
-        top: 438px;
-        left: 310px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    
-    .bress {
-        position: absolute;
-        top: 400px;
-        left: 310px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .lastname {
-        position: absolute;
-        top: 208px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+    <style>
+        .image-container{
+            padding: 0px 80px 20px 80px !important;
+            margin-right: 0px !important;
+        }
+    </style>
 
-    .firstname {
-        position: absolute;
-        top: 132px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .middle {
-        position: absolute;
-        top: 174px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+    <body onload="downloadPDF()">
+		<section role="main" class="content-body card-margin image-container">
+            <div class="row">
+                <div class="col">
+                    <section class="card card-airtime">
+                        <header class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <img src="{{ asset('img/logos/nimc2.jpg') }}" width="100" alt="NIMC" />
+                                </div>
+                                <div>
+                                    <h2 class="card-title" style="margin-top: 45px">Basic NIN Slip</h2>
+                                </div>
+                            </div>          
+                        </header>
+                        <div class="card-body">
+                            <form class="form-horizontal form-bordered" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-6">
+                                        @isset($data['photo'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Photo <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <a class="thumb-image" href="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" target="_blank">
+                                                                    <img src="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" class="img-fluid">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .dob {
-        position: absolute;
-        top: 242px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+                                        @isset($data['nin'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">NIN</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['nin'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .nin {
-        position: absolute;
-        top: 299px;
-        left: 165px;
-        padding: 10px;
-        border-radius: 5px;
-    }
+                                        @isset($data['trackingId'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['trackingId'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .tracking {
-        position: absolute;
-        top: 363px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .resstate {
-        position: absolute;
-        top: 413px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .bstate {
-        position: absolute;
-        top: 439px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .address {
-        position: absolute;
-        top: 470px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    
-    .gender {
-        position: absolute;
-        top: 288px;
-        left: 100px;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    .text-container p {
-        margin: 10px;
-    }
+                                        @isset($data['title'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['title'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .overlay-content img {
-        max-width: 100%;
-    }
+                                        @isset($data['surname'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Surname</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['surname'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .small-image {
-        width: 146px;
-        height: 167px;
-    }
+                                        @isset($data['firstname'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Firstname</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['firstname'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-   .small-images {
-        width: 70px;
-        height: 15px;
-    }
+                                        @isset($data['middlename'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Middlename</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['middlename'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-    .smallimage {
-        width: 140px;
-        height: 140px;
-    }
-    
-    
-     
-        
-    .medium-text {
-            font-family: 'Public Sans', sans-serif;
-            font-weight: 300;
-            font-size: 10px;
-    }
-    
-    #formatted-text{
-        white-space: pre;
-        font-size: 25px;
-        letter-spacing: 1px; 
-    }
-    
-</style>
+                                        @isset($data['gender'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['gender'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+                                    </div>
 
-<body onload="downloadPDF()">
-    <div class="image-container">
-        <img src="{{ asset('img/slips/nvs.png') }}" alt="Centered Image">
-        <div class="image-content">
-            <img src="data:image/jpeg;base64,{{ base64_encode($data['photo']) }}" alt="Additional Image" class="small-image">
-        </div>
+                                    <div class="col-6">
+                                        @isset($data['birthdate'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth Date</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" name="dob" value="{{ $data['birthdate'] ?? null }}" class="form-control" id="inputDefault" readonly="readonly">
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="sign">
-            <img src="data:image/jpeg;base64,{{ base64_encode($data['signature']) }}" alt="Additional Image" class="small-image">
-        </div>
+                                        @isset($data['state'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence State</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['state'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="barcode">
-           <p class="medium-text">{{ $data['address'] ?? null }}</p>
-        </div>
+                                        @isset($data['lg'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence LG</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['lg'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="phone">
-            <p class="medium-text">{{ $data['phone'] ?? null }}</p>
-        </div>
+                                        @isset($data['restown'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Residence Town</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['restown'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
+                        
+                                        @isset($data['address'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Address</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['address'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="lastname">
-            <p class="medium-text">{{ $data['surname'] ?? null }}</p>
-        </div>
+                                        @isset($data['birthstate'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth State</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['birthstate'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-         <div class="middle">
-            <p class="medium-text">{{ $data['middlename'] ?? null }}</p>
-        </div>
+                                        @isset($data['birthlga'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Birth LGA</label>
+                                                <div class="col-lg-6">
+                                                    <input type="text" value="{{ $data['birthlga'] ?? null}}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="firstname">
-            <p class="medium-text">{{ $data['firstname'] ?? null }}</p>
-        </div>
+                                        @isset($data['signature'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">Signature <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <a class="thumb-image" href="data:image/jpeg;base64,{{ base64_encode($data['signature']) }}" target="_blank">
+                                                                    <img src="data:image/jpeg;base64,{{ base64_encode($data['signature']) }}" class="img-fluid">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
 
-        <div class="dob">
-            <p class="medium-text">{{ $data['formattedDob'] ?? null }}</p>
-        </div>
+                                        @isset($data['nin'])
+                                            <div class="form-group row pb-4">
+                                                <label class="col-lg-4 control-label text-lg-end pt-2" for="inputDefault">QR Code <span style="color: red"> *</span></label>
+                                                <div class="col-lg-6">
+                                                    <div class="row mg-files" data-sort-destination="" data-sort-id="media-gallery" style="position: relative; height: auto;">
+                                                        <div class="thumbnail">
+                                                            <div class="thumb-preview">
+                                                                <img src="{{ asset('storage/qrimages/qr_' . $data['nin'] . '.png') }}" alt="QR Code" class="smallimage">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endisset
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+		</section>
 
-        <div class="gender">
-            <p class="medium-text">{{ $data['gender'] ?? null }}</p>
-        </div>
-
-        <div class="nin">
-            <p class="medium-text"id="formatted-text">{{ $data['nin'] ?? null }}</p>
-        </div>
-        
-         <div class="tracking">
-            <p class="medium-text">{{ $data['tracking_id'] ?? null }}</p>
-        </div>
-        
-           <div class="resstate">
-            <p class="medium-text">{{ $data['state'] ?? null }}</p>
-        </div>
-        
-        <div class="bstate">
-            <p class="medium-text">{{ $data['birthstate'] ?? null }}</p>
-        </div>
-        
-        <div class="address">
-            <p class="medium-text">{{ $data['address'] ?? null }}</p>
-        </div>
-    
-        <div class="blga">
-            <p class="medium-text">{{ $data['birthlga'] ?? null }}</p>
-        </div>
-        
-         <div class="bress">
-            <p class="medium-text">{{ $data['restown'] ?? null }}</p>
-        </div>
-    </div>
-</body>
-
-<script>
-    function downloadPDF() {
-        var element = document.querySelector('.image-container'); // Change the selector to match your container
-        var opt = {
-            margin: 0, // Adjust margin as needed
-            filename: '{{ $data['nin'] }}_basic_slip.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().from(element).set(opt).save();
-    }
-</script>
-
+        <script>
+            function downloadPDF() {
+                var element = document.querySelector('.image-container'); // Change the selector to match your container
+                var opt = {
+                    margin: 0, // Adjust margin as needed
+                    filename: '{{ $data['nin'] }}_basic_slip.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+                html2pdf().from(element).set(opt).save();
+            }
+        </script>
+	</body>
 </html>
 
