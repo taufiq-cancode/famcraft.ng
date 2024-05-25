@@ -188,28 +188,28 @@
             txn_charge_type: 'flat', // or 'percentage'
             onSuccess: function(response) { 
                 console.log('Transaction Successful!', response);
-                response.email = email;
-                response.amount = amount;
-                response.userId = userId;
-                response.transactionref = transactionref;
-                response.payment_for = payment_for;
-                response.payment_type = payment_type;
-                fetch('/payment-status', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': getCsrfToken()
-                    },
-                    body: JSON.stringify(response)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+                // response.email = email;
+                // response.amount = amount;
+                // response.userId = userId;
+                // response.transactionref = transactionref;
+                // response.payment_for = payment_for;
+                // response.payment_type = payment_type;
+                // fetch('/payment-status', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         'X-CSRF-TOKEN': getCsrfToken()
+                //     },
+                //     body: JSON.stringify(response)
+                // })
+                // .then(response => {
+                //     if (!response.ok) {
+                //         throw new Error(`HTTP error! status: ${response.status}`);
+                //     }
+                //     return response.json();
+                // })
+                // .then(data => console.log(data))
+                // .catch(error => console.error('Error:', error));
             },
             onExit: function(response) { 
                 console.log('Transaction Cancelled or Failed!', response);

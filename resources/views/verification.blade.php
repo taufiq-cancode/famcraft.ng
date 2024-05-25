@@ -25,8 +25,8 @@
                                     <select id="verifyMethod" name="method" class="form-control mb-3" required>
                                         <option value="">Select Verification Method</option>
                                         <option value="by-nin">By NIN Number</option>
-                                        <option value="by-demographics">By Demographics</option>
                                         <option value="by-phone">By Phone Number</option>
+                                        <option value="by-demographics">By Demographics</option>
                                     </select>
                                 </div>
                             </div>
@@ -175,6 +175,8 @@
         }
     });
 </script>
+
+
 
 
 @endsection
