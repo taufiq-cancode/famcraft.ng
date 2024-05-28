@@ -154,6 +154,7 @@
 
 @php
     $vpayApiKey = env('VPAY_API_KEY');
+    $vpayApiDomain = env('VPAY_API_DOMAIN');
 @endphp
 
 <script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
@@ -178,7 +179,7 @@
         const transactionref = generateTransactionRef();
 
         const options = {
-            domain: 'sandbox', // or 'live'
+            domain: '{{ $vpayApiDomain }}',
             key: '{{ $vpayApiKey }}',
             amount: amount,
             email: email,
