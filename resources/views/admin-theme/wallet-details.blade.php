@@ -157,13 +157,9 @@
     $vpayApiDomain = env('VPAY_API_DOMAIN');
 @endphp
 
-<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
+<script src="https://dropin.vpay.africa/dropin/v1/initialise.js"></script>
 
 <script>
-    function getCsrfToken() {
-        return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    }
-
     function generateTransactionRef() {
         const timestamp = Date.now();
         const randomNum = Math.floor(Math.random() * 1000000);
@@ -179,8 +175,8 @@
         const transactionref = generateTransactionRef();
 
         const options = {
-            domain: '{{ $vpayApiDomain }}',
-            key: '{{ $vpayApiKey }}',
+            domain: 'live',
+            key: '9cc74024-6c63-48c4-930c-8ace6e388e1e',
             amount: amount,
             email: email,
             transactionref: transactionref,
@@ -189,28 +185,17 @@
             txn_charge_type: 'flat', // or 'percentage'
             onSuccess: function(response) { 
                 console.log('Transaction Successful!', response);
-                // response.email = email;
-                // response.amount = amount;
-                // response.userId = userId;
-                // response.transactionref = transactionref;
-                // response.payment_for = payment_for;
-                // response.payment_type = payment_type;
-                // fetch('/payment-status', {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'X-CSRF-TOKEN': getCsrfToken()
-                //     },
-                //     body: JSON.stringify(response)
-                // })
-                // .then(response => {
-                //     if (!response.ok) {
-                //         throw new Error(`HTTP error! status: ${response.status}`);
-                //     }
-                //     return response.json();
-                // })
-                // .then(data => console.log(data))
-                // .catch(error => console.error('Error:', error));
+                const paymentData = {
+                trxref: transactionref,
+                reference: response.reference, // Assuming response contains a reference field
+                user_id: userId,
+                amount: amount,
+                payment_for: payment_for,
+                payment_type: payment_type,
+                status: 'successful'
+            };
+
+            storePaymentData(paymentData);
             },
             onExit: function(response) { 
                 console.log('Transaction Cancelled or Failed!', response);
@@ -219,5 +204,27 @@
 
         const dropinInstance = window.VPayDropin.create(options);
         dropinInstance.open();
+    }
+    
+    function storePaymentData(paymentData) {
+        fetch('/payment-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(paymentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Payment data stored successfully!', data);
+            } else {
+                console.log('Failed to store payment data', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error storing payment data:', error);
+        });
     }
 </script>

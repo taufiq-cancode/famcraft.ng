@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="left-sidebar-panel sidebar-light">
 	<head>
-		<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
 		<!-- Basic -->
 		<meta charset="UTF-8">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -51,7 +50,6 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.brighttheme.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/3.2.1/pnotify.js"></script>
-		<script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script>
 	</head>
 
 	@if (session('success'))
@@ -169,43 +167,6 @@
 		<!-- Examples -->
 		<script src="{{ asset('admin/js/examples/examples.dashboard.js') }}"></script>
 		<script src="{{ asset('admin/js/examples/examples.modals.js') }}"></script>
-
-		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				document.getElementById('paymentForm').addEventListener('submit', function(event) {
-					event.preventDefault();
-					
-					console.log('Entered script');
-		
-					const amount = document.getElementById('amountInput').value;
-					const email = document.getElementById('email').value;
-					
-					const options = {
-						amount: amount,
-						currency: 'NGN',
-						domain: 'sandbox',
-						key: 'fdcdb195-6553-4890-844c-ee576b7ea715',
-						email: email,
-						transactionref: 'z31zs098zas8w3774h44344f8yg',
-						customer_logo: 'https://www.vpay.africa/static/media/vpayLogo.91e11322.svg',
-						customer_service_channel: '+2348030007000, support@org.com',
-						txn_charge: 6,
-						txn_charge_type: 'flat',
-						onSuccess: function(response) { console.log('Hello World!', response.message); },
-						onExit: function(response) { console.log('Hello World!', response.message); }
-					}
-		
-					console.log('Proceed payment');
-		
-					if(window.VPayDropin){
-						console.log('if Vpay Dropin');
-		
-						const {open, exit} = VPayDropin.create(options);
-						open();                    
-					}                
-				});
-			});
-		</script>
 
 		{{-- <a href="https://chat.whatsapp.com/HjN7zXVq6UMDpuMo5dDEBs" class="whatsapp-icon" target="_blank">
 			<i class="fab fa-whatsapp"></i> <!-- Font Awesome WhatsApp icon -->

@@ -1,5 +1,7 @@
 @extends('admin-theme.theme-master')
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 <style>
     .pricing-table [class*="col-lg-"] {
@@ -162,16 +164,14 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="cta-btn">
-                                {{-- <form id="paymentForm" action="{{ route('initializeTransaction') }}" method="POST" style="display: none;"> --}}
-                                <form id="paymentForm" action="#" method="POST" style="display: none;">
+                                <form id="payF" method="POST" style="display: none;">
                                     @csrf
+                                    @method('POST')
                                     <input type="hidden" name="email" id="email" value="{{ auth()->user()->email }}">
                                     <input type="hidden" name="userid" id="userid" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="payment_for" value="become-agent">
-                                    <input type="hidden" name="amount" id="amount" value="10000">
                                 </form>
-                                {{-- <a href="{{ route('initializeTransaction') }}" onclick="event.preventDefault();document.getElementById('paymentForm').submit();" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>                                 --}}
-                                <a href="#" class="btn btn-modern text-2 btn-light border-0" style="font-size:15px; color:black">Become an Agent</a>                            </div>
+                                <button type="submit" class="btn btn-modern text-2 btn-light border-0" onclick="pay()" style="font-size:15px; color:black">Become an Agent</a>                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,26 +384,85 @@
             </div>
         </div>
     </div>
-
- 
-
     
 @endif
+
 </section>
-{{-- <script src="https://dropin-sandbox.vpay.africa/dropin/v1/initialise.js"></script> --}}
+
+@php
+    $vpayApiKey = env('VPAY_API_KEY');
+    $vpayApiDomain = env('VPAY_API_DOMAIN');
+@endphp
+
+<script src="https://dropin.vpay.africa/dropin/v1/initialise.js"></script>
 
 <script>
-    document.getElementById('paymentForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    function generateTransactionRef() {
+        const timestamp = Date.now();
+        const randomNum = Math.floor(Math.random() * 1000000);
+        return `trx-${timestamp}-${randomNum}`;
+    }
 
-        var numberInput = document.getElementById('numberInput').value;
+    function pay() {
+        const amount = 10000;
+        const email = document.getElementById('email').value;
+        const userId = document.getElementById('userid').value;
+        const payment_for = 'become-agent';
+        const payment_type = 'online-gateway';
+        const transactionref = generateTransactionRef();
 
-        var numberWithoutComma = numberInput.replace(/,/g, '');
+        const options = {
+            domain: 'live',
+            key: '9cc74024-6c63-48c4-930c-8ace6e388e1e',
+            amount: amount,
+            email: email,
+            transactionref: transactionref,
+            customer_service_channel: '+2348164418223, support@famcraft.ng',
+            txn_charge: 6,
+            txn_charge_type: 'flat', // or 'percentage'
+            onSuccess: function(response) { 
+                console.log('Transaction Successful!', response);
+                const paymentData = {
+                trxref: transactionref,
+                reference: response.reference, // Assuming response contains a reference field
+                user_id: userId,
+                amount: amount,
+                payment_for: payment_for,
+                payment_type: payment_type,
+                status: 'successful'
+            };
 
-        document.getElementById('numberInput').value = numberWithoutComma;
+            storePaymentData(paymentData);
+            },
+            onExit: function(response) { 
+                console.log('Transaction Cancelled or Failed!', response);
+            }
+        };
 
-        // Submit the form programmatically
-        this.submit();
-    });
+        const dropinInstance = window.VPayDropin.create(options);
+        dropinInstance.open();
+    }
+    
+    function storePaymentData(paymentData) {
+        fetch('/payment-status', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(paymentData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Payment data stored successfully!', data);
+            } else {
+                console.log('Failed to store payment data', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error storing payment data:', error);
+        });
+    }
 </script>
 @endsection
