@@ -64,26 +64,39 @@
                             </div>
                         </div>
 
-                        <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="{{ $transaction->nin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
-                            </div>
-                        </div>
-
-                        <div class="form-group row pb-4">
-                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
-                            <div class="col-lg-6">
-                                <input type="text" value="{{ $transaction->tracking_id }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Modification Type</label>
                             <div class="col-lg-6">
                                 <input type="text" value="{{ $transaction->modification_type }}" id="modificationType" class="form-control" readonly="readonly">                         
                             </div>
                         </div>
+
+                        @if(isset($transaction->nin) && !empty($transaction->nin))
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="{{ $transaction->nin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(isset($transaction->old_nin) && !empty($transaction->old_nin))
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Old NIN Number</label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="{{ $transaction->old_nin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(isset($transaction->tracking_id) && !empty($transaction->tracking_id))
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="{{ $transaction->tracking_id }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
 
                         @if(isset($transaction->title) && !empty($transaction->title))
                             <div class="form-group row pb-4">

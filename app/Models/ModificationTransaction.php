@@ -13,6 +13,7 @@ class ModificationTransaction extends Model
         'transaction_id',
         'price',
         'nin',
+        'old_nin',
         'tracking_id',
         'modification_type',
         'details_to_modify',

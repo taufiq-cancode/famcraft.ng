@@ -22,29 +22,38 @@ class PricingController extends Controller
 
     public function store(Request $request)
     {
-        try {    
+        try {
             $admin = auth()->user();
-            if ($admin->role !== 'Administrator'){
+            if ($admin->role !== 'Administrator') {
                 return back()->with('error', 'Unauthorized access');
             }
-            
+
             $request->validate([
-                'item_name' => 'required|string|unique:pricings',
+                'item_name' => 'required|string',
                 'price' => 'required|string|max:15',
                 'pricing_category_id' => 'required|integer|exists:pricing_categories,id'
             ]);
-    
-            $pricing = Pricing::create([
-                'item_name' => $request->item_name,
-                'price' => $request->price,
-                'pricing_category_id' => $request->pricing_category_id,
-            ]);
-    
-            if ($pricing){
-                return back()->with('success', 'Pricing item created successfully.');
-            }
 
-        } catch(\Exception $e) {
+            $pricing = Pricing::where('item_name', $request->item_name)->first();
+
+            if ($pricing) {
+                $pricing->price = $request->price;
+                $pricing->pricing_category_id = $request->pricing_category_id;
+                $pricing->save();
+
+                return back()->with('success', 'Pricing item updated successfully.');
+            } else {
+                $pricing = Pricing::create([
+                    'item_name' => $request->item_name,
+                    'price' => $request->price,
+                    'pricing_category_id' => $request->pricing_category_id,
+                ]);
+
+                if ($pricing) {
+                    return back()->with('success', 'Pricing item created successfully.');
+                }
+            }
+        } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }

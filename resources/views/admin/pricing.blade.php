@@ -54,6 +54,7 @@
                                         <option value="name-others-modification">Name & other modification</option>
                                         <option value="dob-others-modification">DOB & other modification</option>
                                         <option value="suspended-bvn-modification">Suspended BVN modification</option>
+                                        <option value="new-enrollment-old-slip-modification">New Enrollment for Old Slip modification</option>
                                         <option value="other-modification">Other modification</option>
                                         <option value="bvn-nin-modification">BVN NIN modification</option>
                                         <option value="suspended-nin-modification">Suspended NIN modification</option>

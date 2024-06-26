@@ -34,10 +34,11 @@ class ModificationController extends Controller
             $user = auth()->user();
     
             $data = $request->validate([
-                'modification_type' => 'required|string|in:name,dob,name_dob,name_others,dob_others,suspended_bvn,others',
-                'nin' => 'required|integer',
+                'modification_type' => 'required|string|in:name,dob,name_dob,name_others,dob_others,suspended_bvn,new_enrollment_old_slip,others',
+                'nin' => 'nullable|integer',
                 'nin_2' => 'nullable|integer',
-                'tracking_id' => 'required|string',
+                'old_nin' => 'nullable|integer',
+                'tracking_id' => 'nullable|string',
                 'details_to_modify' => 'nullable|array',
                 'details_to_modify.*' => 'nullable',
                 'title' => 'nullable|string',
@@ -114,6 +115,19 @@ class ModificationController extends Controller
                 'lga_of_origin_4' => 'nullable|string',
                 'phone_4' => 'nullable|string',
                 'religion_4' => 'nullable|string',
+                'gender_7' => 'nullable|string|in:male,female',
+                'town_7' => 'nullable|string',
+                'country_of_residence_7' => 'nullable|string',
+                'state_of_residence_7' => 'nullable|string',
+                'lga_of_residence_7' => 'nullable|string',
+                'address_line_1_7' => 'nullable|string',
+                'address_line_2_7' => 'nullable|string',
+                'profession_7' => 'nullable|string',
+                'passport_7' => 'nullable|image',
+                'state_of_origin_7' => 'nullable|string',
+                'lga_of_origin_7' => 'nullable|string',
+                'phone_7' => 'nullable|string',
+                'religion_7' => 'nullable|string',
             ]);
 
             if ($request->filled('nin_2')) {
@@ -130,6 +144,8 @@ class ModificationController extends Controller
                 $data['firstname'] = $request->input('firstname_5');
             }else if ($request->filled('firstname_6')) {
                 $data['firstname'] = $request->input('firstname_6');
+            }else if ($request->filled('firstname_7')) {
+                $data['firstname'] = $request->input('firstname_7');
             }
 
             if ($request->filled('surname_2')) {
@@ -142,6 +158,8 @@ class ModificationController extends Controller
                 $data['surname'] = $request->input('surname_5');
             }else if ($request->filled('surname_6')) {
                 $data['surname'] = $request->input('surname_6');
+            }else if ($request->filled('surname_7')) {
+                $data['surname'] = $request->input('surname_7');
             }
 
             if ($request->filled('middlename_2')) {
@@ -154,6 +172,8 @@ class ModificationController extends Controller
                 $data['middlename'] = $request->input('middlename_5');
             }else if ($request->filled('middlename_6')) {
                 $data['middlename'] = $request->input('middlename_6');
+            }else if ($request->filled('middlename_7')) {
+                $data['middlename'] = $request->input('middlename_7');
             }
 
             if ($request->filled('dob_2')) {
@@ -166,6 +186,8 @@ class ModificationController extends Controller
                 $data['dob'] = $request->input('dob_5');
             }else if ($request->filled('dob_6')) {
                 $data['dob'] = $request->input('dob_6');
+            }else if ($request->filled('dob_7')) {
+                $data['dob'] = $request->input('dob_7');
             }
 
             if ($request->filled('gender_2')) {
@@ -176,6 +198,8 @@ class ModificationController extends Controller
                 $data['gender'] = $request->input('gender_4');
             }else if ($request->filled('gender_5')) {
                 $data['gender'] = $request->input('gender_5');
+            }else if ($request->filled('gender_7')) {
+                $data['gender'] = $request->input('gender_7');
             }
 
             if ($request->filled('title_2')) {
@@ -186,6 +210,8 @@ class ModificationController extends Controller
                 $data['title'] = $request->input('title_4');
             }else if ($request->filled('title_5')) {
                 $data['title'] = $request->input('title_5');
+            }else if ($request->filled('title_7')) {
+                $data['title'] = $request->input('title_7');
             }
 
             if ($request->filled('phone_2')) {
@@ -196,6 +222,8 @@ class ModificationController extends Controller
                 $data['phone'] = $request->input('phone_4');
             }else if ($request->filled('phone_5')) {
                 $data['phone'] = $request->input('phone_5');
+            }else if ($request->filled('phone_7')) {
+                $data['phone'] = $request->input('phone_7');
             }
 
             if ($request->filled('state_of_residence_2')) {
@@ -206,6 +234,8 @@ class ModificationController extends Controller
                 $data['state_of_residence'] = $request->input('state_of_residence_4');
             }else if ($request->filled('state_of_residence_5')) {
                 $data['state_of_residence'] = $request->input('state_of_residence_5');
+            }else if ($request->filled('state_of_residence_7')) {
+                $data['state_of_residence'] = $request->input('state_of_residence_7');
             }
 
             if ($request->filled('lga_of_residence_2')) {
@@ -216,6 +246,8 @@ class ModificationController extends Controller
                 $data['lga_of_residence'] = $request->input('lga_of_residence_4');
             }else if ($request->filled('lga_of_residence_5')) {
                 $data['lga_of_residence'] = $request->input('lga_of_residence_5');
+            }else if ($request->filled('lga_of_residence_7')) {
+                $data['lga_of_residence'] = $request->input('lga_of_residence_7');
             }
 
             if ($request->filled('town_2')) {
@@ -226,6 +258,8 @@ class ModificationController extends Controller
                 $data['town'] = $request->input('town_4');
             }else if ($request->filled('town_5')) {
                 $data['town'] = $request->input('town_5');
+            }else if ($request->filled('town_7')) {
+                $data['town'] = $request->input('town_7');
             }
 
             if ($request->filled('address_line_1_2')) {
@@ -236,6 +270,8 @@ class ModificationController extends Controller
                 $data['address_line_1'] = $request->input('address_line_1_4');
             }else if ($request->filled('address_line_1_5')) {
                 $data['address_line_1'] = $request->input('address_line_1_5');
+            }else if ($request->filled('address_line_1_7')) {
+                $data['address_line_1'] = $request->input('address_line_1_7');
             }
 
             if ($request->filled('address_line_2_2')) {
@@ -246,6 +282,8 @@ class ModificationController extends Controller
                 $data['address_line_2'] = $request->input('address_line_2_4');
             }else if ($request->filled('address_line_2_5')) {
                 $data['address_line_2'] = $request->input('address_line_2_5');
+            }else if ($request->filled('address_line_2_7')) {
+                $data['address_line_2'] = $request->input('address_line_2_7');
             }
 
             if ($request->filled('religion_2')) {
@@ -256,6 +294,8 @@ class ModificationController extends Controller
                 $data['religion'] = $request->input('religion_4');
             }else if ($request->filled('religion_5')) {
                 $data['religion'] = $request->input('religion_5');
+            }else if ($request->filled('religion_7')) {
+                $data['religion'] = $request->input('religion_7');
             }
 
             if ($request->filled('profession_2')) {
@@ -266,6 +306,8 @@ class ModificationController extends Controller
                 $data['profession'] = $request->input('profession_4');
             }else if ($request->filled('profession_5')) {
                 $data['profession'] = $request->input('profession_5');
+            }else if ($request->filled('profession_7')) {
+                $data['profession'] = $request->input('profession_7');
             }
 
             if ($request->filled('state_of_origin_2')) {
@@ -276,6 +318,8 @@ class ModificationController extends Controller
                 $data['state_of_origin'] = $request->input('state_of_origin_4');
             }else if ($request->filled('state_of_origin_5')) {
                 $data['state_of_origin'] = $request->input('state_of_origin_5');
+            }else if ($request->filled('state_of_origin_7')) {
+                $data['state_of_origin'] = $request->input('state_of_origin_7');
             }
 
             if ($request->filled('lga_of_origin_2')) {
@@ -286,6 +330,8 @@ class ModificationController extends Controller
                 $data['lga_of_origin'] = $request->input('lga_of_origin_4');
             }else if ($request->filled('lga_of_origin_5')) {
                 $data['lga_of_origin'] = $request->input('lga_of_origin_5');
+            }else if ($request->filled('lga_of_origin_7')) {
+                $data['lga_of_origin'] = $request->input('lga_of_origin_7');
             }
 
             $details_to_modify = [];
@@ -306,6 +352,9 @@ class ModificationController extends Controller
                 $data['passport'] = $imagePath;
             }else if ($request->hasFile('passport_4')) {
                 $imagePath = $request->file('passport_4')->store('passports', 'public');
+                $data['passport'] = $imagePath;
+            }else if ($request->hasFile('passport_7')) {
+                $imagePath = $request->file('passport_7')->store('passports', 'public');
                 $data['passport'] = $imagePath;
             }
 
@@ -333,6 +382,9 @@ class ModificationController extends Controller
             } elseif ($modificationType === 'suspended_bvn') {
                 $fee = Pricing::where('item_name', 'suspended-bvn-modification')->first();
 
+            } elseif ($modificationType === 'new_enrollment_old_slip') {
+                $fee = Pricing::where('item_name', 'new-enrollment-old-slip-modification')->first();
+    
             } elseif ($modificationType === 'others') {
                 $fee = Pricing::where('item_name', 'other-modification')->first();
             }

@@ -19,20 +19,6 @@
                             @csrf
                             @method('POST')
 
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" name="nin" id="inputDefault" placeholder="Enter NIN number" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" name="tracking_id" id="inputDefault" placeholder="Enter tracking ID" required>
-                                </div>
-                            </div>
-
                             <div class="form-group row pb-2">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Modification Type</label>
                                 <div class="col-lg-6">
@@ -44,8 +30,23 @@
                                         <option value="name_others">Name & Others</option>
                                         <option value="dob_others">Date of Birth & Others</option>
                                         <option value="suspended_bvn">Suspended or BVN Generated</option>
+                                        <option value="new_enrollment_old_slip">New Enrollment for Old Slip</option>
                                         <option value="others">Others</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row pb-4" id="ninGroup">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="nin" id="inputDefault" placeholder="Enter NIN number">
+                                </div>
+                            </div>
+
+                            <div class="form-group row pb-4" id="trackingIdGroup">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Tracking ID</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="tracking_id" id="inputDefault" placeholder="Enter tracking ID">
                                 </div>
                             </div>
 
@@ -417,7 +418,7 @@
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
                                     <div class="col-lg-6">
                                         <select name="gender_4" class="form-control mb-3">
                                             <option value="">Select Gender</option>
@@ -428,42 +429,42 @@
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth</label>
                                     <div class="col-lg-6">
                                         <input type="date" name="dob_5" class="form-control" id="inputDefault">
                                     </div>
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
                                     <div class="col-lg-6">
                                         <input type="text" name="phone_4" class="form-control" id="inputDefault" placeholder="Phone Number">
                                     </div>
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State </label>
                                     <div class="col-lg-6">
                                         <input type="text" name="state_of_residence_4" class="form-control" id="inputDefault" placeholder="Residential State" >
                                     </div>
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government</label>
                                     <div class="col-lg-6">
                                         <input type="text" name="lga_of_residence_4" class="form-control" id="inputDefault" placeholder="Residential Local Government" >
                                     </div>
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City</label>
                                     <div class="col-lg-6">
                                         <input type="text" name="town_4" class="form-control" id="inputDefault" placeholder="Residential Town/City" >
                                     </div>
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address <span style="color: red"> *</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address</label>
                                     <div class="col-lg-3">
                                         <input type="text" name="address_line_1_4" class="form-control" id="inputDefault" placeholder="Address line 1">
                                     </div>
@@ -473,7 +474,7 @@
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion</label>
                                     <div class="col-lg-6">
                                         <select name="religion_4" class="form-control mb-3" >
                                             <option value="">Select Religion</option>
@@ -484,7 +485,7 @@
                                 </div>
 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession</label>
                                     <div class="col-lg-6">
                                         <input type="text" name="profession_4" class="form-control" id="inputDefault" placeholder="Profession">
                                     </div>
@@ -492,7 +493,7 @@
 
                                 <div class="form-group row pb-4">
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">
-                                        State of Origin <span style="color: red">*</span>
+                                        State of Origin
                                     </label>
                                     <div class="col-lg-3">
                                         <select id="stateOriginSelect" name="state_of_origin_4" class="form-control mb-3">
@@ -529,9 +530,163 @@
                                 </div>
                                 
                                 <div class="form-group row pb-4">
-                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport <span style="color: red">*</span></label>
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport</label>
                                     <div class="col-lg-6">
                                         <input type="file" name="passport_4" class="form-control" id="inputDefault" placeholder="Passport" accept="image/jpeg, image/jpg, image/png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="newEnrollmentFields" style="display: none">
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault"></label>
+                                    <div class="col-lg-6">
+                                        <p style="color:red"> Fill in only the fields you want to modify</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Old NIN Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="old_nin" id="inputDefault" placeholder="Enter Old NIN number">
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="title_7" class="form-control" id="inputDefault" placeholder="Mr / Mrs / Miss">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="surname_7" class="form-control" id="inputDefault" placeholder="Surname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="firstname_7" class="form-control form-mt" id="inputDefault" placeholder="Firstname" >
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="middlename_7" class="form-control form-mt" id="inputDefault" placeholder="Middlename">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
+                                    <div class="col-lg-6">
+                                        <select name="gender_7" class="form-control mb-3">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth</label>
+                                    <div class="col-lg-6">
+                                        <input type="date" name="dob_7" class="form-control" id="inputDefault">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phone_7" class="form-control" id="inputDefault" placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="state_of_residence_7" class="form-control" id="inputDefault" placeholder="Residential State" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="lga_of_residence_7" class="form-control" id="inputDefault" placeholder="Residential Local Government" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="town_7" class="form-control" id="inputDefault" placeholder="Residential Town/City" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address</label>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_1_7" class="form-control" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_2_7" class="form-control form-mt" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion</label>
+                                    <div class="col-lg-6">
+                                        <select name="religion_7" class="form-control mb-3" >
+                                            <option value="">Select Religion</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Islam">Islam</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="profession_7" class="form-control" id="inputDefault" placeholder="Profession">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">State of Origin & LGA </label>
+                                    <div class="col-lg-3">
+                                        <select id="stateOriginSelect" name="state_of_origin_7" class="form-control mb-3">
+                                            <option value="">Select State of Origin</option>
+                                            @foreach ($states as $state)
+                                                <option value="{{ $state['state'] }}">{{ $state['state'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                
+                                    <div class="col-lg-3">
+                                        <select id="lgaOriginSelect" name="lga_of_origin_7" class="form-control mb-3">
+                                            <option value="">Select LGA of Origin</option>
+                                        </select>
+                                    </div>
+
+                                    <script>
+                                        document.querySelector('select[name="state_of_origin_7"]').addEventListener('change', function() {
+                                            let selectedState = this.value;
+                                            let states = @json($states); // Convert PHP array to JavaScript object
+                                    
+                                            let lgaSelect = document.querySelector('select[name="lga_of_origin_7"]');
+                                            lgaSelect.innerHTML = '<option value="">Select LGA of Origin</option>';
+                                    
+                                            states.forEach(function(state) {
+                                                if (state.state === selectedState && state.lgas) {
+                                                    state.lgas.forEach(function(lga) {
+                                                        lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport </label>
+                                    <div class="col-lg-6">
+                                        <input type="file" name="passport_7" class="form-control" id="inputDefault" placeholder="Passport" accept="image/jpeg, image/jpg, image/png">
                                     </div>
                                 </div>
                             </div>
@@ -829,7 +984,7 @@
                                     @foreach ($transactions as $transaction)
                                     <tr>
                                         <td class="pt-desktop">{{ ($transactions->currentPage() - 1) * $transactions->perPage() + $loop->iteration }}</td>
-                                        <td class="pt-desktop">{{ $transaction->nin }}</td>
+                                        <td class="pt-desktop">{{ $transaction->nin ?? $transaction->old_nin}}</td>
                                         <td class="pt-desktop">{{ $transaction->modification_type }}</td>
                                         <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
                                         <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
@@ -868,6 +1023,8 @@
         document.getElementById("dobOthersFields").style.display = "none";
         document.getElementById("suspendedBvnFields").style.display = "none";
         document.getElementById("othersFields").style.display = "none";
+        document.getElementById("newEnrollmentFields").style.display = "none";
+
     
         // Show the selected field div
         if (selectedOption === "name") {
@@ -884,7 +1041,11 @@
             document.getElementById("suspendedBvnFields").style.display = "block";
         } else if (selectedOption === "others") {
             document.getElementById("othersFields").style.display = "block";
+        } else if (selectedOption === "new_enrollment_old_slip") {
+            document.getElementById("newEnrollmentFields").style.display = "block";
         }
+
+        
     });
 </script>
 
@@ -1052,6 +1213,34 @@
         } else {
             LOGField.style.display = "none";
         }    
+    });
+</script>
+
+<script>
+    document.getElementById('modificationType').addEventListener('change', function() {
+        var trackingIdGroup = document.getElementById('trackingIdGroup');
+        var ninGroup = document.getElementById('ninGroup');
+        if (this.value === 'suspended_bvn') {
+            trackingIdGroup.style.display = 'none';
+            ninGroup.style.display = 'none';
+        } else {
+            trackingIdGroup.style.display = 'flex'; 
+            ninGroup.style.display = 'flex';
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('modificationType').addEventListener('change', function() {
+        var trackingIdGroup = document.getElementById('trackingIdGroup');
+        var ninGroup = document.getElementById('ninGroup');
+        if (this.value === 'new_enrollment_old_slip') {
+            trackingIdGroup.style.display = 'none';
+            ninGroup.style.display = 'none';
+        } else {
+            trackingIdGroup.style.display = 'flex'; 
+            ninGroup.style.display = 'flex';
+        }
     });
 </script>
 

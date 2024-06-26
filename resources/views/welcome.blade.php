@@ -408,7 +408,7 @@
 					</div>
 				</section> --}}
 
-				<section id="contact" class="section bg-color-light position-relative border-0 pt-3 m-0 mb-4">
+				{{-- <section id="contact" class="section bg-color-light position-relative border-0 pt-3 m-0 mb-4">
 					<svg class="custom-page-header-curved-top-1" width="100%" height="700" xmlns="http://www.w3.org/2000/svg">
 						<path transform="rotate(-3.1329219341278076 1459.172607421877,783.5322875976566) " d="m-12.54488,445.11701c0,0 2.16796,-1.48437 6.92379,-3.91356c4.75584,-2.42918 12.09956,-5.80319 22.45107,-9.58247c20.70303,-7.55856 53.43725,-16.7382 101.56202,-23.22255c48.12477,-6.48434 111.6401,-10.27339 193.90533,-7.05074c41.13262,1.61132 88.20271,5.91306 140.3802,12.50726c230.96006,32.89734 314.60609,102.57281 635.26547,59.88645c320.65938,-42.68635 452.47762,-118.72154 843.58759,3.72964c391.10997,122.45118 553.23416,-82.15958 698.49814,-47.66481c-76.25064,69.23438 407.49874,281.32592 331.2481,350.5603c-168.91731,29.52009 85.02254,247.61162 -83.89478,277.13171c84.07062,348.27313 -2948.95065,-242.40222 -2928.39024,-287.84045" stroke-width="0" stroke="#000" fill="#FFF" id="svg_2"></path>
 					</svg>
@@ -499,7 +499,7 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</section> --}}
 
 			</div> 
 
@@ -549,17 +549,6 @@
 						</div>
 						<div class="col-lg-3">
 							<h4 class="font-weight-bold text-color-light text-5 ls-0 pb-1 mb-2">CONTACT US</h4>
-							<ul class="list list-unstyled">
-								<li class="mb-1" style="color: #ffffffa3;">
-									Address: 123 Street Name, City, England
-								</li>
-								<li class="mb-1" style="color: #ffffffa3;">
-									Phone: <a href="tel:+1234567890">(123) 456-7890</a>
-								</li>
-								<li class="mb-1" style="color: #ffffffa3;">
-									Email: <a href="#">mail@example.com</a>
-								</li>
-							</ul>
 							<ul class="social-icons custom-social-icons-style-1">
 								<li class="social-icons-instagram"><a href="http://www.instagram.com/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
 								<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-x-twitter"></i></a></li>
