@@ -25,6 +25,7 @@ class VerificationTransaction extends Model
         'response',
         'response_text',
         'response_pdf',
+        'verification_type',
     ];
 
     protected $cast = [

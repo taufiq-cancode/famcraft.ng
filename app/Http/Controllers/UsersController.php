@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Wallet;
+use App\Models\Payment;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -18,7 +21,7 @@ class UsersController extends Controller
 
         $users = User::whereIn('role', ['Agent', 'User'])
              ->with('wallet')
-             ->get();
+             ->paginate(10);
         return view('admin.users', compact('users'));
     }
 
@@ -29,24 +32,27 @@ class UsersController extends Controller
             if ($admin->role !== 'Administrator'){
                 return back()->with('error', 'Unauthorized access');
             }
-
-            $user = User::with(['wallet', 'payments' => function ($query) {
-                $query->orderByDesc('created_at');
-            }])->findOrFail($userId);
+    
+            $user = User::with(['wallet'])->findOrFail($userId);
             
             if (!$user) {
                 return back()->with('error', 'User not found.');
             }
-            
-            return view('details.user', compact('user'));
+    
+            $payments = $user->payments()->orderByDesc('created_at')->paginate(10);
+    
+            return view('details.user', compact('user', 'payments'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
+    
 
     public function update(Request $request, $userId)
     {
         try {
+            DB::beginTransaction();
+
             $admin = auth()->user();
             if ($admin->role !== 'Administrator'){
                 return back()->with('error', 'Unauthorized access');
@@ -63,6 +69,16 @@ class UsersController extends Controller
             if ($request->filled('topup_amount')) {
                 $topupAmount = $request->input('topup_amount');
                 $user->wallet->increment('balance', $topupAmount);
+
+                Payment::create([
+                    'trxref' => Str::uuid(),
+                    'reference' => Str::random(10),
+                    'user_id' => $user->id,
+                    'amount' => $topupAmount,
+                    'payment_for' => 'wallet-top-up',
+                    'payment_type' => 'admin-top-up',
+                    'status' => 'completed',
+                ]);
             }
 
             if ($request->filled('status')) {
@@ -71,13 +87,17 @@ class UsersController extends Controller
             }
 
             if ($request->filled('role')) {
-                $status = $request->input('role');
-                $user->update(['role' => $status]);
+                $role = $request->input('role');
+                $user->update(['role' => $role]);
             }
+
+            DB::commit();
 
             return redirect()->route('view.user', $user->id)->with('success', 'User updated successfully.');
         } catch (\Exception $e) {
+            DB::rollBack();
             return back()->with('error', $e->getMessage())->withInput();
         }
     }
+
 }

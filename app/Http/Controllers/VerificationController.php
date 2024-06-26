@@ -25,7 +25,10 @@ class VerificationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $transactions = VerificationTransaction::where('user_id', $user->id)->get();
+        $transactions = VerificationTransaction::where('user_id', $user->id)
+                                            ->where('verification_type', 'v1')
+                                            ->orderBy('created_at', 'desc')
+                                            ->paginate(10);
         return view('verification', compact('transactions'));
     }
 
@@ -48,6 +51,8 @@ class VerificationController extends Controller
             ]);
 
             $data['user_id'] = $user->id;
+            $data['verification_type'] = 'v1';
+
 
             if (!empty($data['dob'])) {
                 $data['dob'] = Carbon::createFromFormat('Y-m-d', $request->dob)->format('d-m-Y');
@@ -107,6 +112,7 @@ class VerificationController extends Controller
 
                     $data['transaction_id'] = $transactionId;
                     $data['price'] = $cost;
+                    $data['status'] = 'success';
 
                     $verification = VerificationTransaction::create($data);
 
@@ -240,6 +246,7 @@ class VerificationController extends Controller
 
                     $data['transaction_id'] = $transactionId;
                     $data['price'] = $cost;
+                    $data['status'] = 'success';
 
                     $verification = VerificationTransaction::create($data);
 
@@ -374,6 +381,7 @@ class VerificationController extends Controller
                     $data['transaction_id'] = $transactionId;
                     $data['price'] = $cost;
                     $data['dob'] = $formattedDateForDB;
+                    $data['status'] = 'success';
 
                     $verification = VerificationTransaction::create($data);
 

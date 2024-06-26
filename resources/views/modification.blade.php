@@ -41,6 +41,9 @@
                                         <option value="name">Name</option>
                                         <option value="dob">Date of Birth</option>
                                         <option value="name_dob">Name & Date of Birth</option>
+                                        <option value="name_others">Name & Others</option>
+                                        <option value="dob_others">Date of Birth & Others</option>
+                                        <option value="suspended_bvn">Suspended or BVN Generated</option>
                                         <option value="others">Others</option>
                                     </select>
                                 </div>
@@ -88,6 +91,447 @@
                                     <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth <span style="color: red"> *</span></label>
                                     <div class="col-lg-6">
                                         <input type="date" name="dob_2" class="form-control" id="inputDefault">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="nameOthersFields" style="display: none;">
+                                <div class="form-group row pb-2">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name <span style="color: red"> *</span></label>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="surname_6" class="form-control" id="inputDefault" placeholder="Surname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="firstname_6" class="form-control form-mt" id="inputDefault" placeholder="Firstname" >
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="middlename_6" class="form-control form-mt" id="inputDefault" placeholder="Middlename">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault"></label>
+                                    <div class="col-lg-6">
+                                        <p style="color:red"> Fill in only the fields you want to modify</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="title_2" class="form-control" id="inputDefault" placeholder="Mr / Mrs / Miss">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
+                                    <div class="col-lg-6">
+                                        <select name="gender_2" class="form-control mb-3">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth</label>
+                                    <div class="col-lg-6">
+                                        <input type="date" name="dob_6" class="form-control" id="inputDefault">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phone_2" class="form-control" id="inputDefault" placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="state_of_residence_2" class="form-control" id="inputDefault" placeholder="Residential State" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="lga_of_residence_2" class="form-control" id="inputDefault" placeholder="Residential Local Government" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="town_2" class="form-control" id="inputDefault" placeholder="Residential Town/City" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address</label>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_1_2" class="form-control" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_2_2" class="form-control form-mt" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion</label>
+                                    <div class="col-lg-6">
+                                        <select name="religion_2" class="form-control mb-3" >
+                                            <option value="">Select Religion</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Islam">Islam</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="profession_2" class="form-control" id="inputDefault" placeholder="Profession">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <select id="stateOriginSelect" name="state_of_origin_2" class="form-control mb-3">
+                                        <option value="">Select State of Origin</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state['state'] }}">{{ $state['state'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                                <div class="col-lg-3">
+                                    <select id="lgaOriginSelect" name="lga_of_origin_2" class="form-control mb-3">
+                                        <option value="">Select LGA of Origin</option>
+                                    </select>
+                                </div>
+
+                                <script>
+                                    document.querySelector('select[name="state_of_origin_2"]').addEventListener('change', function() {
+                                        let selectedState = this.value;
+                                        let states = @json($states); // Convert PHP array to JavaScript object
+                                
+                                        let lgaSelect = document.querySelector('select[name="lga_of_origin_2"]');
+                                        lgaSelect.innerHTML = '<option value="">Select LGA of Origin</option>';
+                                
+                                        states.forEach(function(state) {
+                                            if (state.state === selectedState && state.lgas) {
+                                                state.lgas.forEach(function(lga) {
+                                                    lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                                                });
+                                            }
+                                        });
+                                    });
+                                </script>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport</label>
+                                    <div class="col-lg-6">
+                                        <input type="file" name="passport_2" class="form-control" id="inputDefault" placeholder="Passport" accept="image/jpeg, image/jpg, image/png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="dobOthersFields" style="display: none;">
+                                <div class="form-group row pb-2">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="date" name="dob_4" class="form-control" id="inputDefault">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault"></label>
+                                    <div class="col-lg-6">
+                                        <p style="color:red"> Fill in only the fields you want to modify</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="title_3" class="form-control" id="inputDefault" placeholder="Mr / Mrs / Miss">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-2">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="surname_4" class="form-control" id="inputDefault" placeholder="Surname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="firstname_4" class="form-control form-mt" id="inputDefault" placeholder="Firstname" >
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="middlename_4" class="form-control form-mt" id="inputDefault" placeholder="Middlename">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender</label>
+                                    <div class="col-lg-6">
+                                        <select name="gender_3" class="form-control mb-3">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phone_3" class="form-control" id="inputDefault" placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="state_of_residence_3" class="form-control" id="inputDefault" placeholder="Residential State" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="lga_of_residence_3" class="form-control" id="inputDefault" placeholder="Residential Local Government" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="town_3" class="form-control" id="inputDefault" placeholder="Residential Town/City" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address</label>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_1_3" class="form-control" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_2_3" class="form-control form-mt" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion</label>
+                                    <div class="col-lg-6">
+                                        <select name="religion_3" class="form-control mb-3" >
+                                            <option value="">Select Religion</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Islam">Islam</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="profession_3" class="form-control" id="inputDefault" placeholder="Profession">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <select id="stateOriginSelect" name="state_of_origin_3" class="form-control mb-3">
+                                        <option value="">Select State of Origin</option>
+                                        @foreach ($states as $state)
+                                            <option value="{{ $state['state'] }}">{{ $state['state'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            
+                                <div class="col-lg-3">
+                                    <select id="lgaOriginSelect" name="lga_of_origin_3" class="form-control mb-3">
+                                        <option value="">Select LGA of Origin</option>
+                                    </select>
+                                </div>
+
+                                <script>
+                                    document.querySelector('select[name="state_of_origin_3"]').addEventListener('change', function() {
+                                        let selectedState = this.value;
+                                        let states = @json($states); // Convert PHP array to JavaScript object
+                                
+                                        let lgaSelect = document.querySelector('select[name="lga_of_origin_3"]');
+                                        lgaSelect.innerHTML = '<option value="">Select LGA of Origin</option>';
+                                
+                                        states.forEach(function(state) {
+                                            if (state.state === selectedState && state.lgas) {
+                                                state.lgas.forEach(function(lga) {
+                                                    lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                                                });
+                                            }
+                                        });
+                                    });
+                                </script>
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport</label>
+                                    <div class="col-lg-6">
+                                        <input type="file" name="passport_3" class="form-control" id="inputDefault" placeholder="Passport" accept="image/jpeg, image/jpg, image/png">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="suspendedBvnFields" style="display: none">
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault"></label>
+                                    <div class="col-lg-6">
+                                        <p style="color:red"> Fill in only the fields you want to modify</p>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">NIN Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="nin_2" id="inputDefault" placeholder="Enter NIN number">
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Title</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="title_4" class="form-control" id="inputDefault" placeholder="Mr / Mrs / Miss">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="surname_5" class="form-control" id="inputDefault" placeholder="Surname">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="firstname_5" class="form-control form-mt" id="inputDefault" placeholder="Firstname" >
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input type="text" name="middlename_5" class="form-control form-mt" id="inputDefault" placeholder="Middlename">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <select name="gender_4" class="form-control mb-3">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="date" name="dob_5" class="form-control" id="inputDefault">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phone_4" class="form-control" id="inputDefault" placeholder="Phone Number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="state_of_residence_4" class="form-control" id="inputDefault" placeholder="Residential State" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="lga_of_residence_4" class="form-control" id="inputDefault" placeholder="Residential Local Government" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="town_4" class="form-control" id="inputDefault" placeholder="Residential Town/City" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address <span style="color: red"> *</span></label>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_1_4" class="form-control" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <input type="text" name="address_line_2_4" class="form-control form-mt" id="inputDefault" placeholder="Address line 1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <select name="religion_4" class="form-control mb-3" >
+                                            <option value="">Select Religion</option>
+                                            <option value="Christianity">Christianity</option>
+                                            <option value="Islam">Islam</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="profession_4" class="form-control" id="inputDefault" placeholder="Profession">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">
+                                        State of Origin <span style="color: red">*</span>
+                                    </label>
+                                    <div class="col-lg-3">
+                                        <select id="stateOriginSelect" name="state_of_origin_4" class="form-control mb-3">
+                                            <option value="">Select State of Origin</option>
+                                            @foreach ($states as $state)
+                                                <option value="{{ $state['state'] }}">{{ $state['state'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                
+                                    <div class="col-lg-3">
+                                        <select id="lgaOriginSelect" name="lga_of_origin_4" class="form-control mb-3">
+                                            <option value="">Select LGA of Origin</option>
+                                        </select>
+                                    </div>
+
+                                    <script>
+                                        document.querySelector('select[name="state_of_origin_4"]').addEventListener('change', function() {
+                                            let selectedState = this.value;
+                                            let states = @json($states); // Convert PHP array to JavaScript object
+                                    
+                                            let lgaSelect = document.querySelector('select[name="lga_of_origin_4"]');
+                                            lgaSelect.innerHTML = '<option value="">Select LGA of Origin</option>';
+                                    
+                                            states.forEach(function(state) {
+                                                if (state.state === selectedState && state.lgas) {
+                                                    state.lgas.forEach(function(lga) {
+                                                        lgaSelect.innerHTML += `<option value="${lga}">${lga}</option>`;
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                </div>
+                                
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="file" name="passport_4" class="form-control" id="inputDefault" placeholder="Passport" accept="image/jpeg, image/jpg, image/png">
                                     </div>
                                 </div>
                             </div>
@@ -167,13 +611,18 @@
                                         </div>
 
                                         <div class="checkbox-custom checkbox-default">
-                                            <input type="checkbox" name="details_to_modify[]" value="passport" id="checkboxPassport">
-                                            <label for="checkboxPassport">Passport</label>
+                                            <input type="checkbox" name="details_to_modify[]" value="state_of_origin" id="checkboxSOG">
+                                            <label for="checkboxSOG">State of Origin</label>
                                         </div>
 
                                         <div class="checkbox-custom checkbox-default">
-                                            <input type="checkbox" name="details_to_modify[]" value="state_of_origin" id="checkboxSOG">
-                                            <label for="checkboxSOG">State of Origin</label>
+                                            <input type="checkbox" name="details_to_modify[]" value="lga_of_origin" id="checkboxLOG">
+                                            <label for="checkboxSOG">LGA of Origin</label>
+                                        </div>
+
+                                        <div class="checkbox-custom checkbox-default">
+                                            <input type="checkbox" name="details_to_modify[]" value="passport" id="checkboxPassport">
+                                            <label for="checkboxPassport">Passport</label>
                                         </div>
                                     </div>
                                 </div>
@@ -331,6 +780,15 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div id="LOGField" style="display: none;">
+                                <div class="form-group row pb-4">
+                                    <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">LGA of Origin <span style="color: red">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="lga_of_origin" class="form-control" id="inputDefault" placeholder="LGA of Origin">
+                                    </div>
+                                </div>
+                            </div>
                             
                             <div class="form-group row">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
@@ -370,7 +828,7 @@
                                 <tbody>
                                     @foreach ($transactions as $transaction)
                                     <tr>
-                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ ($transactions->currentPage() - 1) * $transactions->perPage() + $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $transaction->nin }}</td>
                                         <td class="pt-desktop">{{ $transaction->modification_type }}</td>
                                         <td class="pt-desktop">&#8358;{{ number_format($transaction->price) }}</td>
@@ -384,6 +842,9 @@
                                     @endforeach                             
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            {{ $transactions->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </section>
@@ -403,6 +864,9 @@
         document.getElementById("nameFields").style.display = "none";
         document.getElementById("dobFields").style.display = "none";
         document.getElementById("nameDobFields").style.display = "none";
+        document.getElementById("nameOthersFields").style.display = "none";
+        document.getElementById("dobOthersFields").style.display = "none";
+        document.getElementById("suspendedBvnFields").style.display = "none";
         document.getElementById("othersFields").style.display = "none";
     
         // Show the selected field div
@@ -412,6 +876,12 @@
             document.getElementById("dobFields").style.display = "block";
         } else if (selectedOption === "name_dob") {
             document.getElementById("nameDobFields").style.display = "block";
+        } else if (selectedOption === "name_others") {
+            document.getElementById("nameOthersFields").style.display = "block";  
+        }else if (selectedOption === "dob_others") {
+            document.getElementById("dobOthersFields").style.display = "block";  
+        } else if (selectedOption === "suspended_bvn") {
+            document.getElementById("suspendedBvnFields").style.display = "block";
         } else if (selectedOption === "others") {
             document.getElementById("othersFields").style.display = "block";
         }
@@ -435,6 +905,7 @@
     const checkboxProfession = document.getElementById("checkboxProfession");
     const checkboxPassport = document.getElementById("checkboxPassport");
     const checkboxSOG = document.getElementById("checkboxSOG");
+    const checkboxLOG = document.getElementById("checkboxLOG");
     
     // Get references to the corresponding input field divs
     const titleField = document.getElementById("titleField");
@@ -452,6 +923,7 @@
     const professionField = document.getElementById("professionField");
     const passportField = document.getElementById("passportField");
     const SOGField = document.getElementById("SOGField");
+    const LOGField = document.getElementById("LOGField");
     
     // Add event listeners to the checkboxes
     checkboxTitle.addEventListener("change", function() {
@@ -573,7 +1045,14 @@
             SOGField.style.display = "none";
         }    
     });
-    
+
+    checkboxLOG.addEventListener("change", function() {
+        if (this.checked) {
+            LOGField.style.display = "block";
+        } else {
+            LOGField.style.display = "none";
+        }    
+    });
 </script>
 
 @endsection

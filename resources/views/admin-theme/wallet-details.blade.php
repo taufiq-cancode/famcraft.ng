@@ -153,7 +153,7 @@
 </section>
 
 @php
-    $vpayApiKey = env('VPAY_API_KEY');
+    $vpayApiKey = env('VPAY_PUBLIC_KEY');
     $vpayApiDomain = env('VPAY_API_DOMAIN');
 @endphp
 
@@ -175,19 +175,19 @@
         const transactionref = generateTransactionRef();
 
         const options = {
-            domain: 'live',
-            key: '9cc74024-6c63-48c4-930c-8ace6e388e1e',
+            domain: '{{ $vpayApiDomain }}',
+            key: '{{ $vpayApiKey }}',
             amount: amount,
             email: email,
             transactionref: transactionref,
             customer_service_channel: '+2348164418223, support@famcraft.ng',
             txn_charge: 6,
-            txn_charge_type: 'flat', // or 'percentage'
+            txn_charge_type: 'flat',
             onSuccess: function(response) { 
                 console.log('Transaction Successful!', response);
                 const paymentData = {
                 trxref: transactionref,
-                reference: response.reference, // Assuming response contains a reference field
+                reference: response.reference,
                 user_id: userId,
                 amount: amount,
                 payment_for: payment_for,
@@ -207,24 +207,26 @@
     }
     
     function storePaymentData(paymentData) {
-        fetch('/payment-status', {
+        fetch('/store-payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             body: JSON.stringify(paymentData)
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                console.log('Payment data stored successfully!', data);
+                window.location.href = `/payment-success?status=success`;
             } else {
-                console.log('Failed to store payment data', data);
+                window.location.href = `/payment-success?status=error`;
             }
         })
         .catch(error => {
-            console.error('Error storing payment data:', error);
+            console.error('Error:', error);
+            window.location.href = `/payment-success?status=error`;
         });
     }
+
 </script>

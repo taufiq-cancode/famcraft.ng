@@ -27,7 +27,7 @@
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Notification Details</label>
                                 <div class="col-lg-6">
-                                    <textarea type="text" name="details" class="form-control" id="inputDefault" placeholder="Enter notification details"></textarea>
+                                    <textarea type="text" name="details" rows="5" class="form-control" id="inputDefault" placeholder="Enter notification details"></textarea>
                                 </div>
                             </div>
 

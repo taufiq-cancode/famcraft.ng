@@ -16,7 +16,7 @@ class ValidationController extends Controller
         $user = auth()->user();
         $transactions = ValidationTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('validation', compact('transactions'));
     }

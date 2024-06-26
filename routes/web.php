@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AirtimeBills\AirtimeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PUKController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PersonalizationController;
 use App\Http\Controllers\NewEnrollmentController;
 use App\Http\Controllers\ModificationController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\VerificationV2Controller;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NotificationController;
@@ -33,11 +35,10 @@ Route::get('/slip', function () {
     return view('slip.test');
 });
 
+Route::get('/payment-success', [PaymentController::class, 'showPaymentStatus'])->name('payment.success');
+
+
 Route::prefix('bills')->group(function () {
-    
-    Route::get('/buy-airtime', function () {
-        return view('airtime');
-    })->name('airtime');
 
     Route::get('/buy-data', function () {
         return view('data');
@@ -100,13 +101,20 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('/wallet', [PaymentController::class, 'index'])->name('wallet');
     Route::get('/tracks', [TracksController::class, 'index'])->name('tracks');
-    Route::get('/notification/{notificationId}', [NotificationController::class, 'view'])->name('view.notification');
 
     Route::prefix('puk')->group(function () {
         Route::get('/', [PUKController::class, 'index'])->name('puk');
         Route::post('/submit', [PUKController::class, 'store'])->name('submit.puk');
         Route::get('/{pukTransactionId}', [PUKController::class, 'view'])->name('view.puk');
         Route::put('/{pukTransactionId}', [PUKController::class, 'update'])->name('update.puk');
+    });
+
+    Route::prefix('airtime-bills')->group(function () {      
+        Route::get('/airtime', [AirtimeController::class, 'airtimeIndex'])->name('airtime');
+        Route::post('/airtime/purchase', [AirtimeController::class, 'airtimePurchase'])->name('airtime.purchase');
+
+        // Route::get('/data', [AirtimeController::class, 'index'])->name('airtime');
+        // Route::post('/data/purchase', [AirtimeController::class, 'purchase'])->name('airtime.purchase');
     });
     
     Route::prefix('nin')->group(function () {
@@ -136,6 +144,13 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/submit', [VerificationController::class, 'store'])->name('submit.verification');
             Route::get('/{verificationId}', [VerificationController::class, 'view'])->name('view.verification');
             Route::put('/{verificationId}', [VerificationController::class, 'update'])->name('update.verification');
+        });
+
+        Route::prefix('verification-2')->group(function () {
+            Route::get('/', [VerificationV2Controller::class, 'index'])->name('verificationV2');
+            Route::post('/submit', [VerificationV2Controller::class, 'store'])->name('submit.verificationV2');
+            Route::get('/{verificationId}', [VerificationV2Controller::class, 'view'])->name('view.verificationV2');
+            Route::put('/{verificationId}', [VerificationV2Controller::class, 'update'])->name('update.verificationV2');
         });
 
         Route::prefix('personalization')->group(function (){
@@ -187,6 +202,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/puk', [AdminController::class, 'puk'])->name('admin.puk');
         Route::prefix('nin')->group(function () {
             Route::get('/verification', [AdminController::class, 'verification'])->name('admin.verification');
+            Route::get('/verification-2', [AdminController::class, 'verificationV2'])->name('admin.verificationV2');
             Route::get('/validation', [AdminController::class, 'validation'])->name('admin.validation');
             Route::get('/ipe-clearance', [AdminController::class, 'ipeClearance'])->name('admin.ipe-clearance');
             Route::get('/new-enrollment', [AdminController::class, 'newEnrollment'])->name('admin.new-enrollment');

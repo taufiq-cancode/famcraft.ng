@@ -99,7 +99,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Transaction For</th>
-                                    {{-- <th>Payment Method</th> --}}
                                     <th>Amount</th>
                                     <th>Date</th>
                                     <th>Status</th>
@@ -107,11 +106,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($user->payments as $payment)
+                                @foreach ($payments as $payment)
                                     <tr>
-                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ ($payments->currentPage() - 1) * $payments->perPage() + $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $payment->payment_for }}</td>
-                                        {{-- <td class="pt-desktop">{{ $transaction->payment_type }}</td> --}}
                                         <td class="pt-desktop">&#8358;{{ number_format($payment->amount) }}</td>
                                         <td>{{ $payment->created_at->format('jS F, Y') }} <br> {{ $payment->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($payment->status) }}</td>
@@ -119,14 +117,18 @@
                                             <a href="{{ route('view.payment',['paymentId' => $payment->id]) }}" class="mb-1 mt-1 me-1 btn btn-secondary" style="color: white"><span class="hide-mob">View</span> <i class="fas fa-eye"></i> </a>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $payments->links('vendor.pagination.custom') }}
                     </div>
                 </div>
             </section>
         </div>
     </div>
+    
 
 </section>
 

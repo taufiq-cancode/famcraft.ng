@@ -34,6 +34,12 @@
                                         Verification
                                     </a>                        
                                 </li>
+
+                                <li class=" {{ ($prefix == 'nin/verification-2')?'nav-active':'' }}">
+                                    <a href="{{ route('verificationV2') }}">
+                                        Verification V2
+                                    </a>                        
+                                </li>
         
                                 <li class=" {{ ($prefix == 'nin/validation')?'nav-active':'' }}">
                                     <a href="{{ route('validation') }}">

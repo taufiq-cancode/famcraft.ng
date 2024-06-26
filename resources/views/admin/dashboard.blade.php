@@ -64,7 +64,7 @@
             <div class="row mb-3">
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('verification') }}">
+                        <a href="{{ route('admin.verification') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -88,7 +88,31 @@
 
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('validation') }}">
+                        <a href="{{ route('admin.verificationV2') }}">
+                            <div class="card-body bg-success">
+                                <div class="widget-summary custom-summary">
+                                    <div class="widget-summary-col widget-summary-col-icon">
+                                        <div class="summary-icon custom-icon" style="margin-top:10px">
+                                            <i class="fa-solid fa-certificate"></i>
+                                        </div>
+                                    </div>
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            <div class="info">
+                                                <h4 class="h4-service" style="color: white; font-size:20px">Verification V2</h4>
+                                                <span>{{ $verificationTotalCountV2 }} Transactions <br> ({{ $verificationPendingCountV2 }} unresolved)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </section>
+                </div>
+
+                <div class="col-xl-4">
+                    <section class="card mb-4">
+                        <a href="{{ route('admin.validation') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -108,11 +132,13 @@
                             </div>
                         </a>
                     </section>
-                </div>
+                </div>              
+            </div>
 
+            <div class="row mb-3"> 
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('ipe-clearance') }}">
+                        <a href="{{ route('admin.ipe-clearance') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -132,13 +158,11 @@
                             </div>
                         </a>
                     </section>
-                </div>                
-            </div>
+                </div>  
 
-            <div class="row mb-3">
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('new-enrollment') }}">
+                        <a href="{{ route('admin.new-enrollment') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -162,7 +186,7 @@
 
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('modification') }}">
+                        <a href="{{ route('admin.modification') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -183,37 +207,12 @@
                         </a>
                     </section>
                 </div>
-
-                <div class="col-xl-4">
-                    <section class="card mb-4">
-                        <a href="{{ route('personalization') }}">
-                            <div class="card-body bg-success">
-                                <div class="widget-summary custom-summary">
-                                    <div class="widget-summary-col widget-summary-col-icon">
-                                        <div class="summary-icon custom-icon" style="margin-top:10px">
-                                            <i class="fa-solid fa-user-pen"></i>
-                                        </div>
-                                    </div>
-                                    <div class="widget-summary-col">
-                                        <div class="summary">
-                                            <div class="info">
-                                                <h4 class="h4-service" style="color: white; font-size:20px"> &nbsp; Personalization</h4>
-                                                <span>{{ $personalizationTotalCount }} Transactions <br> ({{ $personalizationPendingCount }} unresolved)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </section>
-                </div>   
-
             </div>
 
             <div class="row mb-3">     
                 <div class="col-xl-4">
                     <section class="card mb-4">
-                        <a href="{{ route('personalization') }}">
+                        <a href="{{ route('admin.personalization') }}">
                             <div class="card-body bg-success">
                                 <div class="widget-summary custom-summary">
                                     <div class="widget-summary-col widget-summary-col-icon">
@@ -233,7 +232,31 @@
                             </div>
                         </a>
                     </section>
-                </div>   
+                </div> 
+                
+                <div class="col-xl-4">
+                    <section class="card mb-4">
+                        <a href="{{ route('admin.personalization') }}">
+                            <div class="card-body bg-success">
+                                <div class="widget-summary custom-summary">
+                                    <div class="widget-summary-col widget-summary-col-icon">
+                                        <div class="summary-icon custom-icon" style="margin-top:10px">
+                                            <i class="fa-solid fa-user-pen"></i>
+                                        </div>
+                                    </div>
+                                    <div class="widget-summary-col">
+                                        <div class="summary">
+                                            <div class="info">
+                                                <h4 class="h4-service" style="color: white; font-size:20px"> &nbsp; Personalization</h4>
+                                                <span>{{ $personalizationTotalCount }} Transactions <br> ({{ $personalizationPendingCount }} unresolved)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </section>
+                </div> 
             </div>
         </div>
     </div>

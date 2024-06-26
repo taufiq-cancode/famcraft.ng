@@ -31,6 +31,7 @@ class ModificationTransaction extends Model
         'profession',
         'passport',
         'state_of_origin',
+        'lga_of_origin',
         'religion',
         'response',
         'response_text',

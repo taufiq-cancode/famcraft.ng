@@ -26,7 +26,12 @@ class AdminController extends Controller
         $pukPendingCount = $pukTransactions->where('status', 'pending')->count();
 
         // Retrieve and count verification transactions
-        $verificationTransactions = VerificationTransaction::all();
+        $verificationTransactionsV2 = VerificationTransaction::where('verification_type', 'v2');
+        $verificationTotalCountV2 = $verificationTransactionsV2->count();
+        $verificationPendingCountV2 = $verificationTransactionsV2->where('status', 'pending')->count();
+
+        // Retrieve and count verification transactions
+        $verificationTransactions = VerificationTransaction::where('verification_type', 'v1');
         $verificationTotalCount = $verificationTransactions->count();
         $verificationPendingCount = $verificationTransactions->where('status', 'pending')->count();
 
@@ -65,6 +70,7 @@ class AdminController extends Controller
         return view('admin.dashboard', compact(
             'pukTotalCount', 'pukPendingCount',
             'verificationTotalCount', 'verificationPendingCount',
+            'verificationTotalCountV2', 'verificationPendingCountV2',
             'validationTotalCount', 'validationPendingCount',
             'ipeTotalCount', 'ipePendingCount',
             'newEnrollmentTotalCount', 'newEnrollmentPendingCount',
@@ -81,9 +87,25 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = VerificationTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = VerificationTransaction::orderBy('created_at', 'desc')
+                                                ->where('verification_type', 'v1')
+                                                ->paginate(10);
 
         return view('admin.verification', compact('transactions'));
+    }
+
+    public function verificationV2()
+    {
+        $admin = auth()->user();
+        if ($admin->role !== 'Administrator'){
+            return back()->with('error', 'Unauthorized access');
+        }
+
+        $transactions = VerificationTransaction::orderBy('created_at', 'desc')
+                                                ->where('verification_type', 'v2')
+                                                ->paginate(10);
+
+        return view('admin.verification-2', compact('transactions'));
     }
 
     public function validation()
@@ -93,7 +115,8 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = ValidationTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = ValidationTransaction::orderBy('created_at', 'desc')
+                                                ->paginate(10);
 
         return view('admin.validation', compact('transactions'));
     }
@@ -105,7 +128,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = IPEClearanceTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = IPEClearanceTransaction::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.ipe-clearance', compact('transactions'));
     }
@@ -117,7 +140,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = NewEnrollmentTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = NewEnrollmentTransaction::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.new-enrollment', compact('transactions'));
     }
@@ -129,7 +152,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = ModificationTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = ModificationTransaction::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.modification', compact('transactions'));
     }
@@ -141,7 +164,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = PersonalizationTransaction::orderBy('created_at', 'desc')->get();
+        $transactions = PersonalizationTransaction::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.personalization', compact('transactions'));
     }
@@ -153,7 +176,7 @@ class AdminController extends Controller
             return back()->with('error', 'Unauthorized access');
         }
 
-        $transactions = PUKTransaction::orderBy('created_at', 'desc')->get();;
+        $transactions = PUKTransaction::orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.puk', compact('transactions'));
     }

@@ -26,13 +26,23 @@
                     </li>
                     
 
-                    <li class=" {{ ($prefix == 'nin/verification' || $route == 'admin.verification' )?'nav-active':'' }}">
+                    <li class="">
                         @php
-                            $pendingVerification = \App\Models\VerificationTransaction::where('status', 'pending')->count();
+                            $pendingVerification = \App\Models\VerificationTransaction::where('status', 'pending')->where('verification_type', 'v1')->count();
                         @endphp
                         <a href="{{ route('admin.verification') }}">
                             <i class="fa-solid fa-certificate" aria-hidden="true"></i>
                             <span>Verification &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingVerification }}</span></span>
+                        </a>                        
+                    </li>
+
+                    <li class="">
+                        @php
+                            $pendingVerificationV2 = \App\Models\VerificationTransaction::where('status', 'pending')->where('verification_type', 'v2')->count();
+                        @endphp
+                        <a href="{{ route('admin.verificationV2') }}">
+                            <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+                            <span>Verification V2 &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingVerificationV2 }}</span></span>
                         </a>                        
                     </li>
 

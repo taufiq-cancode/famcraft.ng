@@ -21,7 +21,7 @@ class NewEnrollmentController extends Controller
         
         $transactions = NewEnrollmentTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         $countries_states = storage_path('app/json/countries.json'); 
         $countries_states_data = json_decode(file_get_contents($countries_states), true);

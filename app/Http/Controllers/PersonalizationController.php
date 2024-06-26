@@ -16,7 +16,7 @@ class PersonalizationController extends Controller
 
         $transactions = PersonalizationTransaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('personalization', compact('transactions'));
     }

@@ -41,7 +41,7 @@
                         <tbody>
                             @foreach ($users as $user)
                                 <tr>
-                                    <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                    <td class="pt-desktop">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</td>
                                     <td class="pt-desktop">{{ Illuminate\Support\Str::title($user->first_name) }} {{ Illuminate\Support\Str::title($user->last_name) }}</td>
                                     <td class="pt-desktop">{{ $user->email }}</td>
                                     <td class="pt-desktop">&#8358;{{ number_format(optional($user->wallet)->balance) }}</td>
@@ -56,6 +56,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $users->links('vendor.pagination.custom') }}
                 </div>
             </section>
         </div>

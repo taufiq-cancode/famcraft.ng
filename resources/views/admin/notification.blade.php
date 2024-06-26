@@ -65,7 +65,7 @@
                                 <tbody>
                                     @foreach ($transactions as $transaction)
                                         <tr>
-                                            <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                            <td class="pt-desktop">{{ ($transactions->currentPage() - 1) * $transactions->perPage() + $loop->iteration }}</td>
                                             <td class="pt-desktop">{{ $transaction->title }}</td>
                                             <td>{{ $transaction->created_at->format('jS F, Y') }} <br> {{ $transaction->created_at->format('g:i A') }}</td>
                                             <td class="actions">
@@ -75,6 +75,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            {{ $transactions->links('vendor.pagination.custom') }}
                         </div>
                     </div>
                 </section>

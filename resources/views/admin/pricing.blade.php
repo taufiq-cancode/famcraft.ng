@@ -51,7 +51,9 @@
                                         <option value="name-modification">Name modification</option>
                                         <option value="date-of-birth-modification">Date of birth modification</option>
                                         <option value="name-date-of-birth-modification">Name & Date of birth modification</option>
-                                        <option value="dob-other-modification">DOB & other modification</option>
+                                        <option value="name-others-modification">Name & other modification</option>
+                                        <option value="dob-others-modification">DOB & other modification</option>
+                                        <option value="suspended-bvn-modification">Suspended BVN modification</option>
                                         <option value="other-modification">Other modification</option>
                                         <option value="bvn-nin-modification">BVN NIN modification</option>
                                         <option value="suspended-nin-modification">Suspended NIN modification</option>

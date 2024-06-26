@@ -23,7 +23,7 @@ class PaymentController extends Controller
 
         $transactions = Payment::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('wallet', compact('transactions'));
     }
@@ -32,32 +32,38 @@ class PaymentController extends Controller
     {
         try {
             $user = auth()->user();
-    
+        
             $data = $request->validate([
                 'payment_type' => 'required|string|in:manual-transfer,online-gateway',
                 'payment_for' => 'required|string',
                 'amount' => 'required|integer',
-                'screenshot' => 'required|image'
+                'screenshot' => 'nullable|image',
+                'trxref' => 'required|string',
+                'reference' => 'required|string',
+                'user_id' => 'required|integer',
+                'status' => 'required|string'
             ]);
-
+    
             if ($request->hasFile('screenshot')) {
                 $imagePath = $request->file('screenshot')->store('screenshots', 'public');
                 $data['screenshot'] = $imagePath;
             }
-
+    
             $data['user_id'] = $user->id;
             $data['status'] = 'pending';
-
-            $payment = Payment::create($data);
     
-            if ($payment){
-                return back()->with('success', 'Payment submitted successfully.');
+            $payment = Payment::create($data);
+        
+            if ($payment) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
             }
-
-        } catch(Exception $e) {
-            return back()->with('error', $e->getMessage());
+        } catch (Exception $e) {
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+    
 
     public function view($paymentId)
     {
@@ -130,5 +136,11 @@ class PaymentController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
+    }
+
+    public function showPaymentStatus(Request $request)
+    {
+        $status = $request->query('status', 'error');
+        return view('payment-success', compact('status'));
     }
 }

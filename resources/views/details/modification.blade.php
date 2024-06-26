@@ -85,186 +85,147 @@
                             </div>
                         </div>
 
-                        <hr>
-
-                        <div id="othersFields" style="display: none;">
-                            <div class="form-group row">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Details to Modify</label>
-                                <div class="col-lg-6">
-                                    <textarea id="detailsToModify" class="form-control" rows="5" readonly="readonly"> {{ $detailsToModifyString }} </textarea>                         
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div id="nameFields" style="display: none;">
+                        @if(isset($transaction->title) && !empty($transaction->title))
                             <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name</label>
-                                <div class="col-lg-2">
-                                    <input type="text" name="surname" value="{{ $transaction->surname }}" class="form-control" id="inputDefault" placeholder="Surname" readonly="readonly">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="firstname" value="{{ $transaction->firstname }}" class="form-control form-mt" id="inputDefault" placeholder="Firstname" readonly="readonly">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="middlename" value="{{ $transaction->middlename }}" class="form-control form-mt" id="inputDefault" placeholder="Middlename" readonly="readonly">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div id="dobFields" style="display: none;">
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth</label>
-                                <div class="col-lg-6">
-                                    <input type="date" value="{{ $transaction->dob }}" id="inputReadOnly" class="form-control" readonly="readonly">                            
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div id="nameDobFields" style="display: none;">
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Name</label>
-                                <div class="col-lg-2">
-                                    <input type="text" name="surname" value="{{ $transaction->surname }}" class="form-control" id="inputDefault" placeholder="Surname" readonly="readonly">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="firstname" value="{{ $transaction->firstname }}" class="form-control form-mt" id="inputDefault" placeholder="Firstname" readonly="readonly">
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="text" name="middlename" value="{{ $transaction->middlename }}" class="form-control form-mt" id="inputDefault" placeholder="Middlename" readonly="readonly">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Date of Birth</label>
-                                <div class="col-lg-6">
-                                    <input type="text" name="dob" value="{{ $transaction->dob }}" class="form-control" id="inputDefault" readonly="readonly">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="titleField" style="display: none;">
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Title <span style="color: red">*</span></label>
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">
+                                    Title <span style="color: red">*</span>
+                                </label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->title }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="firstnameField" style="display: none;">
+                        @if(isset($transaction->firstname) && !empty($transaction->firstname))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Firstname <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->firstname }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="surnameField" style="display: none;">
+                        @if(isset($transaction->surname) && !empty($transaction->surname))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Surname <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
-                                    <input type="text" value="{{ $transaction->middlename }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                    <input type="text" value="{{ $transaction->surname }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="othernameField" style="display: none;">
+                        @if(isset($transaction->middlename) && !empty($transaction->middlename))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Othername <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->middlename }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="genderField" style="display: none;">
+                        @if(isset($transaction->gender) && !empty($transaction->gender))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Gender <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ Illuminate\Support\Str::title($transaction->gender) }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="DOBField" style="display: none;">
+                        @if(isset($transaction->dob) && !empty($transaction->dob))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end" for="inputDefault">Date of Birth <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->dob }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="phoneField" style="display: none;">
+                        @if(isset($transaction->phone) && !empty($transaction->phone))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Phone Number <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->phone }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="resStateField" style="display: none;">
+                        @if(isset($transaction->state_of_residence) && !empty($transaction->state_of_residence))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential State <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->state_of_residence }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="resLGField" style="display: none;">
+                        @if(isset($transaction->lga_of_residence) && !empty($transaction->lga_of_residence))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Local Government <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->lga_of_residence }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="resTownField" style="display: none;">
+                        @if(isset($transaction->town) && !empty($transaction->town))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Town/City <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->town }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="resAddField" style="display: none;">
+                        @if(isset($transaction->address_line_1) && !empty($transaction->address_line_1))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Residential Address <span style="color: red"> *</span></label>
                                 <div class="col-lg-3">
                                     <input type="text" value="{{ $transaction->address_line_1 }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                                 <div class="col-lg-3">
-                                    <input type="text" value="{{ $transaction->address_line_2 }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                    <input type="text" value="{{ $transaction->address_line_2 ?? NULL }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="religionField" style="display: none;">
+                        @if(isset($transaction->religion) && !empty($transaction->religion))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Religion <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->religion }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="professionField" style="display: none;">
+                        @if(isset($transaction->profession) && !empty($transaction->profession))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Profession <span style="color: red">*</span></label>
                                 <div class="col-lg-6">
                                     <input type="text" value="{{ $transaction->profession }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
                                 </div>
                             </div>
-                        </div>
+                        @endif
 
-                        <div id="passportField" style="display: none;">
+                        @if(isset($transaction->state_of_origin) && !empty($transaction->state_of_origin))
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">State of Origin <span style="color: red">*</span></label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="{{ $transaction->state_of_origin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(isset($transaction->lga_of_origin) && !empty($transaction->lga_of_origin))
+                            <div class="form-group row pb-4">
+                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">LGA of Origin <span style="color: red">*</span></label>
+                                <div class="col-lg-6">
+                                    <input type="text" value="{{ $transaction->lga_of_origin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                                </div>
+                            </div>
+                        @endif
+
+                        @if(isset($transaction->passport) && !empty($transaction->passport))
                             <div class="form-group row pb-4">
                                 <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Passport <span style="color: red"> *</span></label>
                                 <div class="col-lg-6">
@@ -279,16 +240,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="SOGField" style="display: none;">
-                            <div class="form-group row pb-4">
-                                <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">State of Origin <span style="color: red">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="text" value="{{ $transaction->state_of_origin }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
-                                </div>
-                            </div>
-                        </div>
+                        @endif
 
                         <hr>
 
@@ -319,113 +271,5 @@
 
     <!-- end: page -->
 </section>
-
-<script>
-    function displayFields() {
-        var selectedOption = document.getElementById("modificationType").value;
-    
-        if (selectedOption === "name") {
-            document.getElementById("nameFields").style.display = "block";
-        } else if (selectedOption === "dob") {
-            document.getElementById("dobFields").style.display = "block";
-        } else if (selectedOption === "name_dob") {
-            document.getElementById("nameDobFields").style.display = "block";
-        } else if (selectedOption === "others") {
-            document.getElementById("othersFields").style.display = "block";
-        }
-    }
-
-    window.onload = function() {
-        displayFields();
-    };
-</script>
-<script>
-    // Function to show or hide fields based on the textarea value
-    function toggleFields() {
-        var detailsToModify = document.getElementById('detailsToModify').value.trim();
-
-        // Split the string by commas to get an array of strings
-        var detailsArray = detailsToModify.split(' | ');
-
-        // Get references to field containers
-        var titleField = document.getElementById('titleField');
-        var firstnameField = document.getElementById('firstnameField');
-        var surnameField = document.getElementById('surnameField');
-        var othernameField = document.getElementById('othernameField');
-        var genderField = document.getElementById('genderField');
-        var DOBField = document.getElementById('DOBField');
-        var phoneField = document.getElementById('phoneField');
-        var resStateField = document.getElementById('resStateField');
-        var resLGField = document.getElementById('resLGField');
-        var resTownField = document.getElementById('resTownField');
-        var resAddField = document.getElementById('resAddField');
-        var religionField = document.getElementById('religionField');
-        var professionField = document.getElementById('professionField');
-        var passportField = document.getElementById('passportField');
-        var SOGField = document.getElementById('SOGField');
-
-        // Hide all fields
-        titleField.style.display = 'none';
-        firstnameField.style.display = 'none';
-        surnameField.style.display = 'none';
-        othernameField.style.display = 'none';
-        genderField.style.display = 'none';
-        DOBField.style.display = 'none';
-        phoneField.style.display = 'none';
-        resStateField.style.display = 'none';
-        resLGField.style.display = 'none';
-        resTownField.style.display = 'none';
-        resAddField.style.display = 'none';
-        religionField.style.display = 'none';
-        professionField.style.display = 'none';
-        passportField.style.display = 'none';
-        SOGField.style.display = 'none';
-
-        // Show fields based on the values in the detailsArray
-        detailsArray.forEach(function(detail) {
-            if (detail === 'title') {
-                titleField.style.display = 'block';
-            } else if (detail === 'firstname') {
-                firstnameField.style.display = 'block';
-            } else if (detail === 'surname') {
-                surnameField.style.display = 'block';
-            } else if (detail === 'othername') {
-                othernameField.style.display = 'block';
-            } else if (detail === 'gender') {
-                genderField.style.display = 'block';
-            } else if (detail === 'date_of_birth') {
-                DOBField.style.display = 'block';
-            } else if (detail === 'phone') {
-                phoneField.style.display = 'block';
-            } else if (detail === 'residential_state') {
-                resStateField.style.display = 'block';
-            } else if (detail === 'residential_lg') {
-                resLGField.style.display = 'block';
-            } else if (detail === 'residential_town') {
-                resTownField.style.display = 'block';
-            } else if (detail === 'residential_address') {
-                resAddField.style.display = 'block';
-            } else if (detail === 'religion') {
-                religionField.style.display = 'block';
-            } else if (detail === 'profession') {
-                professionField.style.display = 'block';
-            } else if (detail === 'passport') {
-                passportField.style.display = 'block';
-            } else if (detail === 'state_of_origin') {
-                SOGField.style.display = 'block';
-            }
-        });
-    }
-
-    // Call the function initially
-    toggleFields();
-
-    // Add an event listener to the textarea to call the function whenever its value changes
-    document.getElementById('detailsToModify').addEventListener('change', toggleFields);
-</script>
-
-
-
-
 
 @endsection
