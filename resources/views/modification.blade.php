@@ -1220,21 +1220,7 @@
     document.getElementById('modificationType').addEventListener('change', function() {
         var trackingIdGroup = document.getElementById('trackingIdGroup');
         var ninGroup = document.getElementById('ninGroup');
-        if (this.value === 'suspended_bvn') {
-            trackingIdGroup.style.display = 'none';
-            ninGroup.style.display = 'none';
-        } else {
-            trackingIdGroup.style.display = 'flex'; 
-            ninGroup.style.display = 'flex';
-        }
-    });
-</script>
-
-<script>
-    document.getElementById('modificationType').addEventListener('change', function() {
-        var trackingIdGroup = document.getElementById('trackingIdGroup');
-        var ninGroup = document.getElementById('ninGroup');
-        if (this.value === 'new_enrollment_old_slip') {
+        if (this.value === 'suspended_bvn' || this.value === 'new_enrollment_old_slip') {
             trackingIdGroup.style.display = 'none';
             ninGroup.style.display = 'none';
         } else {
