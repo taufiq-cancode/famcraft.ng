@@ -83,7 +83,7 @@
 							<div class="form-group mb-3">
 								<div class="clearfix">
 									<label class="float-start">Password</label>
-									<a href="pages-recover-password.html" class="float-end">Lost Password?</a>
+									<a href="{{ route('password.request') }}" class="float-end">Lost Password?</a>
 								</div>
 								<div class="input-group">
 									<input name="password" type="password" class="form-control form-control-lg" />
