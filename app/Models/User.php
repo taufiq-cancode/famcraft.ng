@@ -73,6 +73,11 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function getReferralLinkAttribute()
+    {
+        return route('register') . '?ref=' . $this->referral_code;
+    }
+
     protected $casts = [
         'read_at' => 'datetime',
     ];
