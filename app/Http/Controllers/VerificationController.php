@@ -279,7 +279,7 @@ class VerificationController extends Controller
                         $gender = $verificationData['message']['gender'] ?? null;
                         $tracking_id = $verificationData['message']['trackingId'] ?? null;
                         $middlename = $verificationData['message']['middleName'] ?? null;
-                        $phone = $verificationData['message']['telephoneno'] ?? null;
+                        $phone = $verificationData['message']['mobile'] ?? null;
                         $dateObj = Carbon::createFromFormat('d-m-Y', $dob) ?? null;
                         $formattedDob = $dateObj->format('d-M-Y') ?? null;
                         $currentDate = Carbon::now()->format('jS M Y') ?? null;
@@ -297,9 +297,9 @@ class VerificationController extends Controller
                         $email = $verificationData['message']['email'] ?? null;
                         $state = $verificationData['message']['state'] ?? null;
                         $lg = $verificationData['message']['lga'] ?? null;
-                        $birthcountry = $verificationData['message']['birthcountry'] ?? null;
-                        $birthstate = $verificationData['message']['birthstate'] ?? null;
-                        $birthlga = $verificationData['message']['birthlga'] ?? null;
+                        $birthcountry = $verificationData['message']['birthCountry'] ?? null;
+                        $birthstate = $verificationData['message']['birthState'] ?? null;
+                        $birthlga = $verificationData['message']['birthLGA'] ?? null;
                         $address = $verificationData['message']['addressLine'] ?? null;
                         $text = "surname: " . $surname . " | givenNames: " . $fname . " | dob: " . $dob . " ;";
 
@@ -389,7 +389,7 @@ class VerificationController extends Controller
 
                     if ($verification) {
                         if (is_array($verificationData['message'])) {
-                            $base64Image = $verificationData['message']['photo'];
+                            $base64Image = $verificationData['message']['image'];
                             $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $base64Image));
 
                             $base64Sign = $verificationData['message']['signature'];
@@ -405,16 +405,16 @@ class VerificationController extends Controller
                         $signPath = $signData;
 
                         $slip = $data['slip_type'];
-                        $surname = $verificationData['message']['surname'] ?? null;
+                        $surname = $verificationData['message']['lastName'] ?? null;
                         $photo = $verificationData['image_data'] ?? null;
                         $signature = $verificationData['sign_data'] ?? null;
-                        $firstname = $verificationData['message']['firstname'] ?? null;
-                        $nin = $verificationData['message']['nin'] ?? null;
-                        $dob = $verificationData['message']['birthdate'] ?? null;
+                        $firstname = $verificationData['message']['firstName'] ?? null;
+                        $nin = $verificationData['message']['idNumber'] ?? null;
+                        $dob = $verificationData['message']['dateOfBirth'] ?? null;
                         $gender = $verificationData['message']['gender'] ?? null;
                         $tracking_id = $verificationData['message']['trackingId'] ?? null;
-                        $middlename = $verificationData['message']['middlename'] ?? null;
-                        $phone = $verificationData['message']['telephoneno'] ?? null;
+                        $middlename = $verificationData['message']['middleName'] ?? null;
+                        $phone = $verificationData['message']['mobile'] ?? null;
                         $dateObj = Carbon::createFromFormat('d-m-Y', $dob) ?? null;
                         $formattedDob = $dateObj->format('d-M-Y') ?? null;
                         $currentDate = Carbon::now()->format('jS M Y') ?? null;
@@ -426,16 +426,16 @@ class VerificationController extends Controller
                         $spoken_language = $verificationData['message']['nspokenlang'] ?? null;
                         $profession = $verificationData['message']['profession'] ?? null;
                         $religion = $verificationData['message']['religion'] ?? null;
-                        $restown = $verificationData['message']['residence_Town'] ?? null;
+                        $restown = $verificationData['message']['town'] ?? null;
                         $residencestatus = $verificationData['message']['residencestatus'] ?? null;
                         $title = $verificationData['message']['title'] ?? null;
                         $email = $verificationData['message']['email'] ?? null;
                         $state = $verificationData['message']['residence_state'] ?? null;
                         $lg = $verificationData['message']['residence_lga'] ?? null;
-                        $birthcountry = $verificationData['message']['birthcountry'] ?? null;
-                        $birthstate = $verificationData['message']['birthstate'] ?? null;
-                        $birthlga = $verificationData['message']['birthlga'] ?? null;
-                        $address = $verificationData['message']['residence_AdressLine1'] ?? null;
+                        $birthcountry = $verificationData['message']['birthCountry'] ?? null;
+                        $birthstate = $verificationData['message']['birthState'] ?? null;
+                        $birthlga = $verificationData['message']['birthLGA'] ?? null;
+                        $address = $verificationData['message']['addressLine'] ?? null;
                         $text = "surname: " . $surname . " | givenNames: " . $fname . " | dob: " . $dob . " ;";
 
                         $url = "https://api.qrserver.com/v1/create-qr-code/?data=" . urlencode($text) . "&size=100x100";
