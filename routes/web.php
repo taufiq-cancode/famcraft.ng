@@ -21,6 +21,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SlipController;
+use App\Http\Controllers\ReferralController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,8 +36,10 @@ Route::get('/slip', function () {
     return view('slip.test');
 });
 
-Route::get('/payment-success', [PaymentController::class, 'showPaymentStatus'])->name('payment.success');
+Route::get('/register/referral', [ReferralController::class, 'showReferralRegistrationForm'])->name('register.referral');
+Route::post('/register/referral', [ReferralController::class, 'register'])->name('register-referral');
 
+Route::get('/payment-success', [PaymentController::class, 'showPaymentStatus'])->name('payment.success');
 
 Route::prefix('bills')->group(function () {
 
@@ -47,10 +50,6 @@ Route::prefix('bills')->group(function () {
     Route::get('/cable-tv', function () {
         return view('cable-tv');
     })->name('cable-tv');
-
-    // Route::get('/airtime-cash', function () {
-    //     return view('airtime-cash');
-    // })->name('airtime-cash');
 
     Route::get('/electricity-payment', function () {
         return view('airtime-cash');

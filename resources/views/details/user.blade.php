@@ -72,6 +72,13 @@
                             </div>
                         </div>
                     
+                        <div class="form-group row pb-4">
+                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Remark</label>
+                            <div class="col-lg-6">
+                                <input type="text" name="remark" class="form-control" placeholder="Enter top-up remark">                         
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault"></label>
                             @if (auth()->user()->role === "Administrator")
@@ -100,6 +107,7 @@
                                     <th>#</th>
                                     <th>Transaction For</th>
                                     <th>Amount</th>
+                                    <th>Remark</th>
                                     <th>Date</th>
                                     <th>Status</th>
                                     <th>View</th>
@@ -111,6 +119,7 @@
                                         <td class="pt-desktop">{{ ($payments->currentPage() - 1) * $payments->perPage() + $loop->iteration }}</td>
                                         <td class="pt-desktop">{{ $payment->payment_for }}</td>
                                         <td class="pt-desktop">&#8358;{{ number_format($payment->amount) }}</td>
+                                        <td class="pt-desktop">{{ $payment->remark }}</td>
                                         <td>{{ $payment->created_at->format('jS F, Y') }} <br> {{ $payment->created_at->format('g:i A') }}</td>
                                         <td class="pt-desktop">{{ Illuminate\Support\Str::title($payment->status) }}</td>
                                         <td class="actions">

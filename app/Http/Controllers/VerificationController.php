@@ -29,6 +29,7 @@ class VerificationController extends Controller
                                             ->where('verification_type', 'v1')
                                             ->orderBy('created_at', 'desc')
                                             ->paginate(10);
+        
         return view('verification', compact('transactions'));
     }
 

@@ -16,6 +16,15 @@
     input[type="number"] {
         -moz-appearance: textfield; 
     }
+
+    .btn-secondary{
+        border: 0px;
+    }
+    .btn-secondary:focus, html .btn-secondary.focus {
+        box-shadow: 0 0 0 3px transparent;
+        background-color: #E36159;
+        border-color: transparent;
+    }
 </style>
 
 <section role="main" class="content-body">
@@ -31,10 +40,42 @@
                             <span class="thumb-info-type">{{ Illuminate\Support\Str::title(auth()->user()->role) }} </span>
                         </div>
                     </div>
-                    <div class="d-flex">
-                        <button type="button" class="mb-1 mt-1 me-1 btn btn-primary btn-block">Edit Profile</button>
-                        <button type="button" class="mb-1 mt-1 me-1 btn btn-secondary  btn-block">Change Password</button>
-                    </div>
+                    
+                    @if(auth()->check())
+                        <p>
+                            Your referral link: 
+                            <a id="referralLink" href="{{ auth()->user()->referral_link }}">
+                                {{ auth()->user()->referral_link }}
+                            </a>
+                            <button id="copyButton" type="button" style="width:100%" class="mb-1 mt-1 me-1 btn btn-secondary btn-block">
+                                Copy Referral Link
+                            </button>                        
+                        </p>
+                    @endif
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const copyButton = document.getElementById('copyButton');
+                            const referralLink = document.getElementById('referralLink');
+
+                            copyButton.addEventListener('click', function() {
+                                const link = referralLink.href;
+                                navigator.clipboard.writeText(link).then(() => {
+                                    copyButton.textContent = 'Copied!';
+                                    copyButton.style.backgroundColor = 'green';
+
+                                    // Revert back after 2 seconds
+                                    setTimeout(() => {
+                                        copyButton.textContent = 'Copy Referral Link';
+                                        copyButton.style.backgroundColor = '';
+                                    }, 2000);
+                                }).catch(err => {
+                                    console.error('Failed to copy: ', err);
+                                });
+                            });
+                        });
+                    </script>
+
                 </div>
             </section>
         </div>
@@ -77,6 +118,9 @@
                                     @endforeach
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $transactions->links('vendor.pagination.custom') }}
                     </div>
                 </div>
             </section>

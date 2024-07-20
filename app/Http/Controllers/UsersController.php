@@ -21,7 +21,9 @@ class UsersController extends Controller
 
         $users = User::whereIn('role', ['Agent', 'User'])
              ->with('wallet')
+             ->orderBy('created_at', 'desc')
              ->paginate(10);
+
         return view('admin.users', compact('users'));
     }
 
@@ -60,6 +62,7 @@ class UsersController extends Controller
             
             $request->validate([
                 'topup_amount' => 'nullable|numeric|min:0',
+                'remark' => 'nullable|string',
                 'status' => 'sometimes|in:active,inactive',
                 'role' => 'sometimes|in:Agent,User',
             ]);
@@ -68,6 +71,7 @@ class UsersController extends Controller
 
             if ($request->filled('topup_amount')) {
                 $topupAmount = $request->input('topup_amount');
+                $remark = $request->input('remark') ?? null;
                 $user->wallet->increment('balance', $topupAmount);
 
                 Payment::create([
@@ -78,6 +82,7 @@ class UsersController extends Controller
                     'payment_for' => 'wallet-top-up',
                     'payment_type' => 'admin-top-up',
                     'status' => 'completed',
+                    'remark' => $remark
                 ]);
             }
 
@@ -99,5 +104,4 @@ class UsersController extends Controller
             return back()->with('error', $e->getMessage())->withInput();
         }
     }
-
 }

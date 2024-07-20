@@ -22,7 +22,9 @@ class User extends Authenticatable
         'phone',
         'email',
         'password',
-        'role'
+        'role',
+        'referral_code',
+        'referred_by'
     ];
 
     /**
@@ -75,12 +77,10 @@ class User extends Authenticatable
 
     public function getReferralLinkAttribute()
     {
-        return route('register') . '?ref=' . $this->referral_code;
+        return route('register.referral') . '?ref=' . $this->referral_code;
     }
 
     protected $casts = [
         'read_at' => 'datetime',
     ];
-
-
 }

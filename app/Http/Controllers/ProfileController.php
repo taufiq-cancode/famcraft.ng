@@ -18,10 +18,10 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $profile = User::find($user->id);
-        
+
         $transactions = Payment::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
 
         return view('profile', compact('transactions', 'profile'));
     }

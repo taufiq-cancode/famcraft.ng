@@ -48,6 +48,13 @@
                         </div>
 
                         <div class="form-group row pb-4">
+                            <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Payment Remark</label>
+                            <div class="col-lg-6">
+                                <input type="text" value="{{ $payment->remark }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
+                            </div>
+                        </div>
+
+                        <div class="form-group row pb-4">
                             <label class="col-lg-3 control-label text-lg-end pt-2" for="inputDefault">Payment Date</label>
                             <div class="col-lg-3">
                                 <input type="text" value="{{ $payment->created_at->format('jS F, Y') }}" id="inputReadOnly" class="form-control" readonly="readonly">                         
