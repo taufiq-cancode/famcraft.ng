@@ -39,7 +39,11 @@
                     @include('admin-theme.wallet-details')
                 </div>
                 <div class="col-xl-6">
-                    @include('admin-theme.wallet-balance')
+                    @if(auth()->user()->role === 'Staff')
+                        @include('admin-theme.wallet-balance-staff')
+                    @else
+                        @include('admin-theme.wallet-balance')
+                    @endif
                 </div>
             </div>
             

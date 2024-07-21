@@ -23,7 +23,11 @@ class ProfileController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(10);
 
-        return view('profile', compact('transactions', 'profile'));
+        $referrals = $user->referredUsers()
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+
+        return view('profile', compact('transactions', 'referrals', 'profile'));
     }
 
     public function edit(Request $request): View

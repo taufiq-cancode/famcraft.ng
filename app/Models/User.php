@@ -80,6 +80,16 @@ class User extends Authenticatable
         return route('register.referral') . '?ref=' . $this->referral_code;
     }
 
+    public function referredUsers()
+    {
+        return $this->hasMany(User::class, 'referred_by');
+    }
+
+    public function withdrawals()
+    {
+        return $this->hasMany(Withdrawal::class);
+    }
+
     protected $casts = [
         'read_at' => 'datetime',
     ];

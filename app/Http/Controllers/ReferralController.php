@@ -8,9 +8,24 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class ReferralController extends Controller
 {
+
+    public function index()
+    {
+        $referrals = Auth::user()->referredUsers()
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+
+        $withdrawals = Auth::user()->withdrawals()
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+
+        return view('referrals', compact('withdrawals', 'referrals'));
+    }
+
     public function showReferralRegistrationForm(Request $request)
     {
         $referralCode = $request->query('ref', null);

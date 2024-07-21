@@ -44,7 +44,7 @@
                     @if(auth()->check())
                         <p>
                             Your referral link: 
-                            <a id="referralLink" href="{{ auth()->user()->referral_link }}">
+                            <a id="referralLink">
                                 {{ auth()->user()->referral_link }}
                             </a>
                             <button id="copyButton" type="button" style="width:100%" class="mb-1 mt-1 me-1 btn btn-secondary btn-block">
@@ -121,6 +121,43 @@
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         {{ $transactions->links('vendor.pagination.custom') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <section class="card mb-4">
+                <header class="card-header">
+                    <h2 class="card-title">Referral History</h2>
+                </header>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($referrals as $referral)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($referral->first_name) }} {{ Illuminate\Support\Str::title($referral->last_name) }}</td>
+                                        <td>{{ $referral->created_at->format('jS F, Y') }} <br> {{ $referral->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($referral->role) }}</td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $referrals->links('vendor.pagination.custom') }}
                     </div>
                 </div>
             </section>

@@ -22,6 +22,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SlipController;
 use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\WithdrawalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,10 +74,13 @@ Route::get('/states/{countryIso}', 'CountryStateController@getStates');
 Route::get('/download/{filename}', [FileController::class, 'download'])->name('file.download');
 Route::get('/slip-download/{filename}', [FileController::class, 'slipDownload'])->name('slip.download');
 
-// Route::get('/slip-premium', [SlipController::class, , 'premium'])->name('slip.premium');
-
-
 Route::middleware(['auth'])->group(function () {
+    Route::get('/referrals', [ReferralController::class, 'index'])->name('referrals.index');
+    Route::post('/withdrawals/request', [WithdrawalController::class, 'requestWithdrawal'])->name('withdrawals.request');
+    Route::get('/withdrawals/{withdrawalId}', [WithdrawalController::class, 'view'])->name('view.withdrawal');
+    Route::put('/withdrawals/{withdrawalId}', [WithdrawalController::class, 'update'])->name('update.withdrawal');
+
+
 
     Route::get('/verification-response', function () {
         $slipData = Session::get('slipData');
@@ -172,6 +176,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/withdrawals', [AdminController::class, 'withdrawals'])->name('admin.withdrawals');
+
 
         //VIEW PAYMENT
         Route::get('/payment/{paymentId}', [PaymentController::class, 'view'])->name('view.payment');
@@ -199,6 +205,7 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::get('/puk', [AdminController::class, 'puk'])->name('admin.puk');
+
         Route::prefix('nin')->group(function () {
             Route::get('/verification', [AdminController::class, 'verification'])->name('admin.verification');
             Route::get('/verification-2', [AdminController::class, 'verificationV2'])->name('admin.verificationV2');

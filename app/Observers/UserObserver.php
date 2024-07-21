@@ -24,13 +24,18 @@ class UserObserver
                 $referrer = User::find($user->referred_by);
 
                 if ($referrer) {
-                    $bonusAmount = env('REFERRAL_BONUS_AMOUNT', 50.00);
+                    $bonusAmount = env('REFERRAL_BONUS_AMOUNT', 1000.00);
 
                     $referrer->wallet->balance += $bonusAmount;
                     $referrer->wallet->save();
                 }
             }
         }
+    }
+
+    protected function performOtherAction(User $referrer)
+    {
+        \Log::info('Referrer is not an agent, performing another action for user ID: ' . $referrer->id);
     }
 
     /**

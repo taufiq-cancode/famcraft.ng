@@ -49,6 +49,7 @@
                                 <select name="role" class="form-control mb-3">
                                     <option selected="" value="{{ $user->role }}" disabled="">{{ $user->role }}</option>
                                     <option value="Agent">Agent</option>
+                                    <option value="Staff">Staff</option>
                                     <option value="User">User</option>
                                 </select>
                             </div>
@@ -132,6 +133,43 @@
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         {{ $payments->links('vendor.pagination.custom') }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <section class="card mb-4">
+                <header class="card-header">
+                    <h2 class="card-title">Referral History</h2>
+                </header>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-responsive-md mb-0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($referrals as $referral)
+                                    <tr>
+                                        <td class="pt-desktop">{{ $loop->iteration }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($referral->first_name) }} {{ Illuminate\Support\Str::title($referral->last_name) }}</td>
+                                        <td>{{ $referral->created_at->format('jS F, Y') }} <br> {{ $referral->created_at->format('g:i A') }}</td>
+                                        <td class="pt-desktop">{{ Illuminate\Support\Str::title($referral->role) }}</td>
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $referrals->links('vendor.pagination.custom') }}
                     </div>
                 </div>
             </section>

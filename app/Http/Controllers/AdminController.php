@@ -9,6 +9,7 @@ use App\Models\PersonalizationTransaction;
 use App\Models\PUKTransaction;
 use App\Models\ValidationTransaction;
 use App\Models\VerificationTransaction;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -180,4 +181,17 @@ class AdminController extends Controller
 
         return view('admin.puk', compact('transactions'));
     }
+
+    public function withdrawals()
+    {
+        $admin = auth()->user();
+        if ($admin->role !== 'Administrator'){
+            return back()->with('error', 'Unauthorized access');
+        }
+
+        $withdrawals = Withdrawal::with('user')->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('admin.withdrawals', compact('withdrawals'));
+    }
+
 }

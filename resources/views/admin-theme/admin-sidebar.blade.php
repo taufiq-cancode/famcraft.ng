@@ -96,6 +96,16 @@
                         </a>                        
                     </li>
 
+                    <li class=" {{ ($route == 'admin.withdrawals')?'nav-active':'' }}">
+                        @php
+                            $pendingWithdrawal = \App\Models\Withdrawal::where('status', 'pending')->count();
+                        @endphp
+                        <a href="{{ route('admin.withdrawals') }}">
+                            <i class="fa-solid fa-naira-sign" aria-hidden="true"></i>
+                            <span>Withdrawal Requests &#x2022;  <span style="color: red; font-weight: bold"> {{ $pendingWithdrawal }}</span></span>
+                        </a>                        
+                    </li>
+
                     <li class=" {{ ($route == 'admin.notification')?'nav-active':'' }}">
                         <a href="{{ route('admin.notification') }}">
                             <i class="bx bx-bell" aria-hidden="true"></i>

@@ -35,15 +35,17 @@ class UsersController extends Controller
                 return back()->with('error', 'Unauthorized access');
             }
     
-            $user = User::with(['wallet'])->findOrFail($userId);
+            $user = User::with(['wallet','referredUsers'])->findOrFail($userId);
             
             if (!$user) {
                 return back()->with('error', 'User not found.');
             }
     
             $payments = $user->payments()->orderByDesc('created_at')->paginate(10);
+            $referrals = $user->referredUsers()->orderByDesc('created_at')->paginate(10);
+
     
-            return view('details.user', compact('user', 'payments'));
+            return view('details.user', compact('user', 'payments', 'referrals'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -64,7 +66,7 @@ class UsersController extends Controller
                 'topup_amount' => 'nullable|numeric|min:0',
                 'remark' => 'nullable|string',
                 'status' => 'sometimes|in:active,inactive',
-                'role' => 'sometimes|in:Agent,User',
+                'role' => 'sometimes|in:Agent,User,Staff',
             ]);
 
             $user = User::findOrFail($userId);

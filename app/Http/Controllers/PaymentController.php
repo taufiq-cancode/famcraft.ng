@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\Withdrawal;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -25,7 +26,11 @@ class PaymentController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('wallet', compact('transactions'));
+        $withdrawals = Withdrawal::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('wallet', compact('transactions', 'withdrawals'));
     }
 
     public function store(Request $request)
