@@ -14,13 +14,13 @@ class VerificationV2Controller extends Controller
 {
     public function index()
     {
-        // return back()->with('error', 'Network unavailable.');
-        $user = auth()->user();
-        $transactions = VerificationTransaction::where('user_id', $user->id)
-                                            ->where('verification_type', 'v2')
-                                            ->orderBy('created_at', 'desc')
-                                            ->paginate(10);
-        return view('verification-2', compact('transactions'));
+        return back()->with('error', 'Unavailable.');
+        // $user = auth()->user();
+        // $transactions = VerificationTransaction::where('user_id', $user->id)
+        //                                     ->where('verification_type', 'v2')
+        //                                     ->orderBy('created_at', 'desc')
+        //                                     ->paginate(10);
+        // return view('verification-2', compact('transactions'));
     }
 
     public function store(Request $request)
