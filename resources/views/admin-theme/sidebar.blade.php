@@ -22,7 +22,7 @@
                         </a>                        
                     </li>
 
-                    @if (auth()->user()->role === 'Agent')
+                    @if (auth()->user()->role === 'Agent' || auth()->user()->role === 'Staff')
                         <li class="nav-parent {{ request()->is('nin/*') ? 'nav-active' : '' }}">
                             <a href="#">
                                 <i class='bx bx-id-card' aria-hidden="true"></i>
