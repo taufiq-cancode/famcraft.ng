@@ -130,6 +130,10 @@ class ModificationController extends Controller
                 'religion_7' => 'nullable|string',
             ]);
 
+            if($request->modification_type === "dob" || $request->modification_type === "name_dob" || $request->modification_type === "dob_others" ){
+                return back()->with('error', 'Network unavailable');
+            }
+
             if ($request->filled('nin_2')) {
                 $data['nin'] = $request->input('nin_2');
             }
